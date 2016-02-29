@@ -1,0 +1,8 @@
+<resources>
+	<string name="app_name">GameRemote</string>
+	<string name="welcome">Please stand by&#8230;</string>
+	<string name="button_nuke">Launch Nuke</string>
+	<string name="button_search">Make discoverable</string> <!-- Create Bluetooth socket -->
+	<string name="button_bt_disable">Disable Bluetooth</string>
+	<string name="ab_refresh">Refresh</string>
+</resources>

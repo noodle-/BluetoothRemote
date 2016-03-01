@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG) //This is a weird popup near the bottom of the screen
-						.setAction("Action", null).show();	  //Action that should be run when the snackbar? is pressed
+						.setAction("Action", null).show();      //Action that should be run when the snackbar? is pressed
 			}
 		});
 	}
@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
 		Toast.makeText(this, "BLEEP BLOOP", Toast.LENGTH_LONG).show();
 		if (mBluetoothAdapter != null) {
 			if (mBluetoothAdapter.isEnabled()) {
-				// Enabled. Go connect!
-				Toast.makeText(this, "BT is ON, now what?", Toast.LENGTH_LONG).show();
+				Snackbar.make(v, "BT is ON, now what?", Snackbar.LENGTH_LONG).show();
 			} else {
-				// Bluetooth is disabled, turn it on?
+				Snackbar.make(v, "Bluetooth currently disabled, click here to enable it", Snackbar.LENGTH_LONG).show();
+				//.setAction("Action", null).show();      //Turn bluetooth on
 			}
 		} else {
 			Snackbar.make(v, "Device does not support Bluetooth...", Snackbar.LENGTH_LONG).show();
@@ -68,10 +68,20 @@ public class MainActivity extends AppCompatActivity {
 
 	public void button_bt_disable_OnClick(View v) {
 		Snackbar.make(v, "Disabling bluetooth", Snackbar.LENGTH_LONG).show(); //TODO remove this, it's just for debugging.
-		mBluetoothAdapter.disable();	//TODO put an if statement around this, because this crashes the VM
+		if (mBluetoothAdapter != null) {
+			if (mBluetoothAdapter.isEnabled()) {
+				mBluetoothAdapter.disable();
+				Snackbar.make(v, "Bluetooth has been disabled", Snackbar.LENGTH_LONG).show();
+			} else {
+				Snackbar.make(v, "Bluetooth was not enabled", Snackbar.LENGTH_LONG).show();
+			}
+		} else {
+			Snackbar.make(v, "Device does not support Bluetooth...", Snackbar.LENGTH_LONG).show();
+		}
 	}
 }
 
+// TODO split app into two interfaces BlockRemote & RobotRemote
 // TODO I think I don't need this..
 //	@Override
 //	public boolean onOptionsItemSelected(MenuItem item) {

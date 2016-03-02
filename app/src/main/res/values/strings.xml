@@ -1,9 +1,11 @@
 <resources>
-	<string name="app_name">GameRemote</string>
+	<string name="app_name">Remote</string>
 	<string name="welcome">Please stand by&#8230;</string>
 	<string name="button_nuke">Launch Nuke</string>
 	<string name="button_search">Make discoverable</string> <!-- Create Bluetooth socket -->
 	<string name="button_bt_disable">Disable Bluetooth</string>
 	<string name="ab_refresh">Refresh</string>
 	<string name="title_activity_main">MainActivity</string>
+	<string name="title_activity_tribot">Tribot Remote</string>
+	<string name="title_activity_kickpanel">KickPanel Remote</string>
 </resources>

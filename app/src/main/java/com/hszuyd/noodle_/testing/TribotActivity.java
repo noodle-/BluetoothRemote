@@ -1,6 +1,5 @@
 package com.hszuyd.noodle_.testing;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class TribotActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_tribot);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
@@ -27,11 +26,4 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	public void button_launch_kickpanel_OnClick(View view) {
-		startActivity(new Intent(MainActivity.this, KickPanelActivity.class));
-	}
-
-	public void button_launch_tribot_OnClick(View view) {
-		startActivity(new Intent(MainActivity.this, TribotActivity.class));
-	}
 }

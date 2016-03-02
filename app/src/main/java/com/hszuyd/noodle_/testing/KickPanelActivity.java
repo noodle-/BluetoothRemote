@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
+import android.support.v7.widget.Toolbar;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
@@ -18,8 +19,8 @@ public class KickPanelActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kickpanel);
 
-		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		//setSupportActionBar(toolbar); //TODO No idea what this does...
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(mToolbar);
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {

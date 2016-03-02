@@ -16,19 +16,19 @@
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Kick-Panel"
+		android:text="@string/title_activity_kickpanel"
 		android:id="@+id/bt_launch_kickpanel"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="76dp"
-		android:onClick="button_launch_kickpanel"/>
+		android:onClick="button_launch_kickpanel_OnClick"/>
 
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Iplay robot"
-		android:id="@+id/bt_launch_iplay"
+		android:text="@string/title_activity_tribot"
+		android:id="@+id/bt_launch_tribot"
 		android:layout_below="@+id/bt_launch_kickpanel"
 		android:layout_centerHorizontal="true"
-		android:onClick="button_launch_iplay"/>
+		android:onClick="button_launch_tribot_OnClick"/>
 </RelativeLayout>

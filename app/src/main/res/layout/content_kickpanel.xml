@@ -21,15 +21,15 @@
 		android:text="@string/welcome"/>
 
 	<Button
-		android:id="@+id/button_nuke"
+		android:id="@+id/button_bt_check"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/text_welcome"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="35dp"
 		android:background="@drawable/button_background"
-		android:onClick="button_nuke_OnClick"
-		android:text="@string/button_nuke"
+		android:onClick="button_bt_check_OnClick"
+		android:text="@string/button_bt_check"
 		android:textAllCaps="false"
 		android:textColor="#FFFFFF"/>
 
@@ -37,7 +37,7 @@
 		android:id="@+id/button_search"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_nuke"
+		android:layout_below="@+id/button_bt_check"
 		android:layout_centerHorizontal="true"
 		android:layout_marginLeft="35dip"
 		android:layout_marginRight="35dip"

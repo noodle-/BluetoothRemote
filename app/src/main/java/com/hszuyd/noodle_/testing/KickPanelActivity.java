@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.support.v7.widget.Toolbar;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
@@ -39,7 +39,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		return true;
 	}
 
-	public void button_nuke_OnClick(View v) {
+	public void button_bt_check_OnClick(View v) {
 		if (mBluetoothAdapter != null) {
 			if (mBluetoothAdapter.isEnabled()) {
 				Snackbar.make(v, "BT is ON, now what?", Snackbar.LENGTH_LONG).show();

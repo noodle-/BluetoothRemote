@@ -162,3 +162,4 @@ pip-log.txt
 /.idea/libraries
 /build
 /captures
+.idea/misc.xml

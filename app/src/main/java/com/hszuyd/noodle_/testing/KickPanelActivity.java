@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class KickPanelActivity extends AppCompatActivity {
-	private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
-	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+	private Bluetooth bluetooth = new Bluetooth();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,49 +40,17 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_bt_check_OnClick(View v) {
-		if (mBluetoothAdapter != null) {
-			if (mBluetoothAdapter.isEnabled()) {
-				Snackbar.make(v, "BT is ON, now what?", Snackbar.LENGTH_LONG).show();
-			} else {
-				Snackbar.make(v, "Bluetooth is currently disabled", Snackbar.LENGTH_LONG)
-						.setAction("ENABLE BLUETOOTH", new View.OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								Snackbar.make(v, "Enabling bluetooth", Snackbar.LENGTH_LONG).show();
-								Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-								startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-							}
-						}).show();
-			}
-		} else {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		}
+		bluetooth.bt_Check(v);
 	}
 
 	public void button_search_OnClick(View v) {
-		if (mBluetoothAdapter == null) {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		} else {
-			// Making this device discoverable through Bluetooth for 300 seconds, this automatically enables bluetooth. TODO Learn what the hell I'm doing here
-			Intent discoverableIntent = new
-					Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-			discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-			startActivity(discoverableIntent);
-		}
+		bluetooth.bt_Search(v);
 	}
 
 	public void button_bt_disable_OnClick(View v) {
-		if (mBluetoothAdapter != null) {
-			if (mBluetoothAdapter.isEnabled()) {
-				mBluetoothAdapter.disable();
-				Snackbar.make(v, "Disabling Bluetooth", Snackbar.LENGTH_LONG).show();
-			} else {
-				Snackbar.make(v, "Bluetooth was not enabled", Snackbar.LENGTH_LONG).show();
-			}
-		} else {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		}
+		bluetooth.bt_Disable(v);
 	}
+
 }
 
 // TODO split app into two interfaces BlockRemote & RobotRemote

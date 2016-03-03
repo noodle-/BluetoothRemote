@@ -4,8 +4,8 @@
 	<string name="button_bt_check">Check Bluetooth</string>
 	<string name="button_search">Make discoverable</string> <!-- Create Bluetooth socket -->
 	<string name="button_bt_disable">Disable Bluetooth</string>
-	<string name="ab_refresh">Refresh</string>
-	<string name="title_activity_main">MainActivity</string>
+	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>
+	<string name="title_activity_main">Remote</string>
 	<string name="title_activity_tribot">Tribot Remote</string>
 	<string name="title_activity_kickpanel">KickPanel Remote</string>
 </resources>

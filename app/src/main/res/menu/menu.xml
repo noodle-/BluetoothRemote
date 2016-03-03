@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/ab_refresh"
-		android:icon="@drawable/ic_ab_refresh"
-		android:title="@string/ab_refresh"
-		app:showAsAction="ifRoom" />
+		android:id="@+id/tb_bluetooth"
+		android:icon="@drawable/ic_bluetooth"
+		android:title="@string/tb_bluetooth"
+		app:showAsAction="ifRoom"/>
 </menu>

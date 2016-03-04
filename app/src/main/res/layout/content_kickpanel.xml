@@ -34,25 +34,9 @@
 		android:textColor="#FFFFFF"/>
 
 	<Button
-		android:id="@+id/button_search"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_bt_check"
-		android:layout_centerHorizontal="true"
-		android:layout_marginLeft="35dip"
-		android:layout_marginRight="35dip"
-		android:layout_marginTop="10dip"
-		android:background="@drawable/button_background"
-		android:onClick="button_search_OnClick"
-		android:text="@string/button_search"
-		android:textAllCaps="false"
-		android:textColor="#FFFFFF"/>
-
-	<Button
 		android:id="@+id/button_bt_disable"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_search"
 		android:layout_centerHorizontal="true"
 		android:layout_marginLeft="35dip"
 		android:layout_marginRight="35dip"
@@ -61,7 +45,8 @@
 		android:onClick="button_bt_disable_OnClick"
 		android:text="@string/button_bt_disable"
 		android:textAllCaps="false"
-		android:textColor="#FFFFFF"/>
+		android:textColor="#FFFFFF"
+		android:layout_below="@+id/button_bt_check"/>
 
 </RelativeLayout>
 

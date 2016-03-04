@@ -1,14 +1,12 @@
 package com.hszuyd.noodle_.testing; // TODO change package name
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 public class KickPanelActivity extends AppCompatActivity {
@@ -43,9 +41,9 @@ public class KickPanelActivity extends AppCompatActivity {
 		bluetooth.bt_Check(v);
 	}
 
-	public void button_search_OnClick(View v) {
+	/*public void button_search_OnClick(View v) {
 		bluetooth.bt_Search(v);
-	}
+	}*/
 
 	public void button_bt_disable_OnClick(View v) {
 		bluetooth.bt_Disable(v);

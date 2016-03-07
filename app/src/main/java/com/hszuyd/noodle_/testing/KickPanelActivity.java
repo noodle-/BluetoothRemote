@@ -1,6 +1,7 @@
 package com.hszuyd.noodle_.testing; // TODO change package name
 
 
+import android.bluetooth.BluetoothAdapter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.View;
 
 public class KickPanelActivity extends AppCompatActivity {
+	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	private Bluetooth bluetooth = new Bluetooth();
 
 	@Override
@@ -38,7 +40,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_bt_check_OnClick(View v) {
-		bluetooth.bt_Check(v);
+		//bluetooth.bt_Check(v);
 	}
 
 	/*public void button_search_OnClick(View v) {
@@ -46,7 +48,8 @@ public class KickPanelActivity extends AppCompatActivity {
 	}*/
 
 	public void button_bt_disable_OnClick(View v) {
-		bluetooth.bt_Disable(v);
+		mBluetoothAdapter.disable();
+		Snackbar.make(this.findViewById(android.R.id.content), "Bluetooth is disabled", Snackbar.LENGTH_LONG).show();
 	}
 
 }

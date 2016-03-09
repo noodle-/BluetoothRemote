@@ -2,13 +2,14 @@ package com.hszuyd.noodle_.testing;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+	private TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,15 @@ public class MainActivity extends AppCompatActivity {
 						.setAction("Action", null).show();
 			}
 		});*/
+
+		textView = (TextView) findViewById(R.id.textView);
+		Intent iin = getIntent();
+		Bundle b = iin.getExtras();
+
+		if (b != null) {
+			String name = (String) b.get("NAME_PLAYER");
+			textView.setText("Hallo " + name + "!");
+		}
 	}
 
 	public void button_launch_kickpanel_OnClick(View view) {

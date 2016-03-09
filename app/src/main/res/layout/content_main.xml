@@ -14,21 +14,38 @@
 	tools:showIn="@layout/activity_main">
 
 	<Button
+		android:id="@+id/bt_launch_kickpanel"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/title_activity_kickpanel"
-		android:id="@+id/bt_launch_kickpanel"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="76dp"
-		android:onClick="button_launch_kickpanel_OnClick"/>
+		android:onClick="button_launch_kickpanel_OnClick"
+		android:text="@string/title_activity_kickpanel"/>
 
 	<Button
+		android:id="@+id/bt_launch_tribot"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/title_activity_tribot"
-		android:id="@+id/bt_launch_tribot"
 		android:layout_below="@+id/bt_launch_kickpanel"
 		android:layout_centerHorizontal="true"
-		android:onClick="button_launch_tribot_OnClick"/>
+		android:onClick="button_launch_tribot_OnClick"
+		android:text="@string/title_activity_tribot"/>
+
+	<TextView
+		android:id="@+id/name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="40dp"
+		android:hint="Hello Sir!"/>
 </RelativeLayout>

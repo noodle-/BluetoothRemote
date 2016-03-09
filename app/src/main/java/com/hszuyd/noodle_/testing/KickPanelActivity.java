@@ -54,7 +54,6 @@ public class KickPanelActivity extends AppCompatActivity {
 
 }
 
-// TODO split app into two interfaces BlockRemote & RobotRemote
 // TODO I think I don't need this..
 //	@Override
 //	public boolean onOptionsItemSelected(MenuItem item) {

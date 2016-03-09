@@ -36,7 +36,7 @@ public class Bluetooth extends AppCompatActivity {
 			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		} else{
-			Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -62,9 +62,9 @@ public class Bluetooth extends AppCompatActivity {
 			Toast.makeText(Bluetooth.this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
 			/*Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
 		}
-	}*/
+	}
 
-	/*public void bt_Search(View v){
+	public void bt_Search(View v){
 		if (mBluetoothAdapter == null) {
 			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
 		} else {
@@ -88,7 +88,7 @@ public class Bluetooth extends AppCompatActivity {
 		} else {
 			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
 		}
-	}*/
+	}
 
 	public void changeBluetoothIcon(Boolean btOn) {
 		MenuItem item = mMenu.findItem(R.id.tb_bluetooth);
@@ -99,5 +99,5 @@ public class Bluetooth extends AppCompatActivity {
 				item.setIcon(R.drawable.ic_bluetooth);
 			}
 		}
-	}
+	}*/
 }

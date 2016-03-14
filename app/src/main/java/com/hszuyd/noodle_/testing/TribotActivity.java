@@ -1,8 +1,10 @@
 package com.hszuyd.noodle_.testing;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -70,22 +72,28 @@ public class TribotActivity extends AppCompatActivity {
 	}
 
 	public void tb_BT_OnOff(MenuItem item) {
-		//Enable Bluetooth
-		if ((mBluetoothAdapter != null) && (!mBluetoothAdapter.isEnabled())) {
-			mBluetoothAdapter.enable();
-			Snackbar.make(this.findViewById(android.R.id.content), "Enabling Bluetooth", Snackbar.LENGTH_LONG).show();
-			//item.setIcon(R.drawable.ic_bluetooth_disabled);
+		if(mBluetoothAdapter != null){
+			if(!mBluetoothAdapter.isEnabled()){
+				mBluetoothAdapter.enable();
+				Snackbar.make(this.findViewById(android.R.id.content), "Enabling Bluetooth", Snackbar.LENGTH_LONG).show();
+			}
+			else if(mBluetoothAdapter.isEnabled()){
+				mBluetoothAdapter.disable();
+				Snackbar.make(this.findViewById(android.R.id.content), "Bluetooth is disabled", Snackbar.LENGTH_LONG).show();
+			}
 		}
-		//Disable Bluetooth
-		else if (mBluetoothAdapter.isEnabled()) {
-			mBluetoothAdapter.disable();
-			Snackbar.make(this.findViewById(android.R.id.content), "Bluetooth is disabled", Snackbar.LENGTH_LONG).show();
-			//item.setIcon(R.drawable.ic_bluetooth);
-		}
-		//Device does not support bluetooth
-		else {
-			Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-			//Snackbar.make(this.findViewById(android.R.id.content), "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
+		//This is here for test purposes only.
+		else{
+			new AlertDialog.Builder(this)
+					.setTitle("Not compatible")
+					.setMessage("Your phone does not support Bluetooth")
+					.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							System.exit(0);
+						}
+					})
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.show();
 		}
 	}
 

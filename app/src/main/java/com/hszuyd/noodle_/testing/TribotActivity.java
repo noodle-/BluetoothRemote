@@ -33,21 +33,34 @@ public class TribotActivity extends AppCompatActivity {
 		}).start();*/
 	}
 
+	MenuItem mDynamicMenuIcon;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
+		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
+		if(mBluetoothAdapter.isEnabled()){
+			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth_disabled);
+		}
+		else{
+			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth);
+		}
 		return true;
 	}
 
+
+	//TODO fix the icon changing, often won't work properly.
+	int iconID = R.drawable.ic_bluetooth;
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.tb_bluetooth) {
 			bluetooth.tb_OnOff();
-			if (mBluetoothAdapter.isEnabled()) {
-				item.setIcon(R.drawable.ic_bluetooth_disabled);
-			} else {
+			if (iconID == R.drawable.ic_bluetooth_disabled && mBluetoothAdapter.isEnabled()) {
 				item.setIcon(R.drawable.ic_bluetooth);
+				iconID = R.drawable.ic_bluetooth;
+			} else {
+				item.setIcon(R.drawable.ic_bluetooth_disabled);
+				iconID = R.drawable.ic_bluetooth_disabled;
 			}
 		}
 		return super.onOptionsItemSelected(item);
@@ -80,7 +93,7 @@ public class TribotActivity extends AppCompatActivity {
 		}
 	}*/
 
-	public void button_changeBluetoothIcon_OnClick() {
+	/*public void button_changeBluetoothIcon_OnClick() {
 		MenuItem item = mMenu.findItem(R.id.tb_bluetooth);
 		if (mMenu != null) {
 			if (isOn = false) {
@@ -91,5 +104,5 @@ public class TribotActivity extends AppCompatActivity {
 				isOn = false;
 			}
 		}
-	}
+	}*/
 }

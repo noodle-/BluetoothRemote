@@ -13,4 +13,5 @@
 	tools:context="com.hszuyd.noodle_.testing.TribotActivity"
 	tools:showIn="@layout/activity_tribot">
 
+
 </RelativeLayout>

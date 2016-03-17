@@ -1,14 +1,52 @@
 package com.hszuyd.noodle_.testing;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 public class Bluetooth extends AppCompatActivity {
-	private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
+	//private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+	boolean isOn = false;
+	private ArrayAdapter<String> mPairedDevice;
+	private ArrayAdapter<String> mNewDevice;
 	private Menu mMenu;
+
+	public void tb_OnOff() {
+		//MenuItem item = mMenu.findItem(R.id.tb_bluetooth);
+		if (mBluetoothAdapter != null) {
+			if (!mBluetoothAdapter.isEnabled()) {
+				mBluetoothAdapter.enable();
+				mBluetoothAdapter.startDiscovery();
+				if (mBluetoothAdapter.isDiscovering()) {
+
+				}
+				//item.setIcon(R.drawable.ic_bluetooth_disabled);
+			} else {
+				mBluetoothAdapter.disable();
+				//item.setIcon(R.drawable.ic_bluetooth);
+			}
+		}
+		//This is here for test purposes only.
+		else {
+			new AlertDialog.Builder(this)
+					.setTitle("Not compatible")
+					.setMessage("Your phone does not support Bluetooth")
+					.setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							System.exit(0);
+						}
+					})
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.show();
+		}
+
+
+	}
 
 	/*public void bt_Check(View v) {
 		if (mBluetoothAdapter != null) {
@@ -88,16 +126,19 @@ public class Bluetooth extends AppCompatActivity {
 		} else {
 			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
 		}
-	}
+	}*/
 
-	public void changeBluetoothIcon(Boolean btOn) {
+
+	public void button_changeBluetoothIcon_OnClick() {
 		MenuItem item = mMenu.findItem(R.id.tb_bluetooth);
 		if (mMenu != null) {
-			if (btOn) {
+			if (isOn = false) {
 				item.setIcon(R.drawable.ic_bluetooth_disabled);
+				isOn = true;
 			} else {
 				item.setIcon(R.drawable.ic_bluetooth);
+				isOn = false;
 			}
 		}
-	}*/
+	}
 }

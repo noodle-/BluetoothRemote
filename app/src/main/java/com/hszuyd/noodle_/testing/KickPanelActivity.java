@@ -14,6 +14,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	private Bluetooth bluetooth = new Bluetooth();
 
+	// Draw all stuff when loading the activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,8 +34,8 @@ public class KickPanelActivity extends AppCompatActivity {
 		});
 	}
 
+	// Inflate the menu; this adds items to the action bar if it is present.
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}

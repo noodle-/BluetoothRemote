@@ -1,6 +1,7 @@
 package com.hszuyd.noodle_.testing;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,7 +62,9 @@ public class TribotActivity extends AppCompatActivity {
 			} else {
 				item.setIcon(R.drawable.ic_bluetooth_disabled);
 				iconID = R.drawable.ic_bluetooth_disabled;
+				startActivity(new Intent(this, Bluetooth.class));
 			}
+
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -3,7 +3,6 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/tb_bluetooth"
-
 		android:title="@string/tb_bluetooth"
 		app:showAsAction="ifRoom"/>
 </menu>

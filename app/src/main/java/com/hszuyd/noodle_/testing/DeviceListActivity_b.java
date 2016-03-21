@@ -133,8 +133,7 @@ public class DeviceListActivity_b extends Activity {
 			}
 		});
 
-		// Initialize array adapters. One for already paired devices and
-		// one for newly discovered devices
+		// Initialize array adapters. One for already paired devices and one for newly discovered devices
 		ArrayAdapter<String> pairedDevicesArrayAdapter =
 				new ArrayAdapter<String>(this, R.layout.device_name);
 		mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);

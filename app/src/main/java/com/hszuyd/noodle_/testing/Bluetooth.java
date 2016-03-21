@@ -65,7 +65,7 @@ public class Bluetooth extends AppCompatActivity {
 
 			String info = ((TextView) v).getText().toString();
 
-			if ((info != noDevicesPaired) && (info != noDevicesFound)) {
+			if ((!info.equals(noDevicesPaired)) && (!info.equals(noDevicesFound))) {
 
 				if (info.length() >= 17) {
 					// Get the device MAC address, which is the last 17 chars in the View
@@ -87,7 +87,7 @@ public class Bluetooth extends AppCompatActivity {
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { // TODO why is this an onCreate
 		super.onCreate(savedInstanceState);
 
 		//Setup Window
@@ -100,8 +100,8 @@ public class Bluetooth extends AppCompatActivity {
 		doDiscovery();
 
 		//Initialize array adapters.
-		mPairedDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); //OR device_name (not sure couldn't test yet)
-		mNewDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); //OR device_name (not sure couldn't test yet)
+		mPairedDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); // TODO OR device_name (not sure couldn't test yet)
+		mNewDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); // TODO OR device_name (not sure couldn't test yet)
 
 		//Setup paired devices in a List
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
@@ -141,11 +141,11 @@ public class Bluetooth extends AppCompatActivity {
 
 	//Starts the discovery
 	private void doDiscovery() {
-		// Indicate scanning in the title
+		// Indicate scanning in the title TODO I don't think we want this
 		setProgressBarIndeterminateVisibility(true);
 		setTitle(R.string.scanning);
 
-		// Turn on sub-title for new devices
+		// Turn on sub-title for new devices TODO what is sub-title
 		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);
 
 		// If we're already discovering, stop it

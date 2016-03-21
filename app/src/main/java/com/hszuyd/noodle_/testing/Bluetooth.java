@@ -88,10 +88,10 @@ public class Bluetooth extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { // TODO why is this an onCreate
-		super.onCreate(savedInstanceState);
-
 		//Setup Window
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		super.onCreate(savedInstanceState);
+
 
 		//Set result canceled if user back out
 		setContentView(R.layout.activity_bluetooth);
@@ -100,8 +100,8 @@ public class Bluetooth extends AppCompatActivity {
 		doDiscovery();
 
 		//Initialize array adapters.
-		mPairedDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); // TODO OR device_name (not sure couldn't test yet)
-		mNewDevice = new ArrayAdapter<>(this, R.layout.content_bluetooth); // TODO OR device_name (not sure couldn't test yet)
+		mPairedDevice = new ArrayAdapter<>(this, R.layout.device_name); // TODO OR device_name (not sure couldn't test yet)
+		mNewDevice = new ArrayAdapter<>(this, R.layout.device_name); // TODO OR device_name (not sure couldn't test yet)
 
 		//Setup paired devices in a List
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
@@ -161,6 +161,7 @@ public class Bluetooth extends AppCompatActivity {
 		if (mBluetoothAdapter != null) {
 			if (!mBluetoothAdapter.isEnabled()) {
 				mBluetoothAdapter.enable();
+				doDiscovery();
 			} else {
 				mBluetoothAdapter.disable();
 			}

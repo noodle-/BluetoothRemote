@@ -48,7 +48,7 @@ public class LoginScreen extends AppCompatActivity {
 
 		//This is commented for test purposes only.
 		// Check whether the user has entered a name. Not entering a name could cause problems later on.
-		if (Objects.equals(name, "")) {
+		/*if (Objects.equals(name, "")) {
 			new AlertDialog.Builder(this)
 					.setTitle("Invalid name")
 					.setMessage("Please insert your name.")
@@ -62,10 +62,10 @@ public class LoginScreen extends AppCompatActivity {
 							})
 					.setIcon(R.drawable.ic_warning)
 					.show();
-		} else { // User has entered a name
+		} else { // User has entered a name*/
 			Intent intent = new Intent(getBaseContext(), MainActivity.class);
 			intent.putExtra("NAME_PLAYER", name);
 			startActivity(intent);
-		}
+		//}
 	}
 }

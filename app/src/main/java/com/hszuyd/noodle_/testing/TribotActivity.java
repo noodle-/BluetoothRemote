@@ -64,7 +64,6 @@ public class TribotActivity extends AppCompatActivity {
 				iconID = R.drawable.ic_bluetooth_disabled;
 				startActivity(new Intent(this, Bluetooth.class));
 			}
-
 		}
 		return super.onOptionsItemSelected(item);
 	}

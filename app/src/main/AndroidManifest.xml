@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.hszuyd.noodle_.testing">
+          package="com.hszuyd.noodle_.testing">
 
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+	<uses-permission android:name="android.permission.BLUETOOTH"/>
 
 	<application
 		android:allowBackup="true"
@@ -14,29 +14,36 @@
 		<activity
 			android:name=".MainActivity"
 			android:label="@string/title_activity_main"
-			android:theme="@style/AppTheme.NoActionBar" />
+			android:theme="@style/AppTheme.NoActionBar">
+		</activity>
 		<activity
 			android:name=".KickPanelActivity"
 			android:label="@string/title_activity_kickpanel"
-			android:theme="@style/AppTheme.NoActionBar" />
+			android:theme="@style/AppTheme.NoActionBar">
+		</activity>
 		<activity
 			android:name=".TribotActivity"
 			android:label="@string/title_activity_tribot"
-			android:theme="@style/AppTheme.NoActionBar" />
+			android:theme="@style/AppTheme.NoActionBar">
+		</activity>
 		<activity
 			android:name=".LoginScreen"
 			android:label="@string/title_activity_login_screen"
 			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-
-				<category android:name="android.intent.category.LAUNCHER" />
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
 		<activity
 			android:name=".Devicelist_REMOVE"
 			android:label="@string/title_activity_devicelist"
-			android:theme="@style/AppTheme.NoActionBar" />
+			android:theme="@style/AppTheme.NoActionBar">
+		</activity>
+		<activity
+			android:name=".Bluetooth"
+			android:label="@string/title_activity_bluetooth"
+			android:theme="@style/AppTheme.NoActionBar"/>
 	</application>
 
 </manifest>

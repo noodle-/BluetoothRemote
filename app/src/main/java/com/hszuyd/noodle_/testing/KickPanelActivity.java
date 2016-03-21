@@ -2,16 +2,21 @@ package com.hszuyd.noodle_.testing; // TODO change package name
 
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class KickPanelActivity extends AppCompatActivity {
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+	// Inflate the menu; this adds items to the action bar if it is present.
+	// Set icon based on bluetooth status
+	MenuItem mDynamicMenuIcon;
 	private Bluetooth bluetooth = new Bluetooth();
 
 	// Draw all stuff when loading the activity
@@ -34,11 +39,24 @@ public class KickPanelActivity extends AppCompatActivity {
 		});
 	}
 
-	// Inflate the menu; this adds items to the action bar if it is present.
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
+		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
+		if (mBluetoothAdapter.isEnabled()) {
+			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth_disabled);
+		} else {
+			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth);
+		}
 		return true;
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		startActivity(new Intent(this, DeviceListActivity_b.class));
+		return super.onOptionsItemSelected(item);
+	}
+
 
 	public void button_bt_check_OnClick(View v) {
 		//bluetooth.bt_Check(v);

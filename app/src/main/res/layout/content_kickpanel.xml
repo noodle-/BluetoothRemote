@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
@@ -13,12 +12,11 @@
 	tools:context=".KickPanelActivity"
 	tools:showIn="@layout/activity_kickpanel">
 
-
 	<TextView
 		android:id="@+id/text_welcome"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/welcome"/>
+		android:text="@string/welcome" />
 
 	<Button
 		android:id="@+id/button_bt_check"
@@ -31,12 +29,13 @@
 		android:onClick="button_bt_check_OnClick"
 		android:text="@string/button_bt_check"
 		android:textAllCaps="false"
-		android:textColor="#FFFFFF"/>
+		android:textColor="#FFFFFF" />
 
 	<Button
 		android:id="@+id/button_bt_disable"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_below="@+id/button_bt_check"
 		android:layout_centerHorizontal="true"
 		android:layout_marginLeft="35dip"
 		android:layout_marginRight="35dip"
@@ -45,8 +44,7 @@
 		android:onClick="button_bt_disable_OnClick"
 		android:text="@string/button_bt_disable"
 		android:textAllCaps="false"
-		android:textColor="#FFFFFF"
-		android:layout_below="@+id/button_bt_check"/>
+		android:textColor="#FFFFFF" />
 
 </RelativeLayout>
 

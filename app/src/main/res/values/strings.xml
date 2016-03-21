@@ -19,4 +19,5 @@
 	<string name="title_other_devices">Other Available Devices</string>
 	<string name="button_scan">Scan for devices</string>
 	<string name="title_activity_devicelist">devicelist</string>
+	<string name="title_activity_device_list_b">devicelist</string>
 </resources>

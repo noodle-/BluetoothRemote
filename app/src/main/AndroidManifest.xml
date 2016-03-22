@@ -36,7 +36,7 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".DeviceListActivity_b"
+			android:name=".DeviceListActivity"
 			android:label="@string/title_activity_device_list_b"
 			android:theme="@style/AppTheme.NoActionBar"/>
 	</application>

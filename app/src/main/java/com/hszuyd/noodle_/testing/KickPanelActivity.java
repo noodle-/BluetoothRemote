@@ -1,5 +1,4 @@
-package com.hszuyd.noodle_.testing; // TODO change package name
-
+package com.hszuyd.noodle_.testing; // TODO change package name?
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
@@ -17,7 +16,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 	// Inflate the menu; this adds items to the action bar if it is present.
-	// Set icon based on bluetooth status
 	MenuItem mDynamicMenuIcon;
 	private Bluetooth bluetooth = new Bluetooth();
 
@@ -35,7 +33,7 @@ public class KickPanelActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View view) {
 				// TODO Replace this with something useful
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+				Snackbar.make(view, "This is an example", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
 			}
 		});
@@ -46,7 +44,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
 		// Show a different icon based on random int
-		if (Math.random() > 0.5) { // This should probably replaced with "!= 0" or something similar instead, because we have no idea what the output of Math.random() is.
+		if (Math.random() > 0.5) { // TODO This should probably replaced with "!= 0" or something similar instead, because we have no idea what the output of Math.random() is.
 			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
 		} else {
 			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
@@ -56,7 +54,7 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		startActivity(new Intent(this, DeviceListActivity_b.class));
+		startActivity(new Intent(this, DeviceListActivity.class));
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -66,7 +64,8 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_test_B(View v) {
-		Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show();
+		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
+		//Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show();
 	}
 
 }
@@ -90,72 +89,41 @@ public class KickPanelActivity extends AppCompatActivity {
 //BluetoothSocket MySocket = createRfcommSocketToServiceRecord(UUID);
 
 
-//private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
-	/*public void bt_Check(View v) {
-		if (mBluetoothAdapter != null) {
-			if (mBluetoothAdapter.isEnabled()) {
-				Snackbar.make(v, "BT is ON, now what?", Snackbar.LENGTH_LONG).show();
-			} else {
-				Snackbar.make(v, "Bluetooth is currently disabled", Snackbar.LENGTH_LONG)
-						.setAction("ENABLE BLUETOOTH", new View.OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								Snackbar.make(v, "Enabling bluetooth", Snackbar.LENGTH_LONG).show();
-								/*Intent enableBtIntent = new Intent(that, KickPanelActivity.class);
-								startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-								mBluetoothAdapter.enable();
-							}
-						}).show();
-			}
-		} else {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		}
-	}
 
-	public void tb_Check(MenuItem item) {
-		if ((mBluetoothAdapter != null) && (!mBluetoothAdapter.isEnabled())) {
-			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-		} else{
-				Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-				Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
+/* Snackbar with custom button
+private final static int REQUEST_ENABLE_BT = 1;
+Snackbar.make(v,"Bluetooth is currently disabled",Snackbar.LENGTH_LONG)
+		.setAction("ENABLE BLUETOOTH",new View.OnClickListener(){
+		@Override
+		public void onClick(View v){
+			Snackbar.make(v,"Enabling bluetooth",Snackbar.LENGTH_LONG).show();
+			Intent enableBtIntent=new Intent(that,KickPanelActivity.class);
+			startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
+			mBluetoothAdapter.enable();
 		}
-	}
+	}).show();
+*/
 
-	public void tb_Check2(MenuItem item) {
-		if (mBluetoothAdapter != null) {
-			if (mBluetoothAdapter.isEnabled()) {
-				Toast.makeText(Bluetooth.this, "Bluetooth is on!", Toast.LENGTH_SHORT).show();
-			} else {
-				Toast.makeText(Bluetooth.this, "Bluetooth is currently disabled", Toast.LENGTH_SHORT).show();
-				mBluetoothAdapter.enable();
-				/*Snackbar.make(v, "Bluetooth is currently disabled", Snackbar.LENGTH_LONG)
-						.setAction("ENABLE BLUETOOTH", new View.OnClickListener() {
-							@Override
-							public void onClick(View v) {
-								Snackbar.make(v, "Enabling bluetooth", Snackbar.LENGTH_LONG).show();
-								/*Intent enableBtIntent = new Intent(that, KickPanelActivity.class);
-								startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-								mBluetoothAdapter.enable();
-							}
-						}).show();
-			}
-		} else {
-			Toast.makeText(Bluetooth.this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-			/*Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		}
-	}
+/* Enabled bluetooth with intent
+private final static int REQUEST_ENABLE_BT = 1;
+Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+*/
 
-	public void bt_Search(View v){
-		if (mBluetoothAdapter == null) {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		} else {
-			// Making this device discoverable through Bluetooth for 300 seconds, this automatically enables bluetooth. TODO Learn what the hell I'm doing here
-			Intent discoverableIntent = new
-					Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-			discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-			startActivity(discoverableIntent);
+/* Enable bluetooth
+mBluetoothAdapter.enable();
+*/
 
-		}
+/* Make discoverable with intent
+public void bt_Search(View v){
+	if (mBluetoothAdapter == null) {
+		Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
+	} else {
+		// Making this device discoverable through Bluetooth for 300 seconds, this automatically enables bluetooth.
+		Intent discoverableIntent = new
+				Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+		startActivity(discoverableIntent);
 	}
+}
 */

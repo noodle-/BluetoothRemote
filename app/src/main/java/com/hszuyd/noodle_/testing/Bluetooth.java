@@ -87,14 +87,14 @@ public class Bluetooth extends AppCompatActivity {
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) { // TODO why is this an onCreate
+	protected void onCreate(Bundle savedInstanceState) {
 		//Setup Window
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(savedInstanceState);
 
 
 		//Set result canceled if user back out
-		setContentView(R.layout.activity_bluetooth);
+		//setContentView(R.layout.activity_bluetooth);
 
 		//Initialize discovery
 		doDiscovery();
@@ -108,11 +108,11 @@ public class Bluetooth extends AppCompatActivity {
 		pairedListView.setAdapter(mPairedDevice);
 		pairedListView.setOnItemClickListener(mDeviceClickListener);
 
-		//Setup new devices in a List
+/*		//Setup new devices in a List TODO are we using this?
 		ListView newDeviceListView = (ListView) findViewById(R.id.new_devices);
 		newDeviceListView.setAdapter(mNewDevice);
 		newDeviceListView.setOnItemClickListener(mDeviceClickListener);
-
+*/
 		//Register for broadcasts when a device is discovered
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
 		this.registerReceiver(mReceiver, filter);

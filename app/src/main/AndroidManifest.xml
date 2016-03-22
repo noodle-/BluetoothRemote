@@ -36,15 +36,6 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name=".Devicelist_REMOVE"
-			android:label="@string/title_activity_devicelist"
-			android:theme="@style/AppTheme.NoActionBar">
-		</activity>
-		<activity
-			android:name=".Bluetooth"
-			android:label="@string/title_activity_bluetooth"
-			android:theme="@style/AppTheme.NoActionBar"/>
-		<activity
 			android:name=".DeviceListActivity_b"
 			android:label="@string/title_activity_device_list_b"
 			android:theme="@style/AppTheme.NoActionBar"/>

@@ -11,9 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class KickPanelActivity extends AppCompatActivity {
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
 	// Inflate the menu; this adds items to the action bar if it is present.
 	// Set icon based on bluetooth status
 	MenuItem mDynamicMenuIcon;
@@ -34,7 +36,7 @@ public class KickPanelActivity extends AppCompatActivity {
 			public void onClick(View view) {
 				// TODO Replace this with something useful
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show(); //Action that should be run when the snackbar!? is pressed
+						.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
 			}
 		});
 	}
@@ -43,10 +45,11 @@ public class KickPanelActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
-		if (mBluetoothAdapter.isEnabled()) {
-			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth_disabled);
+		// Show a different icon based on random int
+		if (Math.random() > 0.5) { // This should probably replaced with "!= 0" or something similar instead, because we have no idea what the output of Math.random() is.
+			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
 		} else {
-			mDynamicMenuIcon.setIcon(R.drawable.ic_bluetooth);
+			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
 		}
 		return true;
 	}
@@ -58,17 +61,12 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 
-	public void button_bt_check_OnClick(View v) {
-		//bluetooth.bt_Check(v);
+	public void button_test_A(View v) {
+		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
 	}
 
-	/*public void button_search_OnClick(View v) {
-		bluetooth.bt_Search(v);
-	}*/
-
-	public void button_bt_disable_OnClick(View v) {
-		mBluetoothAdapter.disable();
-		Snackbar.make(this.findViewById(android.R.id.content), "Bluetooth is disabled", Snackbar.LENGTH_LONG).show();
+	public void button_test_B(View v) {
+		Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show();
 	}
 
 }
@@ -160,31 +158,4 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		}
 	}
-
-	public void bt_Disable(View v) {
-		if (mBluetoothAdapter != null) {
-			if (mBluetoothAdapter.isEnabled()) {
-				mBluetoothAdapter.disable();
-				Snackbar.make(v, "Disabling Bluetooth", Snackbar.LENGTH_LONG).show();
-			} else {
-				Snackbar.make(v, "Bluetooth was not enabled", Snackbar.LENGTH_LONG).show();
-			}
-		} else {
-			Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-		}
-	}
-
-	private Menu mMenu;
-	boolean isOn = false;
-	public void button_changeBluetoothIcon_OnClick() {
-		MenuItem item = mMenu.findItem(R.id.tb_bluetooth);
-		if (mMenu != null) {
-			if (isOn = false) {
-				item.setIcon(R.drawable.ic_bluetooth_disabled);
-				isOn = true;
-			} else {
-				item.setIcon(R.drawable.ic_bluetooth);
-				isOn = false;
-			}
-		}
-	}*/
+*/

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
@@ -16,7 +17,7 @@
 		android:id="@+id/text_welcome"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/welcome" />
+		android:text="@string/welcome"/>
 
 	<Button
 		android:id="@+id/button_bt_check"
@@ -26,10 +27,10 @@
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="35dp"
 		android:background="@drawable/button_background"
-		android:onClick="button_bt_check_OnClick"
+		android:onClick="button_test_A"
 		android:text="@string/button_bt_check"
 		android:textAllCaps="false"
-		android:textColor="#FFFFFF" />
+		android:textColor="#FFFFFF"/>
 
 	<Button
 		android:id="@+id/button_bt_disable"
@@ -41,10 +42,10 @@
 		android:layout_marginRight="35dip"
 		android:layout_marginTop="10dp"
 		android:background="@drawable/button_background"
-		android:onClick="button_bt_disable_OnClick"
+		android:onClick="button_test_B"
 		android:text="@string/button_bt_disable"
 		android:textAllCaps="false"
-		android:textColor="#FFFFFF" />
+		android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
 

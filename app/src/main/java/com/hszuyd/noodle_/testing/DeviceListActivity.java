@@ -41,7 +41,7 @@ import java.util.Set;
  * by the user, the MAC address of the device is sent back to the parent
  * Activity in the result Intent.
  */
-public class DeviceListActivity_b extends Activity {
+public class DeviceListActivity extends Activity {
 
 	/**
 	 * Tag for Log
@@ -119,7 +119,7 @@ public class DeviceListActivity_b extends Activity {
 
 		// Setup the window
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.activity_device_list_b);
+		setContentView(R.layout.activity_device_list);
 
 		// Set result CANCELED in case the user backs out
 		setResult(Activity.RESULT_CANCELED);

@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -82,7 +83,9 @@ public class DeviceListActivity extends Activity {
 				// When discovery is finished, change the Activity title
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
 				setProgressBarIndeterminateVisibility(false);
-				setTitle(R.string.select_device);
+//				setTitle(R.string.select_device);
+				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+				mToolbar.setTitle(R.string.select_device);
 				if (mNewDevicesArrayAdapter.getCount() == 0) {
 					String noDevices = getResources().getText(R.string.none_found).toString();
 					mNewDevicesArrayAdapter.add(noDevices);
@@ -172,6 +175,11 @@ public class DeviceListActivity extends Activity {
 			String noDevices = getResources().getText(R.string.none_paired).toString();
 			pairedDevicesArrayAdapter.add(noDevices);
 		}
+
+		// Load the toolbar so we can set the title
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+//		setSupportActionBar(mToolbar); TODO WHY ARE WE DOING THIS EVERYWHERE ELSE???
+		mToolbar.setTitle("Device list");
 	}
 
 	@Override
@@ -193,9 +201,12 @@ public class DeviceListActivity extends Activity {
 	private void doDiscovery() {
 		Log.d(TAG, "doDiscovery()");
 
+
 		// Indicate scanning in the title
 		setProgressBarIndeterminateVisibility(true);
-		setTitle(R.string.scanning);
+
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		mToolbar.setTitle(R.string.scanning);
 
 		// Turn on sub-title for new devices
 		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);

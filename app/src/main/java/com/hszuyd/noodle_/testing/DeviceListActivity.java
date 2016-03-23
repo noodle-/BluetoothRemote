@@ -32,10 +32,7 @@ public class DeviceListActivity extends Activity {
 	private BluetoothAdapter mBtAdapter;                            // Member fields TODO ?
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 
-	/**
-	 * The BroadcastReceiver that listens for discovered devices and changes the title when
-	 * discovery is finished
-	 */
+	/** The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished */
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -62,9 +59,7 @@ public class DeviceListActivity extends Activity {
 		}
 	};
 
-	/**
-	 * The on-click listener for all devices in the ListViews
-	 */
+	/** The on-click listener for all devices in the ListViews */
 	private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
 		public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
 			// Cancel discovery because it's costly and we're about to connect

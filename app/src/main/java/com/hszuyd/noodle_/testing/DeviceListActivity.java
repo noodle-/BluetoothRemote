@@ -16,6 +16,7 @@
 
 package com.hszuyd.noodle_.testing;
 
+import android.Manifest;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -24,8 +25,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -43,26 +44,11 @@ import java.util.Set;
  * Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
+	public static String EXTRA_DEVICE_ADDRESS = "device_address"; // Return Intent extra
 
-	/**
-	 * Tag for Log
-	 */
-	private static final String TAG = "DeviceListActivity";
+	private BluetoothAdapter mBtAdapter; // Member fields TODO ?
 
-	/**
-	 * Return Intent extra
-	 */
-	public static String EXTRA_DEVICE_ADDRESS = "device_address";
-
-	/**
-	 * Member fields
-	 */
-	private BluetoothAdapter mBtAdapter;
-
-	/**
-	 * Newly discovered devices
-	 */
-	private ArrayAdapter<String> mNewDevicesArrayAdapter;
+	private ArrayAdapter<String> mNewDevicesArrayAdapter; // Newly discovered devices
 	/**
 	 * The BroadcastReceiver that listens for discovered devices and changes the title when
 	 * discovery is finished
@@ -147,7 +133,7 @@ public class DeviceListActivity extends Activity {
 		pairedListView.setAdapter(pairedDevicesArrayAdapter);
 		pairedListView.setOnItemClickListener(mDeviceClickListener);
 
-		// Find and set up the ListView for newly discovered devices  TODO This doesn't seem to work
+		// Find and set up the ListView for newly discovered devices
 		ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
 		newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
 		newDevicesListView.setOnItemClickListener(mDeviceClickListener);
@@ -196,28 +182,31 @@ public class DeviceListActivity extends Activity {
 		this.unregisterReceiver(mReceiver);
 	}
 
-	/**
-	 * Start device discover with the BluetoothAdapter
-	 */
 	private void doDiscovery() {
-		Log.d(TAG, "doDiscovery()");
+		// Request coarse location permission to access the hardware identifiers
+		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
+		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1; // TODO Again, no idea who this works.
+		ActivityCompat.requestPermissions(this,
+				new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+				MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 
-
-		// Indicate scanning in the title
+		// TODO no idea what this does
 		setProgressBarIndeterminateVisibility(true);
 
+		// Indicate scanning in the title
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		mToolbar.setTitle(R.string.scanning);
 
-		// Turn on sub-title for new devices
+		// Stop hiding the subtitle for new devices
 		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);
 
-		// If we're already discovering, stop it
+		// Stop any already running discoveries because it's very resource intensive
 		if (mBtAdapter.isDiscovering()) {
 			mBtAdapter.cancelDiscovery();
 		}
 
-		// Request discover from BluetoothAdapter
-		mBtAdapter.startDiscovery();
+		mBtAdapter.startDiscovery(); // Request discover from BluetoothAdapter
 	}
+
+
 }

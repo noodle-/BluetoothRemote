@@ -8,8 +8,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
@@ -32,7 +34,9 @@ public class DeviceListActivity extends Activity {
 	private BluetoothAdapter mBtAdapter;                            // Member fields TODO ?
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 
-	/** The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished */
+	/**
+	 * The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished
+	 */
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -59,7 +63,9 @@ public class DeviceListActivity extends Activity {
 		}
 	};
 
-	/** The on-click listener for all devices in the ListViews */
+	/**
+	 * The on-click listener for all devices in the ListViews
+	 */
 	private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
 		public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
 			// Cancel discovery because it's costly and we're about to connect
@@ -139,7 +145,18 @@ public class DeviceListActivity extends Activity {
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);    // Load the toolbar so we can set the title
 //		setSupportActionBar(mToolbar); TODO WHY ARE WE DOING THIS EVERYWHERE ELSE???
 		mToolbar.setTitle("Device list");
+
+		// Request coarse location permission to access the hardware identifiers
+		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
+		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1; // TODO no idea who this works.
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this,
+					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+					MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+		}
+
 	}
+
 
 	@Override
 	protected void onDestroy() {
@@ -153,13 +170,6 @@ public class DeviceListActivity extends Activity {
 	}
 
 	private void doDiscovery() {
-		// Request coarse location permission to access the hardware identifiers
-		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1; // TODO no idea who this works.
-		ActivityCompat.requestPermissions(this,
-				new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-				MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-
 		setProgressBarIndeterminateVisibility(true);    // TODO no idea what this does
 
 		// Indicate scanning in the title

@@ -47,6 +47,17 @@
 		android:textAllCaps="false"
 		android:textColor="#FFFFFF"/>
 
+	<Button
+		android:id="@+id/button_device_list"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/button_bt_disable"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="48dp"
+		android:onClick="button_start_device_list"
+		android:text="@string/button_device_list"
+		android:textAllCaps="false"/>
+
 </RelativeLayout>
 
 	<!--

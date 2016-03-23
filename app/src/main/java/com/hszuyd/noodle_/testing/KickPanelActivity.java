@@ -54,7 +54,9 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		startActivity(new Intent(this, DeviceListActivity.class));
+		//startActivity(new Intent(this, DeviceListActivity.class));
+		finish();
+		startActivity(getIntent());
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -65,7 +67,11 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	public void button_test_B(View v) {
 		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
-		//Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show();
+		//Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show(); // Snackbar which can be called from the toolbar
+	}
+
+	public void button_start_device_list(View v) {
+		startActivity(new Intent(this, DeviceListActivity.class));
 	}
 
 }

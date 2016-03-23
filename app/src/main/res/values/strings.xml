@@ -4,6 +4,7 @@
 	<string name="button_bt_check">Check Bluetooth</string>
 	<string name="button_search">Make discoverable</string>
 	<string name="button_bt_disable">Disable Bluetooth</string>
+	<string name="button_device_list">Device list</string>
 	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>
 	<string name="title_activity_main">Remote</string>
 	<string name="title_activity_tribot">Tribot Remote</string>

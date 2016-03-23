@@ -41,7 +41,7 @@ public class LoginScreen extends AppCompatActivity {
 		} else if (!BTAdapter.isEnabled()) {
 			new AlertDialog.Builder(this)
 					.setTitle("Warning")
-					.setMessage("Bluetooth is currently disabled. You will need to click 'Enable' to continue using this app")
+					.setMessage("Bluetooth is currently disabled. You will have to click 'Enable' to continue using this app")
 					.setPositiveButton(
 							"Enable Bluetooth",
 							new DialogInterface.OnClickListener() {

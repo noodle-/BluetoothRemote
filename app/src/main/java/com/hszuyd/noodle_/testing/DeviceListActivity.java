@@ -82,6 +82,7 @@ public class DeviceListActivity extends Activity {
 				}
 				// When discovery is finished, change the Activity title
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+				mNewDevicesArrayAdapter.add("Henk" + "\n" + "AA-BB-CC-DD-EE-FF"); // TODO Remove this
 				setProgressBarIndeterminateVisibility(false);
 //				setTitle(R.string.select_device);
 				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -219,5 +220,4 @@ public class DeviceListActivity extends Activity {
 		// Request discover from BluetoothAdapter
 		mBtAdapter.startDiscovery();
 	}
-
 }

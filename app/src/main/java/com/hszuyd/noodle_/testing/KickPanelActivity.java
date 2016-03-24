@@ -1,6 +1,5 @@
 package com.hszuyd.noodle_.testing; // TODO change package name?
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +12,8 @@ import android.view.View;
 import android.widget.Toast;
 
 public class KickPanelActivity extends AppCompatActivity {
-	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
-	private Bluetooth bluetooth = new Bluetooth();
 
 	// Draw all stuff when loading the activity
 	@Override
@@ -54,10 +50,9 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//startActivity(new Intent(this, DeviceListActivity.class));
-		finish();
-		startActivity(getIntent());
-		return super.onOptionsItemSelected(item);
+		finish();                   // Restart activity
+		startActivity(getIntent()); // Restart activity
+		return super.onOptionsItemSelected(item);   // Why?
 	}
 
 
@@ -67,7 +62,6 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	public void button_test_B(View v) {
 		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
-		//Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show(); // Snackbar which can be called from the toolbar
 	}
 
 	public void button_start_device_list(View v) {
@@ -76,27 +70,22 @@ public class KickPanelActivity extends AppCompatActivity {
 
 }
 
-// TODO I think I don't need this..
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		// Handle action bar item clicks here. The action bar will
-//		// automatically handle clicks on the Home/Up button, so long
-//		// as you specify a parent activity in AndroidManifest.xml.
-//		int id = item.getItemId();
-//
-//		//noinspection SimplifiableIfStatement
-//		if (id == R.id.action_settings) {
-//			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
-//
-// TODO Create bluetoothsocket
-//BluetoothSocket MySocket = createRfcommSocketToServiceRecord(UUID);
+/* TODO I think I don't need this..
+@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+	// Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
+	int id = item.getItemId();
+	//noinspection SimplifiableIfStatement
+	if (id == R.id.action_settings) {
+		return true;
+	}
+	return super.onOptionsItemSelected(item);
+}   */
 
+/* TODO Create bluetoothsocket
+BluetoothSocket MySocket = createRfcommSocketToServiceRecord(UUID); */
 
-
-/* Snackbar with custom button
+/* TODO Snackbar with custom button to enable bluetooth
 private final static int REQUEST_ENABLE_BT = 1;
 Snackbar.make(v,"Bluetooth is currently disabled",Snackbar.LENGTH_LONG)
 		.setAction("ENABLE BLUETOOTH",new View.OnClickListener(){
@@ -107,20 +96,20 @@ Snackbar.make(v,"Bluetooth is currently disabled",Snackbar.LENGTH_LONG)
 			startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
 			mBluetoothAdapter.enable();
 		}
-	}).show();
-*/
+	}).show();  */
 
-/* Enabled bluetooth with intent
+/* TODO Snackbar, from another view else
+Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show(); // Snackbar which can be called from the toolbar */
+
+/* TODO Enable bluetooth with intent
 private final static int REQUEST_ENABLE_BT = 1;
 Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-*/
+startActivityForResult(enableIntent, REQUEST_ENABLE_BT);    */
 
-/* Enable bluetooth
-mBluetoothAdapter.enable();
-*/
+/* TODO Enable bluetooth
+mBluetoothAdapter.enable(); */
 
-/* Make discoverable with intent
+/* TODO Make discoverable with intent
 public void bt_Search(View v){
 	if (mBluetoothAdapter == null) {
 		Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
@@ -131,5 +120,4 @@ public void bt_Search(View v){
 		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
 		startActivity(discoverableIntent);
 	}
-}
-*/
+}   */

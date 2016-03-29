@@ -1,7 +1,6 @@
 package com.hszuyd.noodle_.testing;
 
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +11,11 @@ public class TribotActivity extends AppCompatActivity {
 
 	//private final static int REQUEST_ENABLE_BT = 1; //TODO figure out what this number means..
 	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-	Bluetooth bluetooth = new Bluetooth();
+	//Bluetooth bluetooth = new Bluetooth();
 	boolean isOn = false;
+	MenuItem mDynamicMenuIcon;
+	//TODO fix the icon changing, often won't work properly.
+	int iconID = R.drawable.ic_bluetooth;
 	private Menu mMenu;
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,6 @@ public class TribotActivity extends AppCompatActivity {
 		}).start();*/
 	}
 
-	MenuItem mDynamicMenuIcon;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
@@ -48,21 +49,18 @@ public class TribotActivity extends AppCompatActivity {
 		return true;
 	}
 
-
-	//TODO fix the icon changing, often won't work properly.
-	int iconID = R.drawable.ic_bluetooth;
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		if (id == R.id.tb_bluetooth) {
-			bluetooth.tb_OnOff();
+			//bluetooth.tb_OnOff();
 			if (iconID == R.drawable.ic_bluetooth_disabled && mBluetoothAdapter.isEnabled()) {
 				item.setIcon(R.drawable.ic_bluetooth);
 				iconID = R.drawable.ic_bluetooth;
 			} else {
 				item.setIcon(R.drawable.ic_bluetooth_disabled);
 				iconID = R.drawable.ic_bluetooth_disabled;
-				startActivity(new Intent(this, Bluetooth.class));
+				//startActivity(new Intent(this, Bluetooth.class));
 			}
 		}
 		return super.onOptionsItemSelected(item);

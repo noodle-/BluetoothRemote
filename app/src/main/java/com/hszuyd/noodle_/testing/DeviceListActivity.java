@@ -31,7 +31,7 @@ import java.util.Set;
  */
 public class DeviceListActivity extends Activity {
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";   // Return Intent extra
-	private BluetoothAdapter mBtAdapter;                            // Member fields TODO ?
+	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 
 	/**
@@ -148,7 +148,7 @@ public class DeviceListActivity extends Activity {
 
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1; // TODO no idea who this works.
+		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(this,
 					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},

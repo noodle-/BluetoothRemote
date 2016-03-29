@@ -29,7 +29,6 @@
 		android:background="@drawable/button_background"
 		android:onClick="button_test_A"
 		android:text="@string/button_bt_check"
-		android:textAllCaps="false"
 		android:textColor="#FFFFFF"/>
 
 	<Button
@@ -44,7 +43,6 @@
 		android:background="@drawable/button_background"
 		android:onClick="button_test_B"
 		android:text="@string/button_bt_disable"
-		android:textAllCaps="false"
 		android:textColor="#FFFFFF"/>
 
 	<Button
@@ -55,12 +53,6 @@
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="48dp"
 		android:onClick="button_start_device_list"
-		android:text="@string/button_device_list"
-		android:textAllCaps="false"/>
+		android:text="@string/button_device_list"/>
 
 </RelativeLayout>
-
-	<!--
-		TODO Why can't I define this globally?
-		android:textAllCaps="false"
-	-->

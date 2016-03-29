@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
-
 public class LoginScreen extends AppCompatActivity {
 
 	@Override
@@ -41,7 +40,9 @@ public class LoginScreen extends AppCompatActivity {
 		} else if (!BTAdapter.isEnabled()) {
 			new AlertDialog.Builder(this)
 					.setTitle("Warning")
-					.setMessage("Bluetooth is currently disabled. You will have to click 'Enable' to continue using this app")
+					.setMessage("Bluetooth is currently disabled. \n" +
+							"\n" +
+							"Please click 'Enable Bluetooth' to continue using this app")
 					.setPositiveButton(
 							"Enable Bluetooth",
 							new DialogInterface.OnClickListener() {
@@ -63,10 +64,9 @@ public class LoginScreen extends AppCompatActivity {
 
 	public void button_Start_App_OnClick(View view) {
 		EditText text = (EditText) findViewById(R.id.editText);
-		String name = text.getText().toString().trim();
+		String name = text.getText().toString().trim(); // Remove trailing spaces
 
-		// TODO Remove this when not testing.
-		// Check whether the user has entered a name. Not entering a name could cause problems later on.
+		// Check whether the user has entered a name. Not entering a name could cause problems later on. // TODO Remove this when not testing.
 		/*if (Objects.equals(name, "")) {
 			new AlertDialog.Builder(this)
 					.setTitle("Invalid name")
@@ -81,7 +81,7 @@ public class LoginScreen extends AppCompatActivity {
 							})
 					.setIcon(R.drawable.ic_warning)
 					.show();
-		} else { // User has entered a name, so we're sending his name to the next activity */
+		} else { // User has entered a valid name, so we're sending his name to the next activity */
 		Intent intent = new Intent(getBaseContext(), MainActivity.class);
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);

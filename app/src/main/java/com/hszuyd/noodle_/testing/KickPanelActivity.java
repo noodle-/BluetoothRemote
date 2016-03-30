@@ -1,5 +1,6 @@
 package com.hszuyd.noodle_.testing; // TODO change package name?
 
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,14 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.UUID;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
+	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
+	private Button deviceAddress;
 
 	// Draw all stuff when loading the activity
 	@Override
@@ -36,30 +40,6 @@ public class KickPanelActivity extends AppCompatActivity {
 						.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
 			}
 		});
-		Intent iin = getIntent();
-		Bundle b = iin.getExtras();
-
-/*		if (b != null) {
-			String device = (String) b.get("EXTRA_DEVICE_ADDRESS");
-
-			BluetoothSocket mSocket = null;
-			try {
-				mSocket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				mSocket.connect();
-			} catch (IOException e) {
-				try {
-					mSocket.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		}*/
-
 	}
 
 	@Override
@@ -93,7 +73,38 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_start_device_list(View v) {
-		startActivity(new Intent(this, DeviceListActivity.class));
+		startActivityForResult(new Intent(this, DeviceListActivity.class), REQUEST_DEVICE_ADDRESS);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// Check which request we're responding to
+		if (requestCode == REQUEST_DEVICE_ADDRESS) {
+			// Make sure the request was successful
+			if (resultCode == RESULT_OK) {
+				String device = data.getStringExtra("EXTRA_DEVICE_ADDRESS"); // Store the Intent data(=device address) that we've received from the DeviceListActivity
+
+				BluetoothSocket mSocket = null;
+
+				Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+				//connect to device using the data we've just received !!!
+				/*				try {
+					mSocket = device.createInsecureRfcommSocketToServiceRecord (MY_UUID);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					mSocket.connect();
+				} catch (IOException e) {
+					try {
+						mSocket.close();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}*/
+			}
+		}
 	}
 }
 

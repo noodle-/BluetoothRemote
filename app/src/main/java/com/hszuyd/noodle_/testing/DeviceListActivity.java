@@ -184,6 +184,4 @@ public class DeviceListActivity extends Activity {
 
 		mBtAdapter.startDiscovery(); // Request discover from BluetoothAdapter
 	}
-
-
 }

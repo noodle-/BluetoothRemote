@@ -14,4 +14,49 @@
 	tools:showIn="@layout/activity_tribot">
 
 
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/button_random_math_test"
+		android:id="@+id/bt_random_math_test"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:onClick="button_Random_Math_Number"
+		android:layout_marginTop="51dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="New Text"
+		android:id="@+id/textView"
+		android:layout_below="@+id/bt_random_math_test"
+		android:layout_centerHorizontal="true"/>
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/title_activity_device_list"
+		android:id="@+id/button_device_list"
+		android:layout_below="@+id/textView"
+		android:layout_centerHorizontal="true"
+		android:onClick="button_start_device_list"
+		android:layout_marginTop="53dp"/>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="New Text"
+		android:id="@+id/textView2"
+		android:layout_below="@+id/button_device_list"
+		android:layout_centerHorizontal="true"/>
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Refresh"
+		android:id="@+id/refresh"
+		android:layout_marginTop="61dp"
+		android:onClick="button_Refresh"
+		android:layout_below="@+id/textView2"
+		android:layout_centerHorizontal="true"/>
 </RelativeLayout>

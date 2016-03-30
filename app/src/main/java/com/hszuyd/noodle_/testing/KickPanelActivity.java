@@ -11,7 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.UUID;
+
 public class KickPanelActivity extends AppCompatActivity {
+	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
 
@@ -33,25 +36,50 @@ public class KickPanelActivity extends AppCompatActivity {
 						.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
 			}
 		});
+		Intent iin = getIntent();
+		Bundle b = iin.getExtras();
+
+/*		if (b != null) {
+			String device = (String) b.get("EXTRA_DEVICE_ADDRESS");
+
+			BluetoothSocket mSocket = null;
+			try {
+				mSocket = device.createInsecureRfcommSocketToServiceRecord(MY_UUID);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				mSocket.connect();
+			} catch (IOException e) {
+				try {
+					mSocket.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}*/
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
-		// Show a different icon based on random int
-		if (Math.random() > 0.5) { // TODO This should probably replaced with "!= 0" or something similar instead, because we have no idea what the output of Math.random() is.
-			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
-		} else {
-			mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
-		}
+		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		finish();                   // Restart activity
-		startActivity(getIntent()); // Restart activity
+		int id = item.getItemId();      // get ID of the clicked button so we know where we've clicked and act based on that
+		if (id == R.id.tb_bluetooth) {
+			if (Math.random() > 0.5) {  // Show a different icon based on random int between 0.0 and 1.0
+				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
+			} else {
+				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
+			}
+		}
 		return super.onOptionsItemSelected(item);   // Why?
 	}
 
@@ -67,7 +95,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	public void button_start_device_list(View v) {
 		startActivity(new Intent(this, DeviceListActivity.class));
 	}
-
 }
 
 /* TODO I think I don't need this..

@@ -22,7 +22,7 @@ public class TribotActivity extends AppCompatActivity {
     private static final int REQUEST_DEVICE_ADDRESS = 1;
     private MenuItem mDynamicMenuIcon;
     private TextView textView;
-    private BluetoothDevice device;
+    //private BluetoothDevice device;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,16 +70,16 @@ public class TribotActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {                  // Make sure the request was successful
                 if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
                     Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity TODO Figure out why we can't simply use "String device = data.getStringExtra("device");"
-                    String device1 = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
+                    String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
 
                     textView = (TextView) findViewById(R.id.textView2);
-                    textView.setText("Device address: " + device1);
+                    textView.setText("Device address: " + device);
                 } else {
                     Toast.makeText(getApplicationContext(), "Failed to get MAC address", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
                 }
 
                 //connect to device using the data we've just received !!!
-                BluetoothSocket mSocket = null;
+                /*BluetoothSocket mSocket = null;
                 try {
 					mSocket = device.createInsecureRfcommSocketToServiceRecord (MY_UUID);
 				} catch (IOException e1) {
@@ -94,7 +94,7 @@ public class TribotActivity extends AppCompatActivity {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-				}
+				}*/
 
             } else {
                 Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address

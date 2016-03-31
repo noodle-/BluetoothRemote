@@ -30,7 +30,6 @@ import java.util.Set;
  * Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
-	public static String EXTRA_DEVICE_ADDRESS = "device_address";   // Return Intent extra
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 

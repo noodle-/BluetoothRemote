@@ -52,7 +52,6 @@ public class DeviceListActivity extends Activity {
 				}
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) { // When discovery is finished
 //				setProgressBarIndeterminateVisibility(false);
-//				setTitle(R.string.select_device);
 				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 				mToolbar.setTitle(R.string.select_device);
 				if (mNewDevicesArrayAdapter.getCount() == 0) {  // Show none_found if no devices are found
@@ -76,11 +75,11 @@ public class DeviceListActivity extends Activity {
 			String address = info.substring(info.length() - 17);
 
 			// Create the result Intent and include the MAC address
-			Intent intent = new Intent();
-			intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+			Intent data = new Intent();
+			data.putExtra("EXTRA_DEVICE_ADDRESS", address);
 
 			// Set result and finish(=close?) this Activity
-			setResult(Activity.RESULT_OK, intent);
+			setResult(RESULT_OK, data);
 			finish();
 		}
 	};

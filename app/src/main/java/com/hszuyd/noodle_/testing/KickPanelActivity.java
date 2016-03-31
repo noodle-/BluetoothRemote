@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.UUID;
@@ -20,7 +19,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
-	private Button deviceAddress;
 
 	// Draw all stuff when loading the activity
 	@Override
@@ -78,16 +76,18 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// Check which request we're responding to
-		if (requestCode == REQUEST_DEVICE_ADDRESS) {
-			// Make sure the request was successful
-			if (resultCode == RESULT_OK) {
-				String device = data.getStringExtra("EXTRA_DEVICE_ADDRESS"); // Store the Intent data(=device address) that we've received from the DeviceListActivity
+		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
+			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
+				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
+					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity TODO Figure out why we can't simply use "String device = data.getStringExtra("device");"
+					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
+					BluetoothSocket mSocket = null;
 
-				BluetoothSocket mSocket = null;
+					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+				} else {
+					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 
-				Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-				//connect to device using the data we've just received !!!
+					//connect to device using the data we've just received !!!
 				/*				try {
 					mSocket = device.createInsecureRfcommSocketToServiceRecord (MY_UUID);
 				} catch (IOException e1) {
@@ -103,6 +103,7 @@ public class KickPanelActivity extends AppCompatActivity {
 						e1.printStackTrace();
 					}
 				}*/
+				}
 			}
 		}
 	}

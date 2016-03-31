@@ -44,7 +44,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
-		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
 		return true;
 	}
 
@@ -79,7 +78,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
 				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
-					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity TODO Figure out why we can't simply use "String device = data.getStringExtra("device");"
+					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
 					BluetoothSocket mSocket = null;
 

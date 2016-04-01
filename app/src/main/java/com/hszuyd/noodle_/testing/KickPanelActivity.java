@@ -15,12 +15,12 @@ import android.widget.Toast;
 import java.util.UUID;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-
-	BluetoothSPP bt = new BluetoothSPP(getApplicationContext());
+	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
 
@@ -87,6 +87,11 @@ public class KickPanelActivity extends AppCompatActivity {
 					BluetoothSocket mSocket = null;
 
 					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+					bt.setupService();
+					bt.startService(BluetoothState.DEVICE_ANDROID);
+					//setup();
+
+					//bt.connect(device);
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 

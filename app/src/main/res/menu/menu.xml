@@ -4,6 +4,5 @@
 	<item
 		android:id="@+id/tb_bluetooth"
 		android:title="@string/tb_bluetooth"
-		android:icon="@drawable/ic_favorite_white"
 		app:showAsAction="ifRoom"/>
 </menu>

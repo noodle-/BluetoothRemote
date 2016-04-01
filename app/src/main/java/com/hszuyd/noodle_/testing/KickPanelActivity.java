@@ -44,6 +44,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
+		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
 		return true;
 	}
 

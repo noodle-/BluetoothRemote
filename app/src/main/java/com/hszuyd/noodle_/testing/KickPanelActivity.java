@@ -14,9 +14,13 @@ import android.widget.Toast;
 
 import java.util.UUID;
 
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+
 public class KickPanelActivity extends AppCompatActivity {
 	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
+
+	BluetoothSPP bt = new BluetoothSPP(getApplicationContext());
 	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
 

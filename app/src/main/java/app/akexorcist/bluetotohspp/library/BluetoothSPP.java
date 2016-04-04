@@ -25,7 +25,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
@@ -60,7 +59,8 @@ public class BluetoothSPP {
 	private String keyword = "";
 	private boolean isAndroid = BluetoothState.DEVICE_ANDROID;
 
-	private BluetoothConnectionListener bcl;
+	// This is where we store the callback if AutoConnection is enabled
+	private BluetoothConnectionListener mBluetoothConnectionListenerSecondary = null;
 	private int c = 0;
 
 	public BluetoothSPP(Context context) {
@@ -168,7 +168,7 @@ public class BluetoothSPP {
 	}
 
 	@SuppressLint("HandlerLeak")
-	private final Handler mHandler = new Handler(Looper.getMainLooper()) {
+	private final Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 				case BluetoothState.MESSAGE_WRITE:
@@ -222,7 +222,11 @@ public class BluetoothSPP {
 	};
 
 	public void stopAutoConnect() {
-		isAutoConnectionEnabled = false;
+		if (isAutoConnectionEnabled) {
+			isAutoConnectionEnabled = false;
+			// Restore the previous callback
+			mBluetoothConnectionListener = mBluetoothConnectionListenerSecondary;
+		}
 	}
 
 	public void connect(Intent data) {
@@ -256,7 +260,12 @@ public class BluetoothSPP {
 	}
 
 	public void setBluetoothConnectionListener (BluetoothConnectionListener listener) {
-		mBluetoothConnectionListener = listener;
+		// We can't replace the primary callback if AutoConnection is enabled
+		if (isAutoConnectionEnabled) {
+			mBluetoothConnectionListenerSecondary = listener;
+		} else {
+			mBluetoothConnectionListener = listener;
+		}
 	}
 
 	public void setAutoConnectionListener(AutoConnectionListener listener) {
@@ -325,7 +334,6 @@ public class BluetoothSPP {
 		if(!isAutoConnectionEnabled) {
 			keyword = keywordName;
 			isAutoConnectionEnabled = true;
-			isAutoConnecting = true;
 			if(mAutoConnectionListener != null)
 				mAutoConnectionListener.onAutoConnectionStarted();
 			final ArrayList<String> arr_filter_address = new ArrayList<String>();
@@ -339,13 +347,25 @@ public class BluetoothSPP {
 				}
 			}
 
-			bcl = new BluetoothConnectionListener() {
+			// Save the previously existing callback
+			mBluetoothConnectionListenerSecondary = mBluetoothConnectionListener;
+
+			mBluetoothConnectionListener = new BluetoothConnectionListener() {
 				public void onDeviceConnected(String name, String address) {
-					bcl = null;
 					isAutoConnecting = false;
+					// Run the secondary callback
+					if(mBluetoothConnectionListenerSecondary != null) {
+						mBluetoothConnectionListenerSecondary.onDeviceConnected(name,address);
+					}
 				}
 
-				public void onDeviceDisconnected() { }
+				public void onDeviceDisconnected() {
+					// Run the secondary callback
+					if(mBluetoothConnectionListenerSecondary != null) {
+						mBluetoothConnectionListenerSecondary.onDeviceDisconnected();
+					}
+
+				}
 				public void onDeviceConnectionFailed() {
 					Log.e("CHeck", "Failed");
 					if(isServiceRunning) {
@@ -353,27 +373,37 @@ public class BluetoothSPP {
 							c++;
 							if(c >= arr_filter_address.size())
 								c = 0;
+							isAutoConnecting = true;
 							connect(arr_filter_address.get(c));
 							Log.e("CHeck", "Connect");
 							if(mAutoConnectionListener != null)
 								mAutoConnectionListener.onNewConnection(arr_filter_name.get(c)
 										, arr_filter_address.get(c));
 						} else {
-							bcl = null;
 							isAutoConnecting = false;
 						}
+
+						// Run the secondary callback (can't fail is AutoConnection is disabled)
+						if(mBluetoothConnectionListenerSecondary != null) {
+							mBluetoothConnectionListenerSecondary.onDeviceConnectionFailed();
+						}
+
 					}
 				}
 			};
 
-			setBluetoothConnectionListener(bcl);
 			c = 0;
-			if(mAutoConnectionListener != null)
-				mAutoConnectionListener.onNewConnection(arr_name[c], arr_address[c]);
-			if(arr_filter_address.size() > 0)
-				connect(arr_filter_address.get(c));
-			else
+			if (arr_filter_address.size() > 0) {
+				if (!isConnected) {
+					// Connect() breaks when it's already connected
+					if(mAutoConnectionListener != null)
+						mAutoConnectionListener.onNewConnection(arr_name[c], arr_address[c]);
+					isAutoConnecting = true;
+					connect(arr_filter_address.get(c));
+				}
+			} else {
 				Toast.makeText(mContext, "Device name mismatch", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }

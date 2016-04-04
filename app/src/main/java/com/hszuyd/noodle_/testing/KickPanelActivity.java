@@ -88,10 +88,12 @@ public class KickPanelActivity extends AppCompatActivity {
 
 					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 					bt.setupService();
-					bt.startService(BluetoothState.DEVICE_ANDROID);
+					bt.startService(BluetoothState.DEVICE_OTHER);
 					//setup();
+					bt.connect(device);
+					bt.send("Hoiiiii!", true);
+					bt.send(new byte[] { 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
 
-					//bt.connect(device);
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 

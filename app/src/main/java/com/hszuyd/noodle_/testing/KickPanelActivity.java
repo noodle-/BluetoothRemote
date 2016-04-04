@@ -7,17 +7,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.lang.reflect.Method;
 import java.util.UUID;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
+	private static final String TAG = "KickPanelActivity";
 	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
@@ -87,12 +90,22 @@ public class KickPanelActivity extends AppCompatActivity {
 					BluetoothSocket mSocket = null;
 
 					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+
 					bt.setupService();
 					bt.startService(BluetoothState.DEVICE_OTHER);
 					//setup();
 					bt.connect(device);
 					bt.send("Hoiiiii!", true);
-					bt.send(new byte[] { 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
+					bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
+
+//					Log.e(TAG, "Pairing");
+//					try {
+//						Method method = device.getClass().getMethod("createBond", (Class[]) null);
+//						method.invoke(device, (Object[]) null);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+
 
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address

@@ -30,6 +30,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -37,16 +38,15 @@ import java.util.UUID;
 public class BluetoothService {
 	// Debugging
 	private static final String TAG = "Bluetooth Service";
-
 	// Name for the SDP record when creating server socket
 	private static final String NAME_SECURE = "Bluetooth Secure";
-
 	// Unique UUID for this application
 	private static final UUID UUID_ANDROID_DEVICE =
 			UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 	private static final UUID UUID_OTHER_DEVICE =
-			UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-
+			UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+	//"8ce255c0-200a-11e0-ac64-0800200c9a66"
+	//"00001101-0000-1000-8000-00805f9b34fb" OLD
 	// Member fields
 	private final BluetoothAdapter mAdapter;
 	private final Handler mHandler;
@@ -312,6 +312,18 @@ public class BluetoothService {
 			} catch (IOException e) {
 			}
 			mmSocket = tmp;
+
+			//alskdjflaksjdf
+			Log.e(TAG, "Pairing");
+			try {
+				Method method = device.getClass().getMethod("createBond", (Class[]) null);
+				method.invoke(device, (Object[]) null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+
+
 		}
 
 		public void run() {
@@ -409,7 +421,7 @@ public class BluetoothService {
 		// @param buffer  The bytes to write
 		public void write(byte[] buffer) {
 			try {/*
-	            byte[] buffer2 = new byte[buffer.length + 2];
+			    byte[] buffer2 = new byte[buffer.length + 2];
                 for(int i = 0 ; i < buffer.length ; i++) 
                     buffer2[i] = buffer[i];
                 buffer2[buffer2.length - 2] = 0x0A;

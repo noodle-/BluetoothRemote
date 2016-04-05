@@ -152,9 +152,7 @@ public class DeviceListActivity extends Activity {
 					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 					MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 		}
-
 	}
-
 
 	@Override
 	protected void onDestroy() {
@@ -175,11 +173,9 @@ public class DeviceListActivity extends Activity {
 		mToolbar.setTitle(R.string.scanning);
 
 		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for new devices
-
 		if (mBtAdapter.isDiscovering()) {
-			mBtAdapter.cancelDiscovery();   // Stop any already running discoveries because it's very resource intensive
+			mBtAdapter.cancelDiscovery();   // Stop it because it's very resource intensive
 		}
-
 		mBtAdapter.startDiscovery(); // Request discover from BluetoothAdapter
 	}
 }

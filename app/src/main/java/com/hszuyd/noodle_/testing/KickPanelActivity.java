@@ -7,13 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
 import java.util.UUID;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
@@ -77,7 +75,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_start_device_list(View v) {
-		startActivityForResult(new Intent(this, DeviceListActivity.class), REQUEST_DEVICE_ADDRESS);
+		startActivityForResult(new Intent(this, Main.class), REQUEST_DEVICE_ADDRESS);
 	}
 
 	@Override
@@ -91,12 +89,12 @@ public class KickPanelActivity extends AppCompatActivity {
 
 					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 
-					bt.setupService();
-					bt.startService(BluetoothState.DEVICE_OTHER);
-					//setup();
-					bt.connect(device);
-					bt.send("Hoiiiii!", true);
-					bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
+//					bt.setupService();
+//					bt.startService(BluetoothState.DEVICE_OTHER);
+//					//setup();
+//					bt.connect(device);
+//					bt.send("Hoiiiii!", true);
+//					bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
 
 //					Log.e(TAG, "Pairing");
 //					try {

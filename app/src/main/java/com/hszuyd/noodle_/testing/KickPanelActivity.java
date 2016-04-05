@@ -75,7 +75,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_start_device_list(View v) {
-		startActivityForResult(new Intent(this, Main.class), REQUEST_DEVICE_ADDRESS);
+		startActivityForResult(new Intent(this, DeviceListActivity.class), REQUEST_DEVICE_ADDRESS);
 	}
 
 	@Override

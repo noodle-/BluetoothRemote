@@ -44,7 +44,7 @@ public class BluetoothService {
 	private static final UUID UUID_ANDROID_DEVICE =
 			UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
 	private static final UUID UUID_OTHER_DEVICE =
-			UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+			UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 	//"8ce255c0-200a-11e0-ac64-0800200c9a66"
 	//"00001101-0000-1000-8000-00805f9b34fb" OLD
 	// Member fields
@@ -313,7 +313,6 @@ public class BluetoothService {
 			}
 			mmSocket = tmp;
 
-			//alskdjflaksjdf
 			Log.e(TAG, "Pairing");
 			try {
 				Method method = device.getClass().getMethod("createBond", (Class[]) null);
@@ -321,9 +320,6 @@ public class BluetoothService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-
-
 		}
 
 		public void run() {

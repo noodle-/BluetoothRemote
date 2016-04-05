@@ -100,8 +100,8 @@ public class KickPanelActivity extends AppCompatActivity {
 
 //					Log.e(TAG, "Pairing");
 //					try {
-//						Method method = device.getClass().getMethod("createBond", (Class[]) null);
-//						method.invoke(device, (Object[]) null);
+//						Method m = device.getClass().getMethod("createBond", (Class[]) null);
+//						m.invoke(device, (Object[]) null);
 //					} catch (Exception e) {
 //						e.printStackTrace();
 //					}

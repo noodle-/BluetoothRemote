@@ -32,10 +32,6 @@ public class BluetoothState {
 	public static final int MESSAGE_DEVICE_NAME = 4;
 	public static final int MESSAGE_TOAST = 5;
 
-	// Intent request codes
-	public static final int REQUEST_CONNECT_DEVICE = 384;
-	public static final int REQUEST_ENABLE_BT = 385;
-
 	// Key names received from the BluetoothChatService Handler
 	public static final String DEVICE_NAME = "device_name";
 	public static final String DEVICE_ADDRESS = "device_address";

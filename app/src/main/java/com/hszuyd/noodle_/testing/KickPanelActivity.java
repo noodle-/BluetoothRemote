@@ -1,12 +1,12 @@
 package com.hszuyd.noodle_.testing; // TODO change package name?
 
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,7 +75,8 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_start_device_list(View v) {
-		startActivityForResult(new Intent(this, DeviceListActivity.class), REQUEST_DEVICE_ADDRESS);
+		Intent intent = new Intent(this, DeviceListActivity.class);
+		startActivityForResult(intent, REQUEST_DEVICE_ADDRESS);
 	}
 
 	@Override
@@ -85,48 +86,65 @@ public class KickPanelActivity extends AppCompatActivity {
 				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
 					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
-					BluetoothSocket mSocket = null;
 
-					Toast.makeText(getApplicationContext(), "Device address: " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+					Log.e(TAG, "SetupService()");
+					bt.setupService();
+					startBluetoothService();
 
-//					bt.setupService();
-//					bt.startService(BluetoothState.DEVICE_OTHER);
-//					//setup();
-//					bt.connect(device);
+					Log.e(TAG, "Connecting to " + device);
+					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+					bt.connect(device);
+
 //					bt.send("Hoiiiii!", true);
 //					bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
-
-//					Log.e(TAG, "Pairing");
-//					try {
-//						Method m = device.getClass().getMethod("createBond", (Class[]) null);
-//						m.invoke(device, (Object[]) null);
-//					} catch (Exception e) {
-//						e.printStackTrace();
-//					}
-
-
+//
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-
-					//connect to device using the data we've just received !!!
-				/*				try {
-					mSocket = device.createInsecureRfcommSocketToServiceRecord (MY_UUID);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
-					mSocket.connect();
-				} catch (IOException e) {
-					try {
-						mSocket.close();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}*/
 				}
 			}
 		}
+	}
+
+	private void startBluetoothService() {
+		//For connection with android device
+		//bt.startService(BluetoothState.DEVICE_ANDROID);
+
+		//For connection with any microcontroller which communication with bluetooth serial port profile module
+		bt.startService(BluetoothState.DEVICE_OTHER);
+
+		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
+			public void onDataReceived(byte[] data, String message) {
+				Log.e(TAG, "OnDataReceivedListener ->\ndata " + data + "\nmessage " + message);
+			}
+		});
+
+		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
+			public void onDeviceConnected(String name, String address) {
+				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected" + "\nname: " + name + "\taddress " + address);
+			}
+
+			public void onDeviceDisconnected() {
+				Log.e(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
+			}
+
+			public void onDeviceConnectionFailed() {
+				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
+			}
+		});
+
+		bt.setBluetoothStateListener(new BluetoothSPP.BluetoothStateListener() {
+			public void onServiceStateChanged(int state) {
+				if (state == BluetoothState.STATE_CONNECTED) {
+					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTED");
+				} else if (state == BluetoothState.STATE_CONNECTING) {
+					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTING");
+				} else if (state == BluetoothState.STATE_LISTEN) {
+					Log.e(TAG, "BluetoothStateListener -> STATE_LISTEN");
+				} else if (state == BluetoothState.STATE_NONE) {
+					Log.e(TAG, "BluetoothStateListener -> STATE_NONE");
+				}
+			}
+		});
 	}
 }
 
@@ -144,6 +162,15 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 /* TODO Create bluetoothsocket
 BluetoothSocket MySocket = createRfcommSocketToServiceRecord(UUID); */
+
+/* TODO Try to pair using reflection method
+Log.e(TAG, "Pairing");
+try {
+	Method m = device.getClass().getMethod("createBond", (Class[]) null);
+	m.invoke(device, (Object[]) null);
+} catch (Exception e) {
+	e.printStackTrace();
+}*/
 
 /* TODO Snackbar with custom button to enable bluetooth
 private final static int REQUEST_ENABLE_BT = 1;

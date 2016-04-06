@@ -97,8 +97,10 @@ public class DeviceListActivity extends Activity {
 		Button scanButton = (Button) findViewById(R.id.button_scan);
 		scanButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				// TODO Clear current array of devices
+				mNewDevicesArrayAdapter = null;
 				doDiscovery();
-				v.setVisibility(View.GONE);
+				//v.setVisibility(View.GONE);
 			}
 		});
 
@@ -144,6 +146,7 @@ public class DeviceListActivity extends Activity {
 //		setSupportActionBar(mToolbar); TODO WHY ARE WE DOING THIS EVERYWHERE ELSE???
 		mToolbar.setTitle("Device list");
 
+		// TODO put an "if android 6.0" around this
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
 		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;

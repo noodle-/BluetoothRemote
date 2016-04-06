@@ -30,7 +30,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -312,14 +311,6 @@ public class BluetoothService {
 			} catch (IOException e) {
 			}
 			mmSocket = tmp;
-
-			Log.e(TAG, "Pairing");
-			try {
-				Method method = device.getClass().getMethod("createBond", (Class[]) null);
-				method.invoke(device, (Object[]) null);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 
 		public void run() {
@@ -335,11 +326,11 @@ public class BluetoothService {
 				// Close the socket
 				try {
 					mmSocket.close();
-					Log.e(TAG, "niks jong");
+					Log.e(TAG, "mmSocket.connect() error IOException e");
 				} catch (IOException e2) {
 				}
 				connectionFailed();
-				Log.e(TAG, "ook niks jong");
+				Log.e(TAG, "mmSocket.connect() error IOException e, now running connectionfailed()");
 				return;
 			}
 

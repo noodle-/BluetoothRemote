@@ -30,6 +30,7 @@ import java.util.Set;
  * Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
+	private static final String TAG = "DevicelistActivity";
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 
@@ -47,16 +48,18 @@ public class DeviceListActivity extends Activity {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				// If it's already paired, skip it, because it's been listed already
 				if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+					//if (Arrays.asList(mNewDevicesArrayAdapter).contains(device)) {    // Does not work. TODO find a way to check an array wether a string is present
+					//  Log.e(TAG, "Discovered duplicate device: " + device);
 					mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 				}
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) { // When discovery is finished
 //				setProgressBarIndeterminateVisibility(false);
 				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 				mToolbar.setTitle(R.string.select_device);
-				if (mNewDevicesArrayAdapter.getCount() == 0) {  // Show none_found if no devices are found
-					String noDevices = getResources().getText(R.string.none_found).toString();
-					mNewDevicesArrayAdapter.add(noDevices);
-				}
+//				if (mNewDevicesArrayAdapter.getCount() == 0) {  // Show none_found if no devices are found
+//					String noDevices = getResources().getText(R.string.none_found).toString();
+//					mNewDevicesArrayAdapter.add(noDevices);
+//				}
 			}
 		}
 	};
@@ -78,7 +81,8 @@ public class DeviceListActivity extends Activity {
 			data.putExtra("EXTRA_DEVICE_ADDRESS", address);
 
 			// Set result and finish(=close?) this Activity
-			setResult(RESULT_OK, data);
+			setResult(Activity.RESULT_OK, data);
+			//setResult(RESULT_OK, data);   TODO Which one do we need?
 			finish();
 		}
 	};
@@ -98,7 +102,7 @@ public class DeviceListActivity extends Activity {
 		scanButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				doDiscovery();
-				v.setVisibility(View.GONE);
+				//v.setVisibility(View.GONE);
 			}
 		});
 
@@ -144,6 +148,7 @@ public class DeviceListActivity extends Activity {
 //		setSupportActionBar(mToolbar); TODO WHY ARE WE DOING THIS EVERYWHERE ELSE???
 		mToolbar.setTitle("Device list");
 
+		// TODO we should probably put an "if android 6.0" around this
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
 		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
@@ -152,9 +157,7 @@ public class DeviceListActivity extends Activity {
 					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
 					MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 		}
-
 	}
-
 
 	@Override
 	protected void onDestroy() {
@@ -169,17 +172,16 @@ public class DeviceListActivity extends Activity {
 
 	private void doDiscovery() {
 		setProgressBarIndeterminateVisibility(true);    // TODO no idea what this does
+		mNewDevicesArrayAdapter.clear();
 
 		// Indicate scanning in the title
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		mToolbar.setTitle(R.string.scanning);
 
 		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for new devices
-
 		if (mBtAdapter.isDiscovering()) {
-			mBtAdapter.cancelDiscovery();   // Stop any already running discoveries because it's very resource intensive
+			mBtAdapter.cancelDiscovery();   // Stop it because it's very resource intensive
 		}
-
 		mBtAdapter.startDiscovery(); // Request discover from BluetoothAdapter
 	}
 }

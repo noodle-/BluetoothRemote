@@ -1,9 +1,9 @@
 <resources>
-	<string name="app_name">Remote</string>
-	<string name="welcome">Please stand by&#8230;</string>
-	<string name="button_bt_check">Check Bluetooth</string>
+	<string name="app_name">BluetoothRemote</string>
+	<string name="welcome">Choose one of the buttons below&#8230;\n</string>
+	<string name="button_bt_check">Show a toast and send something through bluetooth</string>
+	<string name="button_bt_disable">Show a snackbar</string>
 	<string name="button_search">Make discoverable</string>
-	<string name="button_bt_disable">Disable Bluetooth</string>
 	<string name="button_device_list">Device list</string>
 	<string name="button_random_math_test">Random Number</string>
 	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>

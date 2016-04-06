@@ -12,20 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.UUID;
-
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";
-	private static final UUID MY_UUID = UUID.fromString("0000110E-0000-1000-8000-00805F9B34FB");
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
-	// Inflate the menu; this adds items to the action bar if it is present.
 	MenuItem mDynamicMenuIcon;
 
-	// Draw all stuff when loading the activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,12 +60,13 @@ public class KickPanelActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);   // Why?
 	}
 
-
-	public void button_test_A(View v) {
+	public void button_click_kickpanel_A(View v) {
 		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
+		bt.send("Hoiiiii!", true);
+		//bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
 	}
 
-	public void button_test_B(View v) {
+	public void button_click_kickpanel_B(View v) {
 		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
 	}
 
@@ -83,7 +79,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
-				Log.e(TAG, "This is the data: " + data);    // TODO Figure out what is happening here, and why we can't simply use b.connect(data)
 				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
 					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
@@ -95,10 +90,6 @@ public class KickPanelActivity extends AppCompatActivity {
 					Log.e(TAG, "Connecting to " + device);
 					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 					bt.connect(device);
-
-//					bt.send("Hoiiiii!", true);
-//					bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false);
-//
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 				}
@@ -108,10 +99,10 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	private void startBluetoothService() {
 		//For connection with android device
-		//bt.startService(BluetoothState.DEVICE_ANDROID);
-
-		//For connection with any microcontroller which communication with bluetooth serial port profile module
-		bt.startService(BluetoothState.DEVICE_OTHER);
+		bt.startService(BluetoothState.DEVICE_ANDROID);
+		// TODO Find a way to do this automatically
+		//For connection with any micro-controller which communication with bluetooth serial port profile module
+		//bt.startService(BluetoothState.DEVICE_OTHER);
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {

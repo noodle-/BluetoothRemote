@@ -35,17 +35,14 @@ import java.util.UUID;
 
 @SuppressLint("NewApi")
 public class BluetoothService {
-	// Debugging
-	private static final String TAG = "Bluetooth Service";
-	// Name for the SDP record when creating server socket
-	private static final String NAME_SECURE = "Bluetooth Secure";
+	private static final String TAG = "Bluetooth Service";              // Debugging
+
+	private static final String NAME_SECURE = "Bluetooth Secure";    // Name for the SDP record when creating server socket
+
 	// Unique UUID for this application
-	private static final UUID UUID_ANDROID_DEVICE =
-			UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
-	private static final UUID UUID_OTHER_DEVICE =
-			UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-	//"8ce255c0-200a-11e0-ac64-0800200c9a66"
-	//"00001101-0000-1000-8000-00805f9b34fb" OLD
+	private static final UUID UUID_ANDROID_DEVICE = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+	private static final UUID UUID_OTHER_DEVICE = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+
 	// Member fields
 	private final BluetoothAdapter mAdapter;
 	private final Handler mHandler;

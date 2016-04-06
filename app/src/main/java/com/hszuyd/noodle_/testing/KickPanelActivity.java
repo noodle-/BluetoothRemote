@@ -63,8 +63,12 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	public void button_click_kickpanel_A(View v) {
 		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
-		bt.send("Hoiiiii!", true);
-		//bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
+		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
+			bt.send("Hoiiiii!", true);
+			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
+		} else {
+			Toast.makeText(this, "This is not a Toast", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public void button_click_kickpanel_B(View v) {

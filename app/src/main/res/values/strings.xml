@@ -1,17 +1,26 @@
 <resources>
 	<string name="app_name">BluetoothRemote</string>
+
+	<!--  Toolbar -->
+	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>
+
+	<!--  MainActivity -->
+	<string name="title_activity_main">Remote</string>
+
+	<!--  LoginActivity -->
+	<string name="title_activity_login_screen">Remote</string>
+
+	<!--  KickPanelActivity -->
+	<string name="title_activity_kickpanel">KickPanel Remote</string>
 	<string name="welcome">Choose one of the buttons below&#8230;\n</string>
 	<string name="button_bt_check">Show a toast and send something through bluetooth</string>
 	<string name="button_bt_disable">Show a snackbar</string>
-	<string name="button_search">Make discoverable</string>
 	<string name="button_device_list">Device list</string>
-	<string name="button_random_math_test">Random Number</string>
-	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>
-	<string name="title_activity_main">Remote</string>
+
+	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>
-	<string name="title_activity_kickpanel">KickPanel Remote</string>
-	<string name="title_activity_login_screen">Remote</string>
-	<string name="title_activity_bluetooth">Bluetooth</string>
+	<string name="button_random_math_test">Random Number</string>
+
 	<!--  DeviceListActivity -->
 	<string name="title_activity_device_list">Device list</string>
 	<string name="scanning">Scanning for devices&#8230;</string>

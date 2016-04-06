@@ -27,8 +27,7 @@
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="35dp"
 		android:onClick="button_click_kickpanel_A"
-		android:text="@string/button_bt_check"
-		android:textColor="#FFFFFF"/>
+		android:text="@string/button_bt_check"/>
 
 	<Button
 		android:id="@+id/button_kickpanel_B"
@@ -40,8 +39,7 @@
 		android:layout_marginRight="35dip"
 		android:layout_marginTop="10dp"
 		android:onClick="button_click_kickpanel_B"
-		android:text="@string/button_bt_disable"
-		android:textColor="#FFFFFF"/>
+		android:text="@string/button_bt_disable"/>
 
 	<Button
 		android:id="@+id/button_device_list"

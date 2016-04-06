@@ -83,6 +83,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
+				Log.e(TAG, "This is the data: " + data);    // TODO Figure out what is happening here, and why we can't simply use b.connect(data)
 				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
 					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");

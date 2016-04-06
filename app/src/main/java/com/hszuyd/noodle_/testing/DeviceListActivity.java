@@ -30,6 +30,7 @@ import java.util.Set;
  * Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
+	private static final String TAG = "DevicelistActivity";
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
 
@@ -47,9 +48,10 @@ public class DeviceListActivity extends Activity {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 				// If it's already paired, skip it, because it's been listed already
 				if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+					//if (Arrays.asList(mNewDevicesArrayAdapter).contains(device)) {    // Does not work. TODO find a way to check an array wether a string is present
+					//  Log.e(TAG, "Discovered duplicate device: " + device);
 					mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 				}
-				// TODO add check if device in mNewDevicesArrayAdapter already to avoid duplicates
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) { // When discovery is finished
 //				setProgressBarIndeterminateVisibility(false);
 				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);

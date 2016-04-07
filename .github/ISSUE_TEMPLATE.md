@@ -1,5 +1,12 @@
-# Specifications like the version of the project, operating system, or hardware.
+Hardware:
+OS:
+Branch/Commit:
 
-# Expected behavior and actual behavior.
+What you did:
+What happened:
+What you expected:
 
-# Steps to reproduce the problem.
+Logs:
+```
+PASTE LOGS HERE
+```

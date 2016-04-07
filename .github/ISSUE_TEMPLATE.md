@@ -1,12 +1,12 @@
-Hardware:
-OS:
-Branch/Commit:
+**Hardware:**  
+**OS:**  
+**Branch/Commit:**  
 
-What you did:
-What happened:
-What you expected:
+**What you did:**  
+**What happened:**  
+**What you expected:**  
 
-Logs:
+**Logs:**  
 ```
 PASTE LOGS HERE
 ```

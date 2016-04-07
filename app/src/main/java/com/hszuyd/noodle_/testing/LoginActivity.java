@@ -19,12 +19,12 @@ public class LoginActivity extends AppCompatActivity {
 		EditText text = (EditText) findViewById(R.id.editText);
 		String name = text.getText().toString().trim(); // Remove trailing spaces
 
-		checkBluetooth();
-		if (checkName(name)) {  // TODO Remove this when not testing.
-			Intent intent = new Intent(getBaseContext(), MainActivity.class);
-			intent.putExtra("NAME_PLAYER", name);
-			startActivity(intent);
-		}
+//		if (checkName(name)) {                          // TODO Remove this when not testing.
+		// Start MainActivity and give it "name" through an intent
+		Intent intent = new Intent(getBaseContext(), MainActivity.class);
+		intent.putExtra("NAME_PLAYER", name);
+		startActivity(intent);
+//		}
 	}
 
 	@Override
@@ -33,9 +33,13 @@ public class LoginActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_login_screen);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
+		checkBluetooth();
 	}
 
-	// Show different dialogs based on Bluetooth adapter status, show none if there's a bluetooth adapter and it's enabled
+	/**
+	 * Show different dialogs based on Bluetooth adapter availability, show none if there's a bluetooth adapter and it's enabled
+	 */
 	private void checkBluetooth() {
 		if (BTAdapter == null) {
 			new AlertDialog.Builder(this)
@@ -77,7 +81,9 @@ public class LoginActivity extends AppCompatActivity {
 		}
 	}
 
-	// Check whether the user has entered a name. Not entering a name could cause problems later on.
+	/**
+	 * Check whether the user has entered a name. Show a dialog if he has not.
+	 */
 	private boolean checkName(String name) {
 		if (Objects.equals(name, "")) {
 			new AlertDialog.Builder(this)

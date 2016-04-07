@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothService;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
@@ -72,6 +73,9 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void button_click_kickpanel_B(View v) {
+		Log.e(TAG, "SetupService()");
+		bt.setupService();
+		startBluetoothService();
 		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
 	}
 

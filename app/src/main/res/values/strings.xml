@@ -13,8 +13,8 @@
 	<!--  KickPanelActivity -->
 	<string name="title_activity_kickpanel">KickPanel Remote</string>
 	<string name="welcome">Choose one of the buttons below&#8230;\n</string>
-	<string name="button_bt_check">Show a toast and send something through bluetooth</string>
-	<string name="button_bt_disable">Show a snackbar</string>
+	<string name="button_bt_check">Send \'hello!\'</string>
+	<string name="button_bt_disable">Listen to Bluetooth</string>
 	<string name="button_device_list">Device list</string>
 
 	<!--  TribotActivity -->

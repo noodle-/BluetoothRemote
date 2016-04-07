@@ -10,7 +10,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.Objects;
+
 public class LoginScreen extends AppCompatActivity {
+	final BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
+
+	public void button_Start_App_OnClick(View view) {
+		EditText text = (EditText) findViewById(R.id.editText);
+		String name = text.getText().toString().trim(); // Remove trailing spaces
+
+		checkBluetooth();
+		if (checkName(name)) {  // TODO Remove this when not testing.
+			Intent intent = new Intent(getBaseContext(), MainActivity.class);
+			intent.putExtra("NAME_PLAYER", name);
+			startActivity(intent);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +33,10 @@ public class LoginScreen extends AppCompatActivity {
 		setContentView(R.layout.activity_login_screen);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+	}
 
-		final BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
-
-		// Show different dialogs based on Bluetooth adapter status, show none if there's a bluetooth adapter and it's enabled
+	// Show different dialogs based on Bluetooth adapter status, show none if there's a bluetooth adapter and it's enabled
+	public void checkBluetooth() {
 		if (BTAdapter == null) {
 			new AlertDialog.Builder(this)
 					.setTitle("Warning")
@@ -62,12 +77,9 @@ public class LoginScreen extends AppCompatActivity {
 		}
 	}
 
-	public void button_Start_App_OnClick(View view) {
-		EditText text = (EditText) findViewById(R.id.editText);
-		String name = text.getText().toString().trim(); // Remove trailing spaces
-
-		// Check whether the user has entered a name. Not entering a name could cause problems later on. // TODO Remove this when not testing.
-		/*if (Objects.equals(name, "")) {
+	// Check whether the user has entered a name. Not entering a name could cause problems later on.
+	public boolean checkName(String name) {
+		if (Objects.equals(name, "")) {
 			new AlertDialog.Builder(this)
 					.setTitle("Invalid name")
 					.setMessage("Please insert your name.")
@@ -81,10 +93,11 @@ public class LoginScreen extends AppCompatActivity {
 							})
 					.setIcon(R.drawable.ic_warning)
 					.show();
+			return
+					false;
 		} else { // User has entered a valid name, so we're sending his name to the next activity */
-		Intent intent = new Intent(getBaseContext(), MainActivity.class);
-		intent.putExtra("NAME_PLAYER", name);
-		startActivity(intent);
-		//}
+			return
+					true;
+		}
 	}
 }

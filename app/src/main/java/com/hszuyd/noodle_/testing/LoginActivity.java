@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 import java.util.Objects;
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 	final BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
 
 	public void button_Start_App_OnClick(View view) {

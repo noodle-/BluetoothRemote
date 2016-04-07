@@ -13,7 +13,7 @@
 		android:supportsRtl="false"
 		android:theme="@style/AppTheme">
 		<activity
-			android:name=".LoginScreen"
+			android:name=".LoginActivity"
 			android:label="@string/title_activity_login_screen"
 			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>

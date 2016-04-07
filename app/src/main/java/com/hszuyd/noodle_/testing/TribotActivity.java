@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +19,17 @@ import app.akexorcist.bluetotohspp.library.BluetoothState;
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-	BluetoothSPP bt = new BluetoothSPP(TribotActivity.this);
+	private BluetoothSPP bt = new BluetoothSPP(TribotActivity.this);
 	private TextView textView;
-	MenuItem mDynamicMenuIcon;
-
+	private MenuItem mDynamicMenuIcon;
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tribot);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		textView = (TextView) findViewById(R.id.textView2);
+		textView = (TextView) findViewById(R.id.TV_MAC_address);
 		Intent iin = getIntent();
 		Bundle b = iin.getExtras();
 
@@ -64,7 +65,7 @@ public class TribotActivity extends AppCompatActivity {
 	}
 
 	public void button_Random_Math_Number(View v) {
-		textView = (TextView) findViewById(R.id.textView);
+		textView = (TextView) findViewById(R.id.TV_random_number);
 		String rndmstring = String.valueOf(Math.random());
 		textView.setText(rndmstring);
 	}
@@ -77,7 +78,7 @@ public class TribotActivity extends AppCompatActivity {
 					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
 
-					textView = (TextView) findViewById(R.id.textView2);
+					textView = (TextView) findViewById(R.id.TV_MAC_address);
 					textView.setText("Device address: " + device);// Make sure the request was successful
 
 					Log.e(TAG, "SetupService()");
@@ -95,9 +96,10 @@ public class TribotActivity extends AppCompatActivity {
 	}
 
 	private void startBluetoothService() {
-		//For connection with android device
-		bt.startService(BluetoothState.DEVICE_ANDROID);
 		// TODO Find a way to do this automatically
+		// For connection with android device
+		bt.startService(BluetoothState.DEVICE_ANDROID);
+
 		//For connection with any micro-controller which communication with bluetooth serial port profile module
 		//bt.startService(BluetoothState.DEVICE_OTHER);
 
@@ -111,11 +113,9 @@ public class TribotActivity extends AppCompatActivity {
 			public void onDeviceConnected(String name, String address) {
 				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected" + "\nname: " + name + "\taddress " + address);
 			}
-
 			public void onDeviceDisconnected() {
 				Log.e(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
 			}
-
 			public void onDeviceConnectionFailed() {
 				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
 			}

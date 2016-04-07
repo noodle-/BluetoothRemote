@@ -15,38 +15,36 @@
 
 
 	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/button_random_math_test"
 		android:id="@+id/bt_random_math_test"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:onClick="button_Random_Math_Number"
-		android:layout_marginTop="51dp"/>
+		android:text="@string/button_random_math_test"/>
 
 	<TextView
+		android:id="@+id/TV_random_number"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="New Text"
-		android:id="@+id/textView"
 		android:layout_below="@+id/bt_random_math_test"
-		android:layout_centerHorizontal="true"/>
+		android:layout_centerHorizontal="true"
+		android:text="@string/TV_random_number"/>
 
 	<Button
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/title_activity_device_list"
 		android:id="@+id/button_device_list"
-		android:layout_below="@+id/textView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
 		android:onClick="button_start_device_list"
-		android:layout_marginTop="53dp"/>
+		android:text="@string/button_device_list"/>
 
 	<TextView
+		android:id="@+id/TV_MAC_address"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="New Text"
-		android:id="@+id/textView2"
-		android:layout_below="@+id/button_device_list"
-		android:layout_centerHorizontal="true"/>
+		android:layout_above="@id/button_device_list"
+		android:layout_centerHorizontal="true"
+		android:text="@string/TV_MAC_address"/>
 </RelativeLayout>

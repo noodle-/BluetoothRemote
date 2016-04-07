@@ -1,25 +1,30 @@
 <resources>
-	<string name="app_name">BluetoothRemote</string>
+	<!--  App Name -->
+	<string name="app_name">Bluetooth Remote</string>
 
 	<!--  Toolbar -->
-	<string name="tb_bluetooth">Turn Bluetooth On/Off</string>
+	<string name="tb_action_thumb">Thumb up / Thumb down</string>
 
 	<!--  MainActivity -->
-	<string name="title_activity_main">Remote</string>
+	<string name="title_activity_main">Bluetooth Remote</string>
 
 	<!--  LoginActivity -->
-	<string name="title_activity_login_screen">Remote</string>
+	<string name="title_activity_login_screen">Bluetooth Remote</string>
+
+	<!--  Kickpanel & Tribot -->
+	<string name="button_device_list">Select a device to connect with</string>
 
 	<!--  KickPanelActivity -->
 	<string name="title_activity_kickpanel">KickPanel Remote</string>
 	<string name="welcome">Choose one of the buttons below&#8230;\n</string>
-	<string name="button_bt_check">Send \'hello!\'</string>
+	<string name="button_bt_check">Send \'Hello!\'</string>
 	<string name="button_bt_disable">Listen to Bluetooth</string>
-	<string name="button_device_list">Device list</string>
 
 	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>
-	<string name="button_random_math_test">Random Number</string>
+	<string name="button_random_math_test">Generate a Random Number</string>
+	<string name="TV_random_number">Random Number</string>
+	<string name="TV_MAC_address">The MAC address of the connected device</string>
 
 	<!--  DeviceListActivity -->
 	<string name="title_activity_device_list">Device list</string>

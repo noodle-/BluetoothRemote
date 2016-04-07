@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	// Show different dialogs based on Bluetooth adapter status, show none if there's a bluetooth adapter and it's enabled
-	public void checkBluetooth() {
+	private void checkBluetooth() {
 		if (BTAdapter == null) {
 			new AlertDialog.Builder(this)
 					.setTitle("Warning")
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 	}
 
 	// Check whether the user has entered a name. Not entering a name could cause problems later on.
-	public boolean checkName(String name) {
+	private boolean checkName(String name) {
 		if (Objects.equals(name, "")) {
 			new AlertDialog.Builder(this)
 					.setTitle("Invalid name")
@@ -93,11 +93,9 @@ public class LoginActivity extends AppCompatActivity {
 							})
 					.setIcon(R.drawable.ic_warning)
 					.show();
-			return
-					false;
-		} else { // User has entered a valid name, so we're sending his name to the next activity */
-			return
-					true;
+			return false;
+		} else {
+			return true;    // User has entered a valid name, so we're sending his name to the next activity
 		}
 	}
 }

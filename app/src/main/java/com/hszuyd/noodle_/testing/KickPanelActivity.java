@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
-import app.akexorcist.bluetotohspp.library.BluetoothService;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
@@ -115,13 +114,17 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener ->\ndata " + data + "\nmessage " + message);
+				Log.e(TAG, "OnDataReceivedListener ->"
+						+ "\ndata " + data
+						+ "\nmessage " + message);
 			}
 		});
 
 		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
 			public void onDeviceConnected(String name, String address) {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected" + "\nname: " + name + "\taddress " + address);
+				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected"
+						+ "\nname: " + name
+						+ "\taddress " + address);
 			}
 
 			public void onDeviceDisconnected() {

@@ -67,7 +67,7 @@ public class KickPanelActivity extends AppCompatActivity {
 			bt.send("Hoiiiii!", true);
 			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
 		} else {
-			Toast.makeText(this, "This is not a Toast", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "Start Bluetooth service first!", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -75,7 +75,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		Log.e(TAG, "SetupService()");
 		bt.setupService();
 		startBluetoothService();
-		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
+		Snackbar.make(v, "Bluetooth service started and listening", Snackbar.LENGTH_LONG).show();
 	}
 
 	public void button_start_device_list(View v) {

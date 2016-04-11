@@ -107,10 +107,10 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	private void startBluetoothService() {
 		//For connection with android device
-		bt.startService(BluetoothState.DEVICE_ANDROID);
+		///bt.startService(BluetoothState.DEVICE_ANDROID);
 		// TODO Find a way to do this automatically
 		//For connection with any micro-controller which communication with bluetooth serial port profile module
-		//bt.startService(BluetoothState.DEVICE_OTHER);
+		bt.startService(BluetoothState.DEVICE_OTHER);
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {

@@ -8,21 +8,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import app.akexorcist.bluetotohspp.library.BluetoothSPP;
-import app.akexorcist.bluetotohspp.library.BluetoothState;
+import app.akexorcist.bluetoothspp.library.BluetoothSPP;
+import app.akexorcist.bluetoothspp.library.BluetoothState;
 
 
 public class TribotActivity extends AppCompatActivity {
-	private static final String TAG = "KickPanelActivity";
+	private static final String TAG = "TriBotActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	private BluetoothSPP bt = new BluetoothSPP(TribotActivity.this);
 	private TextView textView;
 	private MenuItem mDynamicMenuIcon;
-	
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tribot);

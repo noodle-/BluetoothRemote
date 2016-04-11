@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import app.akexorcist.bluetotohspp.library.BluetoothSPP;
-import app.akexorcist.bluetotohspp.library.BluetoothState;
+import app.akexorcist.bluetoothspp.library.BluetoothSPP;
+import app.akexorcist.bluetoothspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";

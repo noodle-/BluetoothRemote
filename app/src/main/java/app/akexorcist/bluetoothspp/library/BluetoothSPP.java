@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package app.akexorcist.bluetotohspp.library;
+package app.akexorcist.bluetoothspp.library;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;

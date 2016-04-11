@@ -15,7 +15,7 @@
  */
 
 
-package app.akexorcist.bluetotohspp.library;
+package app.akexorcist.bluetoothspp.library;
 
 public class BluetoothState {
 	// Constants that indicate the current connection state

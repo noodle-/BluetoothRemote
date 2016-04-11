@@ -30,14 +30,14 @@ public class KickPanelActivity extends AppCompatActivity {
 		setSupportActionBar(mToolbar);
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				// TODO Replace this with something useful
-				Snackbar.make(view, "This is an example", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
-			}
-		});
+		if (fab != null)
+			fab.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Snackbar.make(view, "This is an example", Snackbar.LENGTH_LONG)
+							.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
+				}
+			});
 	}
 
 	@Override

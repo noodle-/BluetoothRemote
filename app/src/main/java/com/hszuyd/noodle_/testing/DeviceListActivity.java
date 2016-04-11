@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +29,7 @@ import java.util.Set;
  * is sent back to the parent Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
+	private static final int REQUEST_ACCESS_COARSE_LOCATION = 1;
 	private static final String TAG = "DevicelistActivity";         // TAG for debug messages
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
@@ -141,11 +143,13 @@ public class DeviceListActivity extends Activity {
 
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-			ActivityCompat.requestPermissions(this,
-					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-					MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+		if (Build.VERSION.SDK_INT >= 23) {  // Only ask for these permissions on runtime when running Android 6.0 or higher
+			// TODO Add popup explaining why we need ACCES_COARSE_LOCATION
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				ActivityCompat.requestPermissions(this,
+						new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+						REQUEST_ACCESS_COARSE_LOCATION);
+			}
 		}
 	}
 

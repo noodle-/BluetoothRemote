@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import app.akexorcist.bluetoothspp.library.BluetoothSPP;
 import app.akexorcist.bluetoothspp.library.BluetoothState;
@@ -19,6 +18,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
+	General g = new General(KickPanelActivity.this);
 	MenuItem mDynamicMenuIcon;
 
 	@Override
@@ -34,10 +34,20 @@ public class KickPanelActivity extends AppCompatActivity {
 			fab.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					Snackbar.make(view, "This is an example", Snackbar.LENGTH_LONG)
-							.setAction("Action", null).show(); //Action that should be run when the snackbar is pressed
+					Snackbar.make(view, "This is a snackbar!", Snackbar.LENGTH_LONG)
+							.setAction("SHOW TOAST", new View.OnClickListener() {
+								@Override
+								public void onClick(View v) {
+									g.showToast("This is a Toast!");
+								}
+							}).show();
 				}
 			});
+	}
+
+	protected void onResume() {
+		super.onResume();
+		g.checkBluetooth();
 	}
 
 	@Override
@@ -61,21 +71,21 @@ public class KickPanelActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);   // Why?
 	}
 
-	public void button_click_kickpanel_A(View v) {
-		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
+	public void button_click_kickpanel_A(View view) {
 		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
 			bt.send("Hoiiiii!", true);
 			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
+			g.showToast("Sent some hardcoded stuff");
 		} else {
-			Toast.makeText(this, "Start Bluetooth service first!", Toast.LENGTH_SHORT).show();
+			g.showToast("Start Bluetooth service first!");
 		}
 	}
 
-	public void button_click_kickpanel_B(View v) {
+	public void button_click_kickpanel_B(View view) {
 		Log.e(TAG, "SetupService()");
 		bt.setupService();
 		startBluetoothService();
-		Snackbar.make(v, "Bluetooth service started and listening", Snackbar.LENGTH_LONG).show();
+		g.showToast("Bluetooth service started and listening");
 	}
 
 	public void button_start_device_list(View v) {
@@ -91,15 +101,13 @@ public class KickPanelActivity extends AppCompatActivity {
 					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
 
-					Log.e(TAG, "SetupService()");
 					bt.setupService();
 					startBluetoothService();
 
 					Log.e(TAG, "Connecting to " + device);
-					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-					bt.connect(device);
+					g.showToast("Connecting to " + device); //TODO Remove this when we've successfully sent through the address
 				} else {
-					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+					Log.e(TAG, "Failed to get MAC address from ?");
 				}
 			}
 		}
@@ -151,64 +159,3 @@ public class KickPanelActivity extends AppCompatActivity {
 		});
 	}
 }
-
-/* TODO I think I don't need this..
-@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-	// Handle action bar item clicks here. The action bar will automatically handle clicks on the Home/Up button, so long as you specify a parent activity in AndroidManifest.xml.
-	int id = item.getItemId();
-	//noinspection SimplifiableIfStatement
-	if (id == R.id.action_settings) {
-		return true;
-	}
-	return super.onOptionsItemSelected(item);
-}   */
-
-/* TODO Create bluetoothsocket
-BluetoothSocket MySocket = createRfcommSocketToServiceRecord(UUID); */
-
-/* TODO Try to pair using reflection method
-Log.e(TAG, "Pairing");
-try {
-	Method m = device.getClass().getMethod("createBond", (Class[]) null);
-	m.invoke(device, (Object[]) null);
-} catch (Exception e) {
-	e.printStackTrace();
-}*/
-
-/* TODO Snackbar with custom button to enable bluetooth
-private final static int REQUEST_ENABLE_BT = 1;
-Snackbar.make(v,"Bluetooth is currently disabled",Snackbar.LENGTH_LONG)
-		.setAction("ENABLE BLUETOOTH",new View.OnClickListener(){
-		@Override
-		public void onClick(View v){
-			Snackbar.make(v,"Enabling bluetooth",Snackbar.LENGTH_LONG).show();
-			Intent enableBtIntent=new Intent(that,KickPanelActivity.class);
-			startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
-			mBluetoothAdapter.enable();
-		}
-	}).show();  */
-
-/* TODO Snackbar, from another view else
-Snackbar.make(this.findViewById(android.R.id.content), "This is a Snackbar", Snackbar.LENGTH_LONG).show(); // Snackbar which can be called from the toolbar */
-
-/* TODO Enable bluetooth with intent
-private final static int REQUEST_ENABLE_BT = 1;
-Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-startActivityForResult(enableIntent, REQUEST_ENABLE_BT);    */
-
-/* TODO Enable bluetooth
-mBluetoothAdapter.enable(); */
-
-/* TODO Make discoverable with intent
-public void bt_Search(View v){
-	if (mBluetoothAdapter == null) {
-		Snackbar.make(v, "Device does not support Bluetooth", Snackbar.LENGTH_LONG).show();
-	} else {
-		// Making this device discoverable through Bluetooth for 300 seconds, this automatically enables bluetooth.
-		Intent discoverableIntent = new
-				Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-		discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-		startActivity(discoverableIntent);
-	}
-}   */

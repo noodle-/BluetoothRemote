@@ -1,7 +1,6 @@
 package com.hszuyd.noodle_.testing;
 
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,20 @@ import android.widget.EditText;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
-	final BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
+	General g = new General(LoginActivity.this);
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_login_screen);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+	}
+
+	protected void onResume() {
+		super.onResume();
+		g.checkBluetooth();
+	}
 
 	public void button_Start_App_OnClick(View view) {
 		EditText text = (EditText) findViewById(R.id.editText);
@@ -25,60 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 //		}
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login_screen);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-
-		checkBluetooth();
-	}
-
-	/**
-	 * Show different dialogs based on Bluetooth adapter availability, show none if there's a bluetooth adapter and it's enabled
-	 */
-	private void checkBluetooth() {
-		if (BTAdapter == null) {
-			new AlertDialog.Builder(this)
-					.setTitle("Warning")
-					.setMessage("Bluetooth adapter not found. \n" +
-							"\n" +
-							"Please run this app on a different device instead.")
-					.setPositiveButton(
-							"Exit",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									System.exit(0);
-								}
-							})
-					.setIcon(R.drawable.ic_warning)
-					.show();
-		} else if (!BTAdapter.isEnabled()) {
-			new AlertDialog.Builder(this)
-					.setTitle("Warning")
-					.setMessage("Bluetooth is currently disabled. \n" +
-							"\n" +
-							"Please click 'Enable Bluetooth' to continue using this app")
-					.setPositiveButton(
-							"Enable Bluetooth",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									BTAdapter.enable();
-								}
-							}
-					)
-					.setNegativeButton("Exit",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-									System.exit(0);
-								}
-							})
-					.setIcon(R.drawable.ic_warning)
-					.show();
-		}
 	}
 
 	/**

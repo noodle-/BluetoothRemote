@@ -25,11 +25,11 @@ import android.widget.TextView;
 import java.util.Set;
 
 /**
- * This Activity appears as a dialog. It lists any paired devices and devices detected in the area after discovery. When a device is chosen  by the user, the MAC address of the device
+ * This Activity appears as a dialog. It lists any paired devices and devices detected in the area after discovery. When a device is chosen by the user, the MAC address of the device
  * is sent back to the parent Activity in the result Intent.
  */
 public class DeviceListActivity extends Activity {
-	private static final int REQUEST_ACCESS_COARSE_LOCATION = 1;
+	private static final int REQUEST_ACCESS_COARSE_LOCATION = 1;    // Request code for ACCESS_COARSE_LOCATION permission
 	private static final String TAG = "DevicelistActivity";         // TAG for debug messages
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
@@ -45,7 +45,7 @@ public class DeviceListActivity extends Activity {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);   // Get the BluetoothDevice object from the Intent
 				if (device.getBondState() != BluetoothDevice.BOND_BONDED) {                         // If it's already paired, skip it, because it's been listed already
 					//if (Arrays.asList(mNewDevicesArrayAdapter).contains(device)) {                // Does not work because it's an array of strings, not an array of values.
-					//  Log.e(TAG, "Discovered duplicate device: " + device);                       // TODO find a way to check an array wether a string is present
+					//  Log.e(TAG, "Discovered duplicate device: " + device);                       // TODO find a way to check an array whether a string is present
 					mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 				}
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {                 // When discovery is finished
@@ -165,7 +165,7 @@ public class DeviceListActivity extends Activity {
 	}
 
 	private void doDiscovery() {
-		//setProgressBarIndeterminateVisibility(true);    // TODO ?
+		setProgressBarIndeterminateVisibility(true);    // TODO ?
 		mNewDevicesArrayAdapter.clear();
 
 		// Indicate scanning in the title

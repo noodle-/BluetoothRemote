@@ -1,5 +1,8 @@
 package com.hszuyd.noodle_.testing;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,20 +10,37 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import app.akexorcist.bluetoothspp.library.BluetoothSPP;
-import app.akexorcist.bluetoothspp.library.BluetoothState;
+import java.io.Console;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+//import app.akexorcist.bluetoothspp.library.BluetoothSPP;
+//import app.akexorcist.bluetoothspp.library.BluetoothState;
 
 
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "TriBotActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-	private BluetoothSPP bt = new BluetoothSPP(TribotActivity.this);
 	private TextView textView;
 	private MenuItem mDynamicMenuIcon;
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private BluetoothDevice device = null;
+	private Connect connectThisShit;
+
+
+	// Message types sent from the BluetoothReadService Handler
+	public static final int MESSAGE_STATE_CHANGE = 1;
+	public static final int MESSAGE_READ = 2;
+	public static final int MESSAGE_WRITE = 3;
+	public static final int MESSAGE_DEVICE_NAME = 4;
+	public static final int MESSAGE_TOAST = 5;
+	public static final String DEVICE_NAME = "device_name";
+	public static final String TOAST = "toast";
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,6 +55,14 @@ public class TribotActivity extends AppCompatActivity {
 		if (b != null) {
 			String device_Address = (String) b.get("EXTRA_DEVICE_ADDRESS");
 			textView.setText("Device: " + device_Address);
+		}
+
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null) {
+			Log.e(TAG, "onCreate: BluetoothAdapter is null");
+			finish();
+		} else {
+			Log.e(TAG, "onCreate: " + mBluetoothAdapter.toString());
 		}
 	}
 
@@ -73,65 +101,44 @@ public class TribotActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
-				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
-					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
-					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
+				// Get the device MAC address
+				String address = data.getExtras().getString("EXTRA_DEVICE_ADDRESS");
 
-					textView = (TextView) findViewById(R.id.TV_MAC_address);
-					textView.setText("Device address: " + device);// Make sure the request was successful
+				// Get the BLuetoothDevice object
+				device = mBluetoothAdapter.getRemoteDevice(address);
+				Log.e(TAG, "onActivityResult: " + device.toString());
+				//createRfcommSocket(device);
 
-					Log.e(TAG, "SetupService()");
-					bt.setupService();
-					startBluetoothService();
+				connectThisShit = new Connect();
+				connectThisShit.connect(device);
 
-					Log.e(TAG, "Connecting to " + device);
-					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-					bt.connect(device);
-				} else {
-					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-				}
+				textView = (TextView) findViewById(R.id.TV_MAC_address);
+				textView.setText("Device address: " + address);// Make sure the request was successful
 			}
 		}
 	}
 
-	private void startBluetoothService() {
-		// TODO Find a way to do this automatically
-		// For connection with android device
-		bt.startService(BluetoothState.DEVICE_ANDROID);
+	public static BluetoothSocket createRfcommSocket(BluetoothDevice device) {
+		BluetoothSocket tmp = null;
+		try {
+			Class class1 = device.getClass();
+			Class aclass[] = new Class[1];
+			aclass[0] = Integer.TYPE;
+			Method method = class1.getMethod("createRfcommSocket", aclass);
+			Object aobj[] = new Object[1];
+			aobj[0] = Integer.valueOf(1);
 
-		//For connection with any micro-controller which communication with bluetooth serial port profile module
-		//bt.startService(BluetoothState.DEVICE_OTHER);
-
-		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
-			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener ->\ndata " + data + "\nmessage " + message);
-			}
-		});
-
-		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
-			public void onDeviceConnected(String name, String address) {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected" + "\nname: " + name + "\taddress " + address);
-			}
-			public void onDeviceDisconnected() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
-			}
-			public void onDeviceConnectionFailed() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
-			}
-		});
-
-		bt.setBluetoothStateListener(new BluetoothSPP.BluetoothStateListener() {
-			public void onServiceStateChanged(int state) {
-				if (state == BluetoothState.STATE_CONNECTED) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTED");
-				} else if (state == BluetoothState.STATE_CONNECTING) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTING");
-				} else if (state == BluetoothState.STATE_LISTEN) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_LISTEN");
-				} else if (state == BluetoothState.STATE_NONE) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_NONE");
-				}
-			}
-		});
+			tmp = (BluetoothSocket) method.invoke(device, aobj);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			Log.e(TAG, "createRfcommSocket() failed", e);
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+			Log.e(TAG, "createRfcommSocket() failed", e);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			Log.e(TAG, "createRfcommSocket() failed", e);
+		}
+		return tmp;
 	}
 }

@@ -26,8 +26,11 @@ public class KickPanelActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kickpanel);
 
+		// Load the toolbar so we can set the title
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
+
+		g.checkBluetooth();
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		if (fab != null)
@@ -43,11 +46,6 @@ public class KickPanelActivity extends AppCompatActivity {
 							}).show();
 				}
 			});
-	}
-
-	protected void onResume() {
-		super.onResume();
-		g.checkBluetooth();
 	}
 
 	@Override

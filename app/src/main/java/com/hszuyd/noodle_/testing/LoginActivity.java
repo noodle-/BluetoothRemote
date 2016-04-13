@@ -20,10 +20,7 @@ public class LoginActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_login_screen);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-	}
 
-	protected void onResume() {
-		super.onResume();
 		g.checkBluetooth();
 	}
 

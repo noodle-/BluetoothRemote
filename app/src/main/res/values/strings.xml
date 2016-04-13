@@ -27,12 +27,10 @@
 	<string name="TV_MAC_address">The MAC address of the connected device</string>
 
 	<!--  DeviceListActivity -->
-	<string name="title_activity_device_list">Device list</string>
-	<string name="scanning">Scanning for devices&#8230;</string>
-	<string name="select_device">Select a device to connect</string>
+	<string name="title_activity_device_list">Select a device</string>
 	<string name="none_paired">No devices have been paired</string>
 	<string name="none_found">No devices found</string>
-	<string name="title_paired_devices">Paired Devices</string>
-	<string name="title_other_devices">Other Available Devices</string>
+	<string name="subtitle_paired_devices">Paired Devices</string>
+	<string name="subtitle_other_devices">Other Available Devices</string>
 	<string name="button_scan">Scan for devices</string>
 </resources>

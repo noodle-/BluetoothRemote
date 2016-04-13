@@ -30,6 +30,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -302,15 +303,25 @@ public class BluetoothService {
 			// Get a BluetoothSocket for a connection with the
 			// given BluetoothDevice
 			try {
-				if (BluetoothService.this.isAndroid)
+				if (true) {
+					Method method;
+
+					method = device.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
+					tmp = (BluetoothSocket) method.invoke(device, 1);
+				} else {
 					tmp = device.createRfcommSocketToServiceRecord(UUID_ANDROID_DEVICE);
-				else
-					tmp = device.createInsecureRfcommSocketToServiceRecord(UUID_OTHER_DEVICE);
-				//tmp =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(device,2);
-			} catch (IOException e) {
+				}
+			} catch (Exception e) {
+				Log.e(TAG, "create() failed", e);
 			}
 			mmSocket = tmp;
 		}
+
+//				else
+//				tmp = device.createInsecureRfcommSocketToServiceRecord(UUID_OTHER_DEVICE);
+					//tmp =(BluetoothSocket) mmDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(device,2);
+
+
 
 		public void run() {
 			// Always cancel discovery because it will slow down a connection
@@ -374,26 +385,26 @@ public class BluetoothService {
 		}
 
 		public void run() {
-			byte[] buffer;
+			byte[] buffer = new byte[1024];
 			ArrayList<Integer> arr_byte = new ArrayList<Integer>();
 
 			// Keep listening to the InputStream while connected
 			while (true) {
 				try {
-					int data = mmInStream.read();
-					if (data == 0x0A) {
-					} else if (data == 0x0D) {
-						buffer = new byte[arr_byte.size()];
-						for (int i = 0; i < arr_byte.size(); i++) {
-							buffer[i] = arr_byte.get(i).byteValue();
-						}
+					int data = mmInStream.read(buffer);
+//					if (data == 0x0A) {
+//					} else if (data == 0x0D) {
+						//buffer = new byte[arr_byte.size()];
+//						for (int i = 0; i < arr_byte.size(); i++) {
+//							buffer[i] = arr_byte.get(i).byteValue();
+//						}
 						// Send the obtained bytes to the UI Activity
 						mHandler.obtainMessage(BluetoothState.MESSAGE_READ
 								, buffer.length, -1, buffer).sendToTarget();
 						arr_byte = new ArrayList<Integer>();
-					} else {
+//					} else {
 						arr_byte.add(data);
-					}
+//					}
 				} catch (IOException e) {
 					connectionLost();
 					// Start the service over to restart listening mode

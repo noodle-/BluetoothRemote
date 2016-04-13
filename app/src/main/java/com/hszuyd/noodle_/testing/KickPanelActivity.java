@@ -71,8 +71,10 @@ public class KickPanelActivity extends AppCompatActivity {
 
 	public void button_click_kickpanel_A(View view) {
 		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			bt.send("Hoiiiii!", true);
-			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
+			bt.send("Henk", false);
+			bt.send("2", false);
+//			bt.send("Hoiiiii!", true);
+//			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
 			g.showToast("Sent some hardcoded stuff");
 		} else {
 			g.showToast("Can't send anything because we're not connected");

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -31,6 +32,10 @@ public class DeviceListActivity extends Activity {
 	private static final String TAG = "DevicelistActivity";         // TAG for debug messages
 	private BluetoothAdapter mBtAdapter;                            // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private BluetoothDevice device = null;
+	private Intent starterIntent;
+
 
 	/**
 	 * The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished
@@ -79,9 +84,36 @@ public class DeviceListActivity extends Activity {
 		}
 	};
 
+	private AdapterView.OnItemLongClickListener mDeviceHoldListener = new AdapterView.OnItemLongClickListener() {
+		@Override
+		public boolean onItemLongClick(AdapterView<?> av, View v, int arg2, long arg3) {
+			mBtAdapter.cancelDiscovery();   // Cancel discovery because it's costly and we're about to connect
+
+			// Get the device MAC address, which is the last 17 chars in the View
+			String info = ((TextView) v).getText().toString();
+			String address = info.substring(info.length() - 17);
+			mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+			try {
+				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+				Log.e(TAG, "onItemLongClick: " + device);
+
+				Connect connectThisShit = new Connect();
+				connectThisShit.unpairDevice(device);
+
+				finish(); startActivity(starterIntent);
+			} catch (Exception e) {
+				Log.e(TAG, "onItemLongClick: " + e.toString());;
+			}
+			return true;
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Set starterIntent to this activity
+		starterIntent = getIntent();
 
 		// Setup the window TODO No idea what this does
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -106,6 +138,7 @@ public class DeviceListActivity extends Activity {
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
 		pairedListView.setAdapter(pairedDevicesArrayAdapter);
 		pairedListView.setOnItemClickListener(mDeviceClickListener);
+		pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
 
 		// Find and set up the ListView for newly discovered devices
 		ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);

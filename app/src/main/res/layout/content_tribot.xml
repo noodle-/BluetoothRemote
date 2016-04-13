@@ -47,4 +47,13 @@
 		android:layout_above="@id/button_device_list"
 		android:layout_centerHorizontal="true"
 		android:text="@string/TV_MAC_address"/>
+
+	<Button
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Send Message"
+		android:id="@+id/button_send_message"
+		android:onClick="button_Send_Message"
+		android:layout_centerVertical="true"
+		android:layout_centerHorizontal="true"/>
 </RelativeLayout>

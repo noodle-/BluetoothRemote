@@ -2,7 +2,6 @@ package com.hszuyd.noodle_.testing;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-
-import java.io.Console;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 //import app.akexorcist.bluetoothspp.library.BluetoothSPP;
 //import app.akexorcist.bluetoothspp.library.BluetoothState;
@@ -30,17 +23,8 @@ public class TribotActivity extends AppCompatActivity {
 	private MenuItem mDynamicMenuIcon;
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private BluetoothDevice device = null;
-	private Connect connectThisShit;
-
-
-	// Message types sent from the BluetoothReadService Handler
-	public static final int MESSAGE_STATE_CHANGE = 1;
-	public static final int MESSAGE_READ = 2;
-	public static final int MESSAGE_WRITE = 3;
-	public static final int MESSAGE_DEVICE_NAME = 4;
-	public static final int MESSAGE_TOAST = 5;
-	public static final String DEVICE_NAME = "device_name";
-	public static final String TOAST = "toast";
+	private Connect connectThisShit = new Connect();
+	private pairDevice pDevice;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,48 +81,32 @@ public class TribotActivity extends AppCompatActivity {
 		textView.setText(rndmstring);
 	}
 
+	public void button_Send_Message(View v){
+
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
+
+				pDevice = new pairDevice(device);
 				// Get the device MAC address
 				String address = data.getExtras().getString("EXTRA_DEVICE_ADDRESS");
 
 				// Get the BLuetoothDevice object
 				device = mBluetoothAdapter.getRemoteDevice(address);
 				Log.e(TAG, "onActivityResult: " + device.toString());
-				//createRfcommSocket(device);
 
-				connectThisShit = new Connect();
-				connectThisShit.connect(device);
+				if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+					connectThisShit.connect(device);
+				}
+
 
 				textView = (TextView) findViewById(R.id.TV_MAC_address);
-				textView.setText("Device address: " + address);// Make sure the request was successful
+				assert textView != null;
+				textView.setText("Device address: " + address);// Make sure the request was successful by showing it in a textview
 			}
 		}
-	}
-
-	public static BluetoothSocket createRfcommSocket(BluetoothDevice device) {
-		BluetoothSocket tmp = null;
-		try {
-			Class class1 = device.getClass();
-			Class aclass[] = new Class[1];
-			aclass[0] = Integer.TYPE;
-			Method method = class1.getMethod("createRfcommSocket", aclass);
-			Object aobj[] = new Object[1];
-			aobj[0] = Integer.valueOf(1);
-
-			tmp = (BluetoothSocket) method.invoke(device, aobj);
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-			Log.e(TAG, "createRfcommSocket() failed", e);
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-			Log.e(TAG, "createRfcommSocket() failed", e);
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			Log.e(TAG, "createRfcommSocket() failed", e);
-		}
-		return tmp;
 	}
 }

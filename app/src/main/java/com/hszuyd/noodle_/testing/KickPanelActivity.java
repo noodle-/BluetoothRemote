@@ -77,7 +77,7 @@ public class KickPanelActivity extends AppCompatActivity {
 			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
 			g.showToast("Sent some hardcoded stuff");
 		} else {
-			g.showToast("Start Bluetooth service first!");
+			g.showToast("Can't send anything because we're not connected");
 		}
 	}
 
@@ -103,9 +103,8 @@ public class KickPanelActivity extends AppCompatActivity {
 
 					bt.setupService();
 					startBluetoothService();
-
 					Log.e(TAG, "Connecting to " + device);
-					g.showToast("Connecting to " + device); //TODO Remove this when we've successfully sent through the address
+					bt.connect(device);
 				} else {
 					Log.e(TAG, "Failed to get MAC address from ?");
 				}
@@ -114,10 +113,8 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	private void startBluetoothService() {
-		//For connection with android device
+		// TODO Dialog choose between android and other
 		///bt.startService(BluetoothState.DEVICE_ANDROID);
-		// TODO Find a way to do this automatically
-		//For connection with any micro-controller which communication with bluetooth serial port profile module
 		bt.startService(BluetoothState.DEVICE_OTHER);
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {

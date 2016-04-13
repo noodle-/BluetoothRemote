@@ -16,16 +16,10 @@ public class General {
 		mContext = context;
 	}
 
-	/**
-	 * Toast
-	 */
 	public void showToast(String message) {
 		Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
 	}
 
-	/**
-	 * Snackbar
-	 */
 	public void showSnackbar(View view, String message) {
 		Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();   // This may overlap the FAB button!
 	}

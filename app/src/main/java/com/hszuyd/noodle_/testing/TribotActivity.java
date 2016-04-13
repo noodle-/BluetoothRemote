@@ -1,20 +1,25 @@
 package com.hszuyd.noodle_.testing;
 
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-//import app.akexorcist.bluetoothspp.library.BluetoothSPP;
-//import app.akexorcist.bluetoothspp.library.BluetoothState;
-
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "TriBotActivity";
@@ -24,7 +29,8 @@ public class TribotActivity extends AppCompatActivity {
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private BluetoothDevice device = null;
 	private Connect connectThisShit = new Connect();
-	private pairDevice pDevice;
+	private String name;
+	private CharSequence rounds[];
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,14 +38,9 @@ public class TribotActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		textView = (TextView) findViewById(R.id.TV_MAC_address);
-		Intent iin = getIntent();
-		Bundle b = iin.getExtras();
-
-		if (b != null) {
-			String device_Address = (String) b.get("EXTRA_DEVICE_ADDRESS");
-			textView.setText("Device: " + device_Address);
-		}
+		Intent intentName = getIntent();
+		Bundle nameBundle = intentName.getExtras();
+		name = (String) nameBundle.get("NAME_PLAYER");
 
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBluetoothAdapter == null) {
@@ -47,6 +48,13 @@ public class TribotActivity extends AppCompatActivity {
 			finish();
 		} else {
 			Log.e(TAG, "onCreate: " + mBluetoothAdapter.toString());
+		}
+
+		Spinner dropdown = (Spinner)findViewById(R.id.spinner_rounds);
+		String[] items = new String[]{"1", "2", "3"};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+		if (dropdown != null) {
+			dropdown.setAdapter(adapter);
 		}
 	}
 
@@ -82,7 +90,8 @@ public class TribotActivity extends AppCompatActivity {
 	}
 
 	public void button_Send_Message(View v){
-
+		connectThisShit.write(name);
+		connectThisShit.write("5");
 	}
 
 	@Override
@@ -90,7 +99,6 @@ public class TribotActivity extends AppCompatActivity {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
 
-				pDevice = new pairDevice(device);
 				// Get the device MAC address
 				String address = data.getExtras().getString("EXTRA_DEVICE_ADDRESS");
 
@@ -98,9 +106,7 @@ public class TribotActivity extends AppCompatActivity {
 				device = mBluetoothAdapter.getRemoteDevice(address);
 				Log.e(TAG, "onActivityResult: " + device.toString());
 
-				if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-					connectThisShit.connect(device);
-				}
+				connectThisShit.connect(device);
 
 
 				textView = (TextView) findViewById(R.id.TV_MAC_address);

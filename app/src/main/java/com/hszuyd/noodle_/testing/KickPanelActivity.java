@@ -12,13 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import app.akexorcist.bluetoothspp.library.BluetoothSPP;
-import app.akexorcist.bluetoothspp.library.BluetoothState;
 
 public class KickPanelActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
+	//BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	MenuItem mDynamicMenuIcon;
 
 	@Override
@@ -61,20 +59,20 @@ public class KickPanelActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);   // Why?
 	}
 
-	public void button_click_kickpanel_A(View v) {
-		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
-		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			bt.send("Hoiiiii!", true);
-			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
-		} else {
-			Toast.makeText(this, "This is not a Toast", Toast.LENGTH_SHORT).show();
-		}
-	}
+//	public void button_click_kickpanel_A(View v) {
+//		Toast.makeText(this, "This is a Toast", Toast.LENGTH_SHORT).show();
+////		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
+////			bt.send("Hoiiiii!", true);
+////			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
+//		} else {
+//			Toast.makeText(this, "This is not a Toast", Toast.LENGTH_SHORT).show();
+//		}
+//	}
 
 	public void button_click_kickpanel_B(View v) {
 		Log.e(TAG, "SetupService()");
-		bt.setupService();
-		startBluetoothService();
+		//bt.setupService();
+		//startBluetoothService();
 		Snackbar.make(v, "This is a Snackbar", Snackbar.LENGTH_LONG).show();
 	}
 
@@ -92,12 +90,12 @@ public class KickPanelActivity extends AppCompatActivity {
 					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
 
 					Log.e(TAG, "SetupService()");
-					bt.setupService();
-					startBluetoothService();
+					//bt.setupService();
+					//startBluetoothService();
 
 					Log.e(TAG, "Connecting to " + device);
 					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-					bt.connect(device);
+					//bt.connect(device);
 				} else {
 					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
 				}
@@ -105,7 +103,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		}
 	}
 
-	private void startBluetoothService() {
+	/*private void startBluetoothService() {
 		//For connection with android device
 		///bt.startService(BluetoothState.DEVICE_ANDROID);
 		// TODO Find a way to do this automatically
@@ -149,7 +147,7 @@ public class KickPanelActivity extends AppCompatActivity {
 				}
 			}
 		});
-	}
+	}*/
 }
 
 /* TODO I think I don't need this..

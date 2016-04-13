@@ -4,9 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 import java.io.IOException;
@@ -193,16 +191,19 @@ public class Connect {
 	 * @param out The bytes to write
 	 * @see ConnectedThread#write(byte[])
 	 */
-	public void write(byte[] out) {
+	public void write(String out) {
 		// Create temporary object
+		Log.e(TAG, "write: HELLOOO?!?!?!");
 		ConnectedThread r;
 		// Synchronize a copy of the ConnectedThread
-		synchronized (this) {
-			if (mState != STATE_CONNECTED) return;
+		//synchronized (this) {
+			Log.e(TAG, "write: helloooo agaiaiiainan");
 			r = mConnectedThread;
-		}
+		//}
 		// Perform the write unsynchronized
-		r.write(out);
+		Log.e(TAG, "write: helloooo agaiaiiainan");
+		r.write(out.getBytes());
+
 	}
 
 	/**
@@ -352,11 +353,14 @@ public class Connect {
 				try {
 					// Read from the InputStream
 					bytes = mmInStream.read(buffer);
+					String readed = new String(buffer, 0, bytes);
 
 					// Send the obtained bytes to the UI Activity
+					Log.e(TAG, "read: " + bytes);
+					Log.e(TAG, "read: " + readed);
 					//mHandler.obtainMessage(BlueTerm.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
 				} catch (IOException e) {
-					Log.e(TAG, "disconnected", e);
+					Log.e(TAG, "disconnected: bluetooth socket closed", e);
 					connectionLost();
 					break;
 				}

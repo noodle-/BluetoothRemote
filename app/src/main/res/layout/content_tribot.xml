@@ -11,7 +11,8 @@
 	android:paddingTop="@dimen/activity_vertical_margin"
 	app:layout_behavior="@string/appbar_scrolling_view_behavior"
 	tools:context=".TribotActivity"
-	tools:showIn="@layout/activity_tribot">
+	tools:showIn="@layout/activity_tribot"
+	android:id="@+id/pinner">
 
 
 	<Button
@@ -56,4 +57,14 @@
 		android:onClick="button_Send_Message"
 		android:layout_centerVertical="true"
 		android:layout_centerHorizontal="true"/>
+
+	<Spinner
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/spinner_rounds"
+
+		android:layout_above="@+id/button_send_message"
+		android:layout_centerHorizontal="true"/>
+
+
 </RelativeLayout>

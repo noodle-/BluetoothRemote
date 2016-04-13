@@ -103,7 +103,7 @@ public class DeviceListActivity extends Activity {
 
 				finish(); startActivity(starterIntent);
 			} catch (Exception e) {
-				Log.e(TAG, "onItemLongClick: " + e.toString());;
+				Log.e(TAG, "onItemLongClick: " + e.toString());
 			}
 			return true;
 		}

@@ -9,33 +9,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Set;
 
 /**
- * This Activity appears as a dialog. It lists any paired devices and devices detected in the area after discovery. When a device is chosen  by the user, the MAC address of the device
+ * This Activity appears as a dialog. It lists any paired devices and devices detected in the area after discovery. When a device is chosen by the user, the MAC address of the device
  * is sent back to the parent Activity in the result Intent.
  */
-public class DeviceListActivity extends Activity {
-	private static final String TAG = "DevicelistActivity";         // TAG for debug messages
-	private BluetoothAdapter mBtAdapter;                            // Member fields
-	private ArrayAdapter<String> mNewDevicesArrayAdapter;           // Newly discovered devices
+public class DeviceListActivity extends AppCompatActivity {
+	private static final int REQUEST_ACCESS_COARSE_LOCATION = 1;            // Request code for ACCESS_COARSE_LOCATION permission
+	private static final String TAG = "DevicelistActivity";                 // TAG for debug messages
+	private BluetoothAdapter mBtAdapter;                                    // Member fields
+	private ArrayAdapter<String> mNewDevicesArrayAdapter;                   // Newly discovered devices
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private BluetoothDevice device = null;
 	private Intent starterIntent;
-
 
 	/**
 	 * The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished
@@ -48,13 +50,12 @@ public class DeviceListActivity extends Activity {
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);   // Get the BluetoothDevice object from the Intent
 				if (device.getBondState() != BluetoothDevice.BOND_BONDED) {                         // If it's already paired, skip it, because it's been listed already
 					//if (Arrays.asList(mNewDevicesArrayAdapter).contains(device)) {                // Does not work because it's an array of strings, not an array of values.
-					//  Log.e(TAG, "Discovered duplicate device: " + device);                       // TODO find a way to check an array wether a string is present
+					//  Log.e(TAG, "Discovered duplicate device: " + device);                       // TODO find a way to check an array whether a string is present
 					mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 				}
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {                 // When discovery is finished
-				//setProgressBarIndeterminateVisibility(false);                                     // TODO ?
-				Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-				mToolbar.setTitle(R.string.select_device);
+				ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressbar);            // Load progressbar
+				mProgressBar.setVisibility(View.GONE);                                              // Indicate indeterminate progress has stopped
 				/*if (mNewDevicesArrayAdapter.getCount() == 0) {                                    // Show none_found if no devices are found
 					String noDevices = getResources().getText(R.string.none_found).toString();
 					mNewDevicesArrayAdapter.add(noDevices);
@@ -78,8 +79,8 @@ public class DeviceListActivity extends Activity {
 			Intent data = new Intent();
 			data.putExtra("EXTRA_DEVICE_ADDRESS", address);
 
-			// Set result and finish(=close?) this Activity
-			setResult(Activity.RESULT_OK, data);    //setResult(RESULT_OK, data);   TODO Which one do we need?
+			// Set result and finish/close this Activity
+			setResult(Activity.RESULT_OK, data);
 			finish();
 		}
 	};
@@ -101,7 +102,8 @@ public class DeviceListActivity extends Activity {
 				Connect connectThisShit = new Connect();
 				connectThisShit.unpairDevice(device);
 
-				finish(); startActivity(starterIntent);
+				finish();
+				startActivity(starterIntent);
 			} catch (Exception e) {
 				Log.e(TAG, "onItemLongClick: " + e.toString());
 			}
@@ -112,8 +114,10 @@ public class DeviceListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Set starterIntent to this activity
-		starterIntent = getIntent();
+
+		starterIntent = getIntent();                    // Set starterIntent to this activity
+		setContentView(R.layout.activity_device_list);  // This pretty much loads all resource ID's etc
+		setResult(Activity.RESULT_CANCELED);            // Set result CANCELED in case the user backs out
 
 		// Setup the window TODO No idea what this does
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -153,13 +157,12 @@ public class DeviceListActivity extends Activity {
 		filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
 		this.registerReceiver(mReceiver, filter);
 
-		mBtAdapter = BluetoothAdapter.getDefaultAdapter();  // Get the local Bluetooth adapter
-
+		mBtAdapter = BluetoothAdapter.getDefaultAdapter();                  // Get the local Bluetooth adapter
 		Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices(); // Get a set of currently paired devices
 
 		// If there are paired devices, add each one to the ArrayAdapter
 		if (pairedDevices.size() > 0) {
-			findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
+			findViewById(R.id.subtitle_paired_devices).setVisibility(View.VISIBLE);
 			for (BluetoothDevice device : pairedDevices) {
 				pairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
 			}
@@ -168,17 +171,19 @@ public class DeviceListActivity extends Activity {
 			pairedDevicesArrayAdapter.add(noDevices);
 		}
 
-		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);    // Load the toolbar so we can set the title
-//		setSupportActionBar(mToolbar); TODO WHY ARE WE DOING THIS EVERYWHERE ELSE???
-		mToolbar.setTitle("Device list");
+		// Load the toolbar so we can set the title
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(mToolbar);  // Set toolbar as actionbar?
 
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-		int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-			ActivityCompat.requestPermissions(this,
-					new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-					MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher
+			// TODO Add popup explaining why we need ACCESS_COARSE_LOCATION
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				ActivityCompat.requestPermissions(this,
+						new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+						REQUEST_ACCESS_COARSE_LOCATION);
+			}
 		}
 	}
 
@@ -194,17 +199,13 @@ public class DeviceListActivity extends Activity {
 	}
 
 	private void doDiscovery() {
-		//setProgressBarIndeterminateVisibility(true);    // TODO ?
-		mNewDevicesArrayAdapter.clear();
-
-		// Indicate scanning in the title
-		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-		mToolbar.setTitle(R.string.scanning);
-
-		findViewById(R.id.title_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for discovered devices
+		ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressbar);    // Load progressbar
+		mProgressBar.setVisibility(View.VISIBLE);   // Indicate indeterminate progress
+		mNewDevicesArrayAdapter.clear();            // Remove all previously found devices
+		findViewById(R.id.subtitle_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for discovered devices
 		if (mBtAdapter.isDiscovering()) {
-			mBtAdapter.cancelDiscovery();   // Stop it because it's very resource intensive
+			mBtAdapter.cancelDiscovery();           // Stop it because it's very resource intensive
 		}
-		mBtAdapter.startDiscovery();        // Request discover from BluetoothAdapter
+		mBtAdapter.startDiscovery();                // Request discover from BluetoothAdapter
 	}
 }

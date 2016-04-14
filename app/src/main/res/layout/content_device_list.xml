@@ -15,13 +15,13 @@
 	tools:showIn="@layout/activity_device_list">
 
 	<TextView
-		android:id="@+id/title_paired_devices"
+		android:id="@+id/subtitle_paired_devices"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="#666"
 		android:paddingEnd="0dp"
 		android:paddingStart="5dp"
-		android:text="@string/title_paired_devices"
+		android:text="@string/subtitle_paired_devices"
 		android:textColor="#fff"
 		android:visibility="gone"/>
 
@@ -32,13 +32,13 @@
 		android:layout_weight="1"/>
 
 	<TextView
-		android:id="@+id/title_new_devices"
+		android:id="@+id/subtitle_new_devices"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="#666"
 		android:paddingEnd="0dp"
 		android:paddingStart="5dp"
-		android:text="@string/title_other_devices"
+		android:text="@string/subtitle_other_devices"
 		android:textColor="#fff"
 		android:visibility="gone"/>
 

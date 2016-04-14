@@ -119,12 +119,6 @@ public class DeviceListActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_device_list);  // This pretty much loads all resource ID's etc
 		setResult(Activity.RESULT_CANCELED);            // Set result CANCELED in case the user backs out
 
-		// Setup the window TODO No idea what this does
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.activity_device_list);
-
-		setResult(Activity.RESULT_CANCELED);    // Set result CANCELED in case the user backs out
-
 		// Initialize the button to perform device discovery
 		Button scanButton = (Button) findViewById(R.id.button_scan);
 		scanButton.setOnClickListener(new View.OnClickListener() {

@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/pinner"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:paddingBottom="@dimen/activity_vertical_margin"
@@ -18,7 +19,7 @@
 		android:id="@+id/bt_random_math_test"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
+		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
 		android:onClick="button_Random_Math_Number"
 		android:text="@string/button_random_math_test"/>
@@ -27,7 +28,7 @@
 		android:id="@+id/TV_random_number"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/bt_random_math_test"
+		android:layout_above="@+id/bt_random_math_test"
 		android:layout_centerHorizontal="true"
 		android:text="@string/TV_random_number"/>
 
@@ -35,7 +36,7 @@
 		android:id="@+id/button_device_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
+		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:onClick="button_start_device_list"
 		android:text="@string/button_device_list"/>
@@ -44,7 +45,28 @@
 		android:id="@+id/TV_MAC_address"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_above="@id/button_device_list"
+		android:layout_below="@id/button_device_list"
 		android:layout_centerHorizontal="true"
 		android:text="@string/TV_MAC_address"/>
+
+	<Button
+		android:id="@+id/button_send_message"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:onClick="button_Send_Message"
+		android:text="@string/send_message"/>
+
+	<Button
+		android:id="@+id/button_Choose_Rounds"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/TV_MAC_address"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="55dp"
+		android:onClick="button_Choose_Rounds"
+		android:text="@string/choose_the_amount_of_rounds"/>
+
+
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package com.hszuyd.noodle_.testing;
 
+import android.app.Dialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,19 +11,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import app.akexorcist.bluetoothspp.library.BluetoothSPP;
-import app.akexorcist.bluetoothspp.library.BluetoothState;
-
 
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "TriBotActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-	private BluetoothSPP bt = new BluetoothSPP(TribotActivity.this);
 	private TextView textView;
 	private MenuItem mDynamicMenuIcon;
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private Connect connectThisShit = new Connect();
+	private String name;
+	private String roundsNumber = "1";
+	private boolean connected = false;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,13 +33,16 @@ public class TribotActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		textView = (TextView) findViewById(R.id.TV_MAC_address);
-		Intent iin = getIntent();
-		Bundle b = iin.getExtras();
+		Intent intentName = getIntent();
+		Bundle nameBundle = intentName.getExtras();
+		name = (String) nameBundle.get("NAME_PLAYER");
 
-		if (b != null) {
-			String device_Address = (String) b.get("EXTRA_DEVICE_ADDRESS");
-			textView.setText("Device: " + device_Address);
+		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null) {
+			Log.e(TAG, "onCreate: BluetoothAdapter is null");
+			finish();
+		} else {
+			Log.e(TAG, "onCreate: " + mBluetoothAdapter.toString());
 		}
 	}
 
@@ -69,69 +77,53 @@ public class TribotActivity extends AppCompatActivity {
 		textView.setText(rndmstring);
 	}
 
+	public void button_Send_Message(View v) {
+		if (connected && name != null) {
+			connectThisShit.write(name);
+			connectThisShit.write(roundsNumber);
+		} else {
+			Toast.makeText(TribotActivity.this, "Please make sure that you are connected or have a username!", Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
-				if (data.hasExtra("EXTRA_DEVICE_ADDRESS")) {
-					Bundle bundleResult = data.getExtras(); // Store the Intent data(=device address) that we've received from the DeviceListActivity in a bundle. The bundle consists of "EXTRA_DEVICE_ADDRESS, MAC_ADDRESS"
-					String device = bundleResult.getString("EXTRA_DEVICE_ADDRESS");
+				// Get the device MAC address
+				String address = data.getExtras().getString("EXTRA_DEVICE_ADDRESS");
 
-					textView = (TextView) findViewById(R.id.TV_MAC_address);
-					textView.setText("Device address: " + device);// Make sure the request was successful
+				// Get the BLuetoothDevice object
+				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+				Log.e(TAG, "onActivityResult: " + device.toString());
 
-					Log.e(TAG, "SetupService()");
-					bt.setupService();
-					startBluetoothService();
-
-					Log.e(TAG, "Connecting to " + device);
-					Toast.makeText(getApplicationContext(), "Connecting to " + device, Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
-					bt.connect(device);
-				} else {
-					Toast.makeText(getApplicationContext(), "Failed to get MAC address from ", Toast.LENGTH_SHORT).show();    //TODO Remove this when we've successfully sent through the address
+				if (device != null) {
+					connected = true;
+					connectThisShit.connect(device);
 				}
+
+				textView = (TextView) findViewById(R.id.TV_MAC_address);
+				assert textView != null;
+				textView.setText("Device address: " + address);// Make sure the request was successful by showing it in a textview
 			}
 		}
 	}
 
-	private void startBluetoothService() {
-		// TODO Find a way to do this automatically
-		// For connection with android device
-		bt.startService(BluetoothState.DEVICE_ANDROID);
-
-		//For connection with any micro-controller which communication with bluetooth serial port profile module
-		//bt.startService(BluetoothState.DEVICE_OTHER);
-
-		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
-			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener ->\ndata " + data + "\nmessage " + message);
+	public void button_Choose_Rounds(View v) {
+		final Dialog d = new Dialog(TribotActivity.this);
+		d.setContentView(R.layout.dialog);
+		Button b1 = (Button) d.findViewById(R.id.button1);
+		final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+		np.setMaxValue(20);  // max value 100
+		np.setMinValue(1);   // min value 0
+		np.setWrapSelectorWheel(false);
+		b1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				roundsNumber = String.valueOf(np.getValue());
+				d.dismiss();
 			}
 		});
-
-		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
-			public void onDeviceConnected(String name, String address) {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected" + "\nname: " + name + "\taddress " + address);
-			}
-			public void onDeviceDisconnected() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
-			}
-			public void onDeviceConnectionFailed() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
-			}
-		});
-
-		bt.setBluetoothStateListener(new BluetoothSPP.BluetoothStateListener() {
-			public void onServiceStateChanged(int state) {
-				if (state == BluetoothState.STATE_CONNECTED) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTED");
-				} else if (state == BluetoothState.STATE_CONNECTING) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTING");
-				} else if (state == BluetoothState.STATE_LISTEN) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_LISTEN");
-				} else if (state == BluetoothState.STATE_NONE) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_NONE");
-				}
-			}
-		});
+		d.show();
 	}
 }

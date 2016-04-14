@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
 	private TextView textView;
+	private String name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +22,9 @@ public class MainActivity extends AppCompatActivity {
 		textView = (TextView) findViewById(R.id.textView);
 		Intent iin = getIntent();
 		Bundle b = iin.getExtras();
+		name = (String) b.get("NAME_PLAYER");
 
-		if (b != null) {
-			String name = (String) b.get("NAME_PLAYER");
-			textView.setText("Hallo " + name + "!");
-		}
+		textView.setText("Hallo " + name + "!");
 	}
 
 	public void button_launch_kickpanel_OnClick(View view) {
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void button_launch_tribot_OnClick(View view) {
-		startActivity(new Intent(MainActivity.this, TribotActivity.class));
+		Intent intent = new Intent(getBaseContext(), TribotActivity.class);
+		intent.putExtra("NAME_PLAYER", name);
+		startActivity(intent);
 	}
 }

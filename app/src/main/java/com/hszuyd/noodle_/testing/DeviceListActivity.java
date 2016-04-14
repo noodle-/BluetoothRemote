@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,10 @@ public class DeviceListActivity extends AppCompatActivity {
 	private static final String TAG = "DevicelistActivity";                 // TAG for debug messages
 	private BluetoothAdapter mBtAdapter;                                    // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;                   // Newly discovered devices
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private BluetoothDevice device = null;
+	private Intent starterIntent;
+
 	/**
 	 * The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished
 	 */
@@ -80,9 +85,37 @@ public class DeviceListActivity extends AppCompatActivity {
 		}
 	};
 
+	private AdapterView.OnItemLongClickListener mDeviceHoldListener = new AdapterView.OnItemLongClickListener() {
+		@Override
+		public boolean onItemLongClick(AdapterView<?> av, View v, int arg2, long arg3) {
+			mBtAdapter.cancelDiscovery();   // Cancel discovery because it's costly and we're about to connect
+
+			// Get the device MAC address, which is the last 17 chars in the View
+			String info = ((TextView) v).getText().toString();
+			String address = info.substring(info.length() - 17);
+			mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+			try {
+				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+				Log.e(TAG, "onItemLongClick: " + device);
+
+				Connect connectThisShit = new Connect();
+				connectThisShit.unpairDevice(device);
+
+				finish();
+				startActivity(starterIntent);
+			} catch (Exception e) {
+				Log.e(TAG, "onItemLongClick: " + e.toString());
+			}
+			return true;
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		starterIntent = getIntent();                    // Set starterIntent to this activity
 		setContentView(R.layout.activity_device_list);  // This pretty much loads all resource ID's etc
 		setResult(Activity.RESULT_CANCELED);            // Set result CANCELED in case the user backs out
 
@@ -103,6 +136,7 @@ public class DeviceListActivity extends AppCompatActivity {
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
 		pairedListView.setAdapter(pairedDevicesArrayAdapter);
 		pairedListView.setOnItemClickListener(mDeviceClickListener);
+		pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
 
 		// Find and set up the ListView for newly discovered devices
 		ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);

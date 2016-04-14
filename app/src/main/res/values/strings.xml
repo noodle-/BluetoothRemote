@@ -25,6 +25,9 @@
 	<string name="button_random_math_test">Generate a Random Number</string>
 	<string name="TV_random_number">Random Number</string>
 	<string name="TV_MAC_address">The MAC address of the connected device</string>
+	<string name="choose_the_amount_of_rounds">Choose the amount of rounds</string>
+	<string name="send_message">Send Message</string>
+	<string name="set">Set</string>
 
 	<!--  DeviceListActivity -->
 	<string name="title_activity_device_list">Device list</string>
@@ -35,4 +38,5 @@
 	<string name="title_paired_devices">Paired Devices</string>
 	<string name="title_other_devices">Other Available Devices</string>
 	<string name="button_scan">Scan for devices</string>
+
 </resources>

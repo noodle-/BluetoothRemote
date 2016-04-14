@@ -3,23 +3,20 @@ package com.hszuyd.noodle_.testing;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "TriBotActivity";
@@ -27,10 +24,10 @@ public class TribotActivity extends AppCompatActivity {
 	private TextView textView;
 	private MenuItem mDynamicMenuIcon;
 	private BluetoothAdapter mBluetoothAdapter = null;
-	private BluetoothDevice device = null;
 	private Connect connectThisShit = new Connect();
 	private String name;
-	private CharSequence rounds[];
+	private String roundsNumber = "1";
+	private boolean connected = false;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,13 +45,6 @@ public class TribotActivity extends AppCompatActivity {
 			finish();
 		} else {
 			Log.e(TAG, "onCreate: " + mBluetoothAdapter.toString());
-		}
-
-		Spinner dropdown = (Spinner)findViewById(R.id.spinner_rounds);
-		String[] items = new String[]{"1", "2", "3"};
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-		if (dropdown != null) {
-			dropdown.setAdapter(adapter);
 		}
 	}
 
@@ -89,25 +79,28 @@ public class TribotActivity extends AppCompatActivity {
 		textView.setText(rndmstring);
 	}
 
-	public void button_Send_Message(View v){
-		connectThisShit.write(name);
-		connectThisShit.write("5");
+	public void button_Send_Message(View v) {
+//		if(connected && name != null){
+			connectThisShit.write(name);
+			connectThisShit.write(roundsNumber);
+//		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_DEVICE_ADDRESS) {        // Check which request we're responding to. When doing more requests a switch case is probably a nicer way of doing this.
 			if (resultCode == RESULT_OK) {                  // Make sure the request was successful
-
 				// Get the device MAC address
 				String address = data.getExtras().getString("EXTRA_DEVICE_ADDRESS");
 
 				// Get the BLuetoothDevice object
-				device = mBluetoothAdapter.getRemoteDevice(address);
+				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
 				Log.e(TAG, "onActivityResult: " + device.toString());
 
-				connectThisShit.connect(device);
-
+				//if(device != null){
+					//connected = true;
+					connectThisShit.connect(device);
+				//}
 
 				textView = (TextView) findViewById(R.id.TV_MAC_address);
 				assert textView != null;
@@ -115,4 +108,23 @@ public class TribotActivity extends AppCompatActivity {
 			}
 		}
 	}
+
+	/*public void button_Choose_Rounds(View v) {
+		final Dialog d = new Dialog(TribotActivity.this);
+		d.setTitle("Number of rounds");
+		d.setContentView(R.layout.dialog);
+		Button b1 = (Button) d.findViewById(R.id.button1);
+		final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+		np.setMaxValue(20);  // max value 100
+		np.setMinValue(1);   // min value 0
+		np.setWrapSelectorWheel(false);
+		b1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				roundsNumber = String.valueOf(np.getValue());
+				d.dismiss();
+			}
+		});
+		d.show();
+	}*/
 }

@@ -50,7 +50,7 @@ public class BluetoothService {
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
 	private int mState;
-	private boolean isAndroid = BluetoothState.DEVICE_ANDROID;
+	private boolean isAndroid = BluetoothState.DEVICE_OTHER;
 
 	// Constructor. Prepares a new BluetoothChat session
 	// context : The UI Activity Context

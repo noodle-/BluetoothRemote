@@ -57,7 +57,7 @@ public class BluetoothSPP {
 	private boolean isServiceRunning = false;
 
 	private String keyword = "";
-	private boolean isAndroid = BluetoothState.DEVICE_ANDROID;
+	private boolean isAndroid = BluetoothState.DEVICE_OTHER;
 
 	// This is where we store the callback if AutoConnection is enabled
 	private BluetoothConnectionListener mBluetoothConnectionListenerSecondary = null;

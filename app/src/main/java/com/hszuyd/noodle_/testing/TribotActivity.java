@@ -3,6 +3,7 @@ package com.hszuyd.noodle_.testing;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,7 @@ public class TribotActivity extends AppCompatActivity {
 	private MenuItem mDynamicMenuIcon;
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private Connect connectThisShit = new Connect();
-	private String name;
+	private String name = "Unknown";
 	private String roundsNumber = "1";
 	private boolean connected = false;
 

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-	private TextView textView;
 	private String name;
 
 	@Override
@@ -19,16 +18,20 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		textView = (TextView) findViewById(R.id.textView);
+		TextView textView = (TextView) findViewById(R.id.textView);
 		Intent iin = getIntent();
 		Bundle b = iin.getExtras();
 		name = (String) b.get("NAME_PLAYER");
 
-		textView.setText("Hallo " + name + "!");
+		if (textView != null) {
+			textView.setText(getString(R.string.main_welcome, name));
+		}
 	}
 
 	public void button_launch_kickpanel_OnClick(View view) {
-		startActivity(new Intent(MainActivity.this, KickPanelActivity.class));
+		Intent intent = new Intent(getBaseContext(), KickPanelActivity.class);
+		intent.putExtra("NAME_PLAYER", name);
+		startActivity(intent);
 	}
 
 	public void button_launch_tribot_OnClick(View view) {

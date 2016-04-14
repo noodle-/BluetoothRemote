@@ -17,7 +17,7 @@
 		android:id="@+id/text_welcome"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/welcome"/>
+		android:text="@string/kickpanel_welcome"/>
 
 	<Button
 		android:id="@+id/button_device_list"
@@ -35,7 +35,7 @@
 		android:layout_below="@+id/button_device_list"
 		android:layout_marginTop="35dp"
 		android:onClick="buttonClickKickpanelA"
-		android:text="@string/button_kickpanel_a"/>
+		android:text="@string/kickpanel_button_a"/>
 
 	<Button
 		android:id="@+id/button_kickpanel_b"
@@ -43,7 +43,7 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/button_kickpanel_a"
 		android:onClick="buttonClickKickpanelB"
-		android:text="@string/button_kickpanel_b"/>
+		android:text="@string/kickpanel_button_b"/>
 
 	<Button
 		android:id="@+id/button_kickpanel_c"
@@ -51,6 +51,6 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/button_kickpanel_b"
 		android:onClick="buttonClickKickpanelC"
-		android:text="@string/button_kickpanel_c"/>
+		android:text="@string/kickpanel_button_c"/>
 
 </RelativeLayout>

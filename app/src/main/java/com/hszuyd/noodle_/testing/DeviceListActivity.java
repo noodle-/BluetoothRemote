@@ -35,10 +35,6 @@ public class DeviceListActivity extends AppCompatActivity {
 	private static final String TAG = "DevicelistActivity";                 // TAG for debug messages
 	private BluetoothAdapter mBtAdapter;                                    // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;                   // Newly discovered devices
-	private BluetoothAdapter mBluetoothAdapter = null;
-	private BluetoothDevice device = null;
-	private Intent starterIntent;
-
 	/**
 	 * The BroadcastReceiver that listens for discovered devices and changes the title when discovery is finished
 	 */
@@ -64,6 +60,8 @@ public class DeviceListActivity extends AppCompatActivity {
 		}
 	};
 
+	private BluetoothAdapter mBluetoothAdapter = null;
+	private Intent starterIntent;
 	/**
 	 * The on-click listener for all devices in the ListViews which sends back the MAC address through an intent
 	 */
@@ -121,11 +119,13 @@ public class DeviceListActivity extends AppCompatActivity {
 
 		// Initialize the button to perform device discovery
 		Button scanButton = (Button) findViewById(R.id.button_scan);
-		scanButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				doDiscovery();
-			}
-		});
+		if (scanButton != null) {
+			scanButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					doDiscovery();
+				}
+			});
+		}
 
 		// Initialize array adapters. One for already paired devices and one for newly discovered devices
 		ArrayAdapter<String> pairedDevicesArrayAdapter =
@@ -134,14 +134,18 @@ public class DeviceListActivity extends AppCompatActivity {
 
 		// Find and set up the ListView for paired devices
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
-		pairedListView.setAdapter(pairedDevicesArrayAdapter);
-		pairedListView.setOnItemClickListener(mDeviceClickListener);
-		pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
+		if (pairedListView != null) {
+			pairedListView.setAdapter(pairedDevicesArrayAdapter);
+			pairedListView.setOnItemClickListener(mDeviceClickListener);
+			pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
+		}
 
 		// Find and set up the ListView for newly discovered devices
 		ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
-		newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
-		newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+		if (newDevicesListView != null) {
+			newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
+			newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+		}
 
 		// Register for broadcasts when a device is discovered
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -194,7 +198,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
 	private void doDiscovery() {
 		ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressbar);    // Load progressbar
-		mProgressBar.setVisibility(View.VISIBLE);   // Indicate indeterminate progress
+		if (mProgressBar != null) {
+			mProgressBar.setVisibility(View.VISIBLE);   // Indicate indeterminate progress
+		}
 		mNewDevicesArrayAdapter.clear();            // Remove all previously found devices
 		findViewById(R.id.subtitle_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for discovered devices
 		if (mBtAdapter.isDiscovering()) {

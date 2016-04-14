@@ -25,29 +25,32 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentStart="true"
 		android:layout_below="@+id/text_welcome"
-		android:onClick="button_start_device_list"
+		android:onClick="buttonStartDeviceList"
 		android:text="@string/button_device_list"/>
 
 	<Button
-		android:id="@+id/button_kickpanel_A"
-		android:layout_width="wrap_content"
+		android:id="@+id/button_kickpanel_a"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/button_device_list"
-		android:layout_centerHorizontal="true"
 		android:layout_marginTop="35dp"
-		android:onClick="button_click_kickpanel_A"
-		android:text="@string/button_bt_check"/>
+		android:onClick="buttonClickKickpanelA"
+		android:text="@string/button_kickpanel_a"/>
 
 	<Button
-		android:id="@+id/button_kickpanel_B"
-		android:layout_width="wrap_content"
+		android:id="@+id/button_kickpanel_b"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_kickpanel_A"
-		android:layout_centerHorizontal="true"
-		android:layout_marginLeft="35dip"
-		android:layout_marginRight="35dip"
-		android:layout_marginTop="10dp"
-		android:onClick="button_click_kickpanel_B"
-		android:text="@string/button_bt_disable"/>
+		android:layout_below="@+id/button_kickpanel_a"
+		android:onClick="buttonClickKickpanelB"
+		android:text="@string/button_kickpanel_b"/>
+
+	<Button
+		android:id="@+id/button_kickpanel_c"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/button_kickpanel_b"
+		android:onClick="buttonClickKickpanelC"
+		android:text="@string/button_kickpanel_c"/>
 
 </RelativeLayout>

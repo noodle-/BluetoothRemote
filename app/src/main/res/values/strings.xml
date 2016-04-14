@@ -17,8 +17,11 @@
 	<!--  KickPanelActivity -->
 	<string name="title_activity_kickpanel">KickPanel Remote</string>
 	<string name="welcome">Choose one of the buttons below&#8230;\n</string>
-	<string name="button_bt_check">Send \'Hello!\'</string>
-	<string name="button_bt_disable">Listen to Bluetooth</string>
+	<string name="button_kickpanel_a">Send name</string>
+	<string name="button_kickpanel_b">Send amount of rounds</string>
+	<string name="button_kickpanel_c">Listen to Bluetooth</string>
+
+
 
 	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>

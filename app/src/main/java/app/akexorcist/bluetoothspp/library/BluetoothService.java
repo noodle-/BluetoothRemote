@@ -381,8 +381,7 @@ public class BluetoothService {
 //					}
 				} catch (IOException e) {
 					connectionLost();
-					// Start the service over to restart listening mode
-					BluetoothService.this.start(BluetoothService.this.isAndroid);
+					BluetoothService.this.start(BluetoothService.this.isAndroid);   // Start the service over to restart listening mode
 					break;
 				}
 			}
@@ -391,16 +390,9 @@ public class BluetoothService {
 		// Write to the connected OutStream.
 		// @param buffer  The bytes to write
 		public void write(byte[] buffer) {
-			try {/*
-			    byte[] buffer2 = new byte[buffer.length + 2];
-                for(int i = 0 ; i < buffer.length ; i++) 
-                    buffer2[i] = buffer[i];
-                buffer2[buffer2.length - 2] = 0x0A;
-                buffer2[buffer2.length - 1] = 0x0D;*/
+			try {
 				mmOutStream.write(buffer);
-				// Share the sent message back to the UI Activity
-				mHandler.obtainMessage(BluetoothState.MESSAGE_WRITE
-						, -1, -1, buffer).sendToTarget();
+				mHandler.obtainMessage(BluetoothState.MESSAGE_WRITE, -1, -1, buffer).sendToTarget();    // Share the sent message back to the UI Activity
 			} catch (IOException e) {
 			}
 		}

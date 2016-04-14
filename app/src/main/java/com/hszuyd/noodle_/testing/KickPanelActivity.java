@@ -125,13 +125,13 @@ public class KickPanelActivity extends AppCompatActivity {
 		///bt.startService(BluetoothState.DEVICE_ANDROID);
 		bt.startService(BluetoothState.DEVICE_OTHER);
 
-		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
-			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener ->"
-						+ "\ndata " + data
-						+ "\nmessage " + message);
-			}
-		});
+//		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
+//			public void onDataReceived(byte[] data, String message) {
+//				Log.e(TAG, "OnDataReceivedListener ->"
+//						//+ "\ndata " + data
+//						+ "\nmessage " + message);
+//			}
+//		});
 
 		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
 			public void onDeviceConnected(String name, String address) {

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void button_launch_kickpanel_OnClick(View view) {
-		//startActivity(new Intent(MainActivity.this, KickPanelActivity.class));
+		startActivity(new Intent(MainActivity.this, KickPanelActivity.class));
 	}
 
 	public void button_launch_tribot_OnClick(View view) {

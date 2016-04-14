@@ -16,8 +16,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 public class TribotActivity extends AppCompatActivity {
 	private static final String TAG = "TriBotActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
@@ -80,10 +78,12 @@ public class TribotActivity extends AppCompatActivity {
 	}
 
 	public void button_Send_Message(View v) {
-//		if(connected && name != null){
+		if (connected && name != null) {
 			connectThisShit.write(name);
 			connectThisShit.write(roundsNumber);
-//		}
+		} else {
+			Toast.makeText(TribotActivity.this, "Please make sure that you are connected or have a username!", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override
@@ -97,10 +97,10 @@ public class TribotActivity extends AppCompatActivity {
 				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
 				Log.e(TAG, "onActivityResult: " + device.toString());
 
-				//if(device != null){
-					//connected = true;
+				if (device != null) {
+					connected = true;
 					connectThisShit.connect(device);
-				//}
+				}
 
 				textView = (TextView) findViewById(R.id.TV_MAC_address);
 				assert textView != null;
@@ -109,9 +109,8 @@ public class TribotActivity extends AppCompatActivity {
 		}
 	}
 
-	/*public void button_Choose_Rounds(View v) {
+	public void button_Choose_Rounds(View v) {
 		final Dialog d = new Dialog(TribotActivity.this);
-		d.setTitle("Number of rounds");
 		d.setContentView(R.layout.dialog);
 		Button b1 = (Button) d.findViewById(R.id.button1);
 		final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
@@ -126,5 +125,5 @@ public class TribotActivity extends AppCompatActivity {
 			}
 		});
 		d.show();
-	}*/
+	}
 }

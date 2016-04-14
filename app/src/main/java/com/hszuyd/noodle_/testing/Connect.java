@@ -6,12 +6,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +44,6 @@ public class Connect {
 
 	/**
 	 * Constructor. Prepares a new BluetoothChat session.
-	 *
 	 */
 	public Connect() {
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -201,15 +195,14 @@ public class Connect {
 	 */
 	public void write(String out) {
 		// Create temporary object
-		Log.e(TAG, "write: HELLOOO?!?!?!");
+		Log.e(TAG, "write: trying to write");
 		ConnectedThread r;
 		// Synchronize a copy of the ConnectedThread
 		//synchronized (this) {
-			Log.e(TAG, "write: helloooo agaiaiiainan");
-			r = mConnectedThread;
+		Log.e(TAG, "write: sending strings");
+		r = mConnectedThread;
 		//}
 		// Perform the write unsynchronized
-		Log.e(TAG, "write: helloooo agaiaiiainan");
 		r.write(out.getBytes());
 
 	}
@@ -232,14 +225,9 @@ public class Connect {
 	 * Indicate that the connection was lost and notify the UI Activity.
 	 */
 	private void connectionLost() {
-		//setState(STATE_NONE);
-
-		// Send a failure message back to the Activity
-//		Message msg = mHandler.obtainMessage(3);
-//		Bundle bundle = new Bundle();
-//		bundle.putString("TOAST", "CONNECTION LOST LEL");
-//		msg.setData(bundle);
-//		mHandler.sendMessage(msg);
+		Log.d(TAG, "connectionLost: Connection lost");
+		TribotActivity tribotActivity = new TribotActivity();
+		tribotActivity.finish();
 	}
 
 	public boolean getAllowInsecureConnections() {
@@ -364,9 +352,7 @@ public class Connect {
 					String readed = new String(buffer, 0, bytes);
 
 					// Send the obtained bytes to the UI Activity
-					Log.e(TAG, "read: " + bytes);
 					Log.e(TAG, "read: " + readed);
-					//mHandler.obtainMessage(BlueTerm.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
 				} catch (IOException e) {
 					Log.e(TAG, "disconnected: bluetooth socket closed", e);
 					connectionLost();
@@ -400,5 +386,4 @@ public class Connect {
 			}
 		}
 	}
-
 }

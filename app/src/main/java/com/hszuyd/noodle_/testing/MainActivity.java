@@ -20,18 +20,22 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// Find the views and their ID's
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-
 		TextView textView = (TextView) findViewById(R.id.text_main_welcome);
-		Intent iin = getIntent();
-		Bundle b = iin.getExtras();
-		name = (String) b.get("NAME_PLAYER");
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+		setSupportActionBar(toolbar);   // Cast toolbar as actionbar so we can set its title
+
+		// Get the player name from login activity and show it
+		Intent intent = getIntent();
+		Bundle b = intent.getExtras();
+		name = (String) b.get("NAME_PLAYER");
 		assert textView != null;
 		textView.setText(getString(R.string.main_welcome, name));
 
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		// Create the floating action button (=fab) with its OnClickListener
 		if (fab != null)
 			fab.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * Creates the optionmenu with a MenuItem & sets the icon.
+	 * Creates the optionMenu with a MenuItem & sets the icon.
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	/**
-	 * Action when clicked on the icon/button on the toolbar.
+	 * Action when clicking on the icon/button on the toolbar.
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -71,15 +75,21 @@ public class MainActivity extends AppCompatActivity {
 				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
 			}
 		}
-		return super.onOptionsItemSelected(item);   // Why?
+		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Launch KickPanelActivity and give it the value of name
+	 */
 	public void button_launch_kickpanel_OnClick(View view) {
 		Intent intent = new Intent(getBaseContext(), KickPanelActivity.class);
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 	}
 
+	/**
+	 * Launch TribotActivity and give it the value of name
+	 */
 	public void button_launch_tribot_OnClick(View view) {
 		Intent intent = new Intent(getBaseContext(), TribotActivity.class);
 		intent.putExtra("NAME_PLAYER", name);

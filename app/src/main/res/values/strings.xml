@@ -22,16 +22,15 @@
 	<string name="kickpanel_button_b">Send amount of rounds</string>
 	<string name="kickpanel_button_c">Listen to Bluetooth</string>
 
-
-
 	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>
-	<string name="button_random_math_test">Generate a Random Number</string>
-	<string name="TV_random_number">Random Number</string>
-	<string name="TV_MAC_address">The MAC address of the connected device</string>
-	<string name="choose_the_amount_of_rounds">Choose the amount of rounds</string>
-	<string name="send_message">Send Message</string>
-	<string name="set">Set</string>
+	<string name="tribot_button_random_math_test">Generate a Random Number</string>
+	<string name="tribot_TV_random_number">Random Number</string>
+	<string name="tribot_TV_MAC_address">Please select a device to connect with</string>
+	<string name="tribot_button_send_name">Send name</string>
+	<string name="tribot_button_choose_rounds">Choose the amount of rounds</string>
+	<string name="tribot_button_send_rounds">Send the number of rounds</string>
+	<string name="tribot_button_set_rounds">Set</string>
 
 	<!--  DeviceListActivity -->
 	<string name="title_activity_device_list">Select a device</string>

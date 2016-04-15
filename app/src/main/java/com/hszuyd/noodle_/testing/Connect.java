@@ -1,12 +1,9 @@
 package com.hszuyd.noodle_.testing;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,19 +18,17 @@ import java.util.UUID;
  * thread for performing data transmissions when connected.
  */
 public class Connect {
-	// Constants that indicate the current connection state
-	public static final int STATE_NONE = 0;       // we're doing nothing
-	public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
 	// Debugging
 	private static final String TAG = "BluetoothReadService";
 	private static final boolean D = true;
+	// Static UUID
 	private static final UUID SerialPortServiceClass_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	// Member fields
 	private final BluetoothAdapter mAdapter;
+	private BluetoothSocket mmSocket;
 	private ConnectThread mConnectThread;
 	private ConnectedThread mConnectedThread;
 	private boolean mAllowInsecureConnections;
-	Context context;
 
 	/**
 	 * Constructor. Prepares a new BluetoothChat session.
@@ -41,7 +36,13 @@ public class Connect {
 	public Connect() {
 		mAdapter = BluetoothAdapter.getDefaultAdapter();
 		mAllowInsecureConnections = true;
+	}
 
+	/**
+	 * Getter. Returns the mmSocket to TribotActivity.
+	 */
+	public BluetoothSocket getMmSocket() {
+		return this.mmSocket;
 	}
 
 	/**
@@ -51,15 +52,13 @@ public class Connect {
 		try {
 			Method method = device.getClass().getMethod("removeBond", (Class[]) null);
 			method.invoke(device, (Object[]) null);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Start the chat service. Specifically start AcceptThread to begin a
-	 * session in listening (server) mode. Called by the Activity onResume()
+	 * Cancels any thread running and attempting a connection.
 	 */
 	public synchronized void start() {
 		if (D) Log.d(TAG, "start");
@@ -125,32 +124,41 @@ public class Connect {
 	/**
 	 * Write to the ConnectedThread in an unsynchronized manner
 	 *
-	 * @param out The bytes to write
-	 * @see ConnectedThread#write(byte[])
+	 * @param out The Strings to write
 	 */
 	public void write(String out) {
 		// Create temporary object
-		Log.e(TAG, "write: trying to write");
+		Log.d(TAG, "write: trying to write");
 		ConnectedThread r;
 		r = mConnectedThread;
-
 		r.write(out.getBytes());
-		Log.e(TAG, "write: sending strings");
+		Log.d(TAG, "write: sending strings");
 	}
 
 	/**
 	 * Indicate that the connection attempt failed and notify the UI Activity.
 	 */
 	private void connectionFailed() {
+		Log.e(TAG, "connectionLost: Connection failed");
+		try {
+			mmSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Connect.this.start();
 	}
 
 	/**
 	 * Indicate that the connection was lost and notify the UI Activity.
 	 */
 	private void connectionLost() {
-		Log.d(TAG, "connectionLost: Connection lost");
+		Log.e(TAG, "connectionLost: Connection lost");
+		try {
+			mmSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Connect.this.start();
-		Log.d(TAG, "connectionLost: Restart a connection");
 	}
 
 	/**
@@ -159,15 +167,13 @@ public class Connect {
 	 * succeeds or fails.
 	 */
 	private class ConnectThread extends Thread {
-		private final BluetoothSocket mmSocket;
 		private final BluetoothDevice mmDevice;
 
 		public ConnectThread(BluetoothDevice device) {
 			mmDevice = device;
 			BluetoothSocket tmp = null;
 
-			// Get a BluetoothSocket for a connection with the
-			// given BluetoothDevice
+			// Get a BluetoothSocket for a connection with the given BluetoothDevice
 			try {
 				if (mAllowInsecureConnections) {
 					Method method;
@@ -184,7 +190,7 @@ public class Connect {
 		}
 
 		public void run() {
-			Log.i(TAG, "Begin mConnectThread");
+			Log.d(TAG, "Begin mConnectThread");
 			setName("ConnectThread");
 
 			// Always cancel discovery because it will slow down a connection
@@ -192,8 +198,7 @@ public class Connect {
 
 			// Make a connection to the BluetoothSocket
 			try {
-				// This is a blocking call and will only return on a
-				// successful connection or an exception
+				// This is a blocking call and will only return on a successful connection or an exception
 				mmSocket.connect();
 			} catch (IOException e) {
 				connectionFailed();
@@ -212,7 +217,6 @@ public class Connect {
 			synchronized (Connect.this) {
 				mConnectThread = null;
 			}
-
 			// Start the connected thread
 			connected(mmSocket, mmDevice);
 		}
@@ -231,7 +235,6 @@ public class Connect {
 	 * It handles all incoming and outgoing transmissions.
 	 */
 	private class ConnectedThread extends Thread {
-		private final BluetoothSocket mmSocket;
 		private final InputStream mmInStream;
 		private final OutputStream mmOutStream;
 
@@ -253,7 +256,7 @@ public class Connect {
 		}
 
 		public void run() {
-			Log.i(TAG, "Begin mConnectedThread");
+			Log.d(TAG, "Begin mConnectedThread");
 			byte[] buffer = new byte[1024];
 			int bytes;
 
@@ -265,7 +268,11 @@ public class Connect {
 					String readed = new String(buffer, 0, bytes);
 
 					// Send the obtained bytes to the log
-					Log.e(TAG, "read: " + readed);
+					Log.d(TAG, "read: " + readed);
+
+
+					//TODO put a check in here that will close the connection
+
 				} catch (IOException e) {
 					Log.e(TAG, "disconnected: bluetooth socket closed", e);
 					connectionLost();

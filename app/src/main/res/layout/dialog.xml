@@ -18,6 +18,5 @@
 		android:layout_below="@id/numberPicker1"
 		android:layout_centerHorizontal="true"
 		android:layout_centerVertical="true"
-		android:text="@string/set"/>
-
+		android:text="@string/tribot_button_set_rounds"/>
 </RelativeLayout>

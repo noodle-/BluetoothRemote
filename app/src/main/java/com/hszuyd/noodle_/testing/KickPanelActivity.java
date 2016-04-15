@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,7 +16,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	private General g = new General(KickPanelActivity.this);
-	private MenuItem mDynamicMenuIcon;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +33,6 @@ public class KickPanelActivity extends AppCompatActivity {
 			bt.stopService();
 		}
 		finish();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
-		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
-		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();      // get ID of the clicked button so we know where we've clicked and act based on that
-		if (id == R.id.tb_bluetooth) {
-			if (Math.random() > 0.5) {  // Show a different icon based on random int between 0.0 and 1.0
-				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
-			} else {
-				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
-			}
-		}
-		return super.onOptionsItemSelected(item);   // Why?
 	}
 
 	public void buttonClickKickpanelA(View view) {

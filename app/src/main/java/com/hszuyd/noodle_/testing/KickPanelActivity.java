@@ -2,8 +2,6 @@ package com.hszuyd.noodle_.testing; // TODO change package name?
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,9 +16,9 @@ import app.akexorcist.bluetoothspp.library.BluetoothState;
 public class KickPanelActivity extends AppCompatActivity {
 	private static final String TAG = "KickPanelActivity";
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
-	BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
-	General g = new General(KickPanelActivity.this);
-	MenuItem mDynamicMenuIcon;
+	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
+	private General g = new General(KickPanelActivity.this);
+	private MenuItem mDynamicMenuIcon;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +28,6 @@ public class KickPanelActivity extends AppCompatActivity {
 		// Load the toolbar so we can set the title
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(mToolbar);
-
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		if (fab != null)
-			fab.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Snackbar.make(view, "This is a snackbar!", Snackbar.LENGTH_LONG)
-							.setAction("SHOW TOAST", new View.OnClickListener() {
-								@Override
-								public void onClick(View v) {
-									g.showToast("This is a Toast!");
-								}
-							}).show();
-				}
-			});
 	}
 
 	@Override

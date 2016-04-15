@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import app.akexorcist.bluetoothspp.library.BluetoothSPP;
 import app.akexorcist.bluetoothspp.library.BluetoothState;
@@ -44,6 +45,14 @@ public class KickPanelActivity extends AppCompatActivity {
 							}).show();
 				}
 			});
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (bt.getServiceState() != BluetoothState.STATE_NONE) {
+			bt.stopService();
+		}
+		finish();
 	}
 
 	@Override
@@ -149,14 +158,20 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		bt.setBluetoothStateListener(new BluetoothSPP.BluetoothStateListener() {
 			public void onServiceStateChanged(int state) {
+				TextView textView = (TextView) findViewById(R.id.text_kickpanel_welcome);
+				assert textView != null;
 				if (state == BluetoothState.STATE_CONNECTED) {
 					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTED");
+					textView.setText(getString(R.string.kickpanel_bt_state_connected));
 				} else if (state == BluetoothState.STATE_CONNECTING) {
 					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTING");
+					textView.setText(getString(R.string.kickpanel_bt_state_connecting));
 				} else if (state == BluetoothState.STATE_LISTEN) {
 					Log.e(TAG, "BluetoothStateListener -> STATE_LISTEN");
+					textView.setText(getString(R.string.kickpanel_bt_state_listening));
 				} else if (state == BluetoothState.STATE_NONE) {
 					Log.e(TAG, "BluetoothStateListener -> STATE_NONE");
+					textView.setText(getString(R.string.kickpanel_bt_state_none));
 				}
 			}
 		});

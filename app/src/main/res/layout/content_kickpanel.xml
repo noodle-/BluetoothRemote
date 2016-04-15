@@ -14,17 +14,17 @@
 	tools:showIn="@layout/activity_kickpanel">
 
 	<TextView
-		android:id="@+id/text_welcome"
+		android:id="@+id/text_kickpanel_welcome"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/kickpanel_welcome"/>
+		android:text="@string/kickpanel_bt_state_none"/>
 
 	<Button
 		android:id="@+id/button_device_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/text_welcome"
+		android:layout_below="@+id/text_kickpanel_welcome"
 		android:onClick="buttonStartDeviceList"
 		android:text="@string/button_device_list"/>
 

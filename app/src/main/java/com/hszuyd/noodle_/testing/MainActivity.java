@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
 			});
 	}
 
+	/**
+	 * Creates the optionmenu with a MenuItem & sets the icon.
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}
 
+	/**
+	 * Action when clicked on the icon/button on the toolbar.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();      // get ID of the clicked button so we know where we've clicked and act based on that

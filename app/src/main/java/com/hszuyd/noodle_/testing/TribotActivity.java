@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -96,31 +95,12 @@ public class TribotActivity extends AppCompatActivity {
 		tv_MAC_address = getString(R.string.tribot_TV_MAC_address);
 	}
 
-	/**
-	 * Creates the optionmenu with a MenuItem & sets the icon.
-	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
 		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
 		return true;
-	}
-
-	/**
-	 * Action when clicked on the icon/button on the toolbar.
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();      // get ID of the clicked button so we know where we've clicked and act based on that
-		if (id == R.id.tb_bluetooth) {
-			if (Math.random() > 0.5) {  // Show a different icon based on random int between 0.0 and 1.0
-				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_up);
-			} else {
-				mDynamicMenuIcon.setIcon(R.drawable.ic_thumb_down);
-			}
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**

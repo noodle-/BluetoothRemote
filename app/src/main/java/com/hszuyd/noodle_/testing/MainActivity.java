@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-		TextView textView = (TextView) findViewById(R.id.textView);
+		TextView textView = (TextView) findViewById(R.id.text_main_welcome);
 		Intent iin = getIntent();
 		Bundle b = iin.getExtras();
 		name = (String) b.get("NAME_PLAYER");

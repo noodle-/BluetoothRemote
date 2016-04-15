@@ -17,7 +17,10 @@
 
 	<!--  KickPanelActivity -->
 	<string name="title_activity_kickpanel">KickPanel Remote</string>
-	<string name="kickpanel_welcome">Choose one of the buttons below&#8230;\n</string>
+	<string name="kickpanel_bt_state_connecting">Bluetooth: connecting</string>
+	<string name="kickpanel_bt_state_connected">Bluetooth: connected</string>
+	<string name="kickpanel_bt_state_listening">Bluetooth: listening</string>
+	<string name="kickpanel_bt_state_none">Bluetooth: disconnected</string>
 	<string name="kickpanel_button_a">Send name</string>
 	<string name="kickpanel_button_b">Send amount of rounds</string>
 	<string name="kickpanel_button_c">Listen to Bluetooth</string>

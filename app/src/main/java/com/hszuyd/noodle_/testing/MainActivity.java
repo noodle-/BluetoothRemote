@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 	/**
 	 * Launch KickPanelActivity and give it the value of name
 	 */
-	public void button_launch_kickpanel_OnClick(View view) {
+	public void buttonLaunchKickpanelOnClick(View view) {
 		Intent intent = new Intent(getBaseContext(), KickPanelActivity.class);
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
@@ -90,9 +90,17 @@ public class MainActivity extends AppCompatActivity {
 	/**
 	 * Launch TribotActivity and give it the value of name
 	 */
-	public void button_launch_tribot_OnClick(View view) {
+	public void buttonLaunchTribotOnClick(View view) {
 		Intent intent = new Intent(getBaseContext(), TribotActivity.class);
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
+	}
+	/** 
+	 * Generates a number between 0 and 1.
+	 */
+	public void buttonRandomMathNumber(View v) {
+		tvMacAddress = (TextView) findViewById(R.id.TV_random_number);
+		String rndmstring = String.valueOf(Math.random());
+		tvMacAddress.setText(rndmstring);
 	}
 }

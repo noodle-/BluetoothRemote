@@ -14,31 +14,13 @@
 	tools:context=".TribotActivity"
 	tools:showIn="@layout/activity_tribot">
 
-
-	<Button
-		android:id="@+id/button_random_math_test"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:onClick="button_Random_Math_Number"
-		android:text="@string/tribot_button_random_math_test"/>
-
-	<TextView
-		android:id="@+id/TV_random_number"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_above="@+id/button_random_math_test"
-		android:layout_centerHorizontal="true"
-		android:text="@string/tribot_TV_random_number"/>
-
 	<Button
 		android:id="@+id/button_device_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
-		android:onClick="button_start_device_list"
+		android:onClick="buttonStartDeviceList"
 		android:text="@string/button_device_list"/>
 
 	<TextView
@@ -56,7 +38,7 @@
 		android:layout_alignParentEnd="true"
 		android:layout_below="@+id/TV_MAC_address"
 		android:layout_marginTop="64dp"
-		android:onClick="button_Send_Name"
+		android:onClick="buttonSendName"
 		android:text="@string/tribot_button_send_name"/>
 
 	<Button
@@ -66,7 +48,7 @@
 		android:layout_alignParentEnd="true"
 		android:layout_below="@+id/button_send_rounds"
 		android:layout_marginTop="64dp"
-		android:onClick="button_Choose_Rounds"
+		android:onClick="buttonChooseRounds"
 		android:text="@string/tribot_button_choose_rounds"/>
 
 	<Button
@@ -76,7 +58,7 @@
 		android:layout_alignParentStart="true"
 		android:layout_below="@+id/button_send_name"
 		android:layout_marginTop="64dp"
-		android:onClick="button_Send_Rounds"
+		android:onClick="buttonSendRounds"
 		android:text="@string/tribot_button_send_rounds"/>
 
 	<ProgressBar

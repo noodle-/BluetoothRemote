@@ -36,10 +36,10 @@ public class TribotActivity extends AppCompatActivity {
 	// Strings
 	private String name;
 	private String roundsNumber = "1";
-	private String tv_MAC_address;
+	private String macAddress;
 	// ID for views
 	private MenuItem mDynamicMenuIcon;
-	private TextView tvMacAddress;
+	private TextView textviewMacAddress;
 	private Button buttonSendRounds;
 	private Button buttonSelectRounds;
 	private Button buttonSendName;
@@ -106,23 +106,14 @@ public class TribotActivity extends AppCompatActivity {
 	/**
 	 * Starts the deviceListActivity.
 	 */
-	public void button_start_device_list(View v) {
+	public void buttonStartDeviceList(View v) {
 		startActivityForResult(new Intent(this, DeviceListActivity.class), REQUEST_DEVICE_ADDRESS);
-	}
-
-	/**
-	 * Generates a number between 0 and 1.
-	 */
-	public void button_Random_Math_Number(View v) {
-		tvMacAddress = (TextView) findViewById(R.id.TV_random_number);
-		String rndmstring = String.valueOf(Math.random());
-		tvMacAddress.setText(rndmstring);
 	}
 
 	/**
 	 * Sends the name entered in the Loginscreen to iPlay.
 	 */
-	public void button_Send_Name(View v) {
+	public void buttonSendName(View v) {
 		if (name != null) {
 			connectBluetooth.write(name);
 			buttonSelectRounds.setVisibility(View.VISIBLE);
@@ -135,7 +126,7 @@ public class TribotActivity extends AppCompatActivity {
 	/**
 	 * Pops up an AlertDialog so you can choose a number of rounds.
 	 */
-	public void button_Choose_Rounds(View v) {
+	public void buttonChooseRounds(View v) {
 		final Dialog d = new Dialog(TribotActivity.this);
 		d.setContentView(R.layout.dialog);
 		Button b1 = (Button) d.findViewById(R.id.button1);
@@ -158,11 +149,11 @@ public class TribotActivity extends AppCompatActivity {
 	/**
 	 * Sends the number of rounds that want to be played to iPlay.
 	 */
-	public void button_Send_Rounds(View v) {
+	public void buttonSendRounds(View v) {
 		if (roundsNumber != null) {
 			connectBluetooth.write(roundsNumber);
 			buttonSendRounds.setVisibility(View.GONE);
-			tvMacAddress.setText(tv_MAC_address);
+			macAddress.setText(textviewMacAddress);
 			finish();
 			startActivity(restartIntent);
 		} else {

@@ -8,6 +8,8 @@
 	<!--  MainActivity -->
 	<string name="title_activity_main">Bluetooth Remote</string>
 	<string name="main_welcome">Hallo %1$s!</string>
+	<string name="main_button_random_math_test">Generate a Random Number</string>
+	<string name="main_TV_random_number">Random Number</string>
 
 	<!--  LoginActivity -->
 	<string name="title_activity_login_screen">Bluetooth Remote</string>
@@ -27,8 +29,6 @@
 
 	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>
-	<string name="tribot_button_random_math_test">Generate a Random Number</string>
-	<string name="tribot_TV_random_number">Random Number</string>
 	<string name="tribot_TV_MAC_address">Please select a device to connect with</string>
 	<string name="tribot_button_send_name">Send name</string>
 	<string name="tribot_button_choose_rounds">Choose the amount of rounds</string>

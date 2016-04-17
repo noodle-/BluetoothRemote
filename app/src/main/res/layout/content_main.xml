@@ -20,7 +20,7 @@
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="76dp"
-		android:onClick="button_launch_kickpanel_OnClick"
+		android:onClick="button/LaunchKickpanelOnClick"
 		android:text="@string/title_activity_kickpanel"/>
 
 	<Button
@@ -29,8 +29,25 @@
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/bt_launch_kickpanel"
 		android:layout_centerHorizontal="true"
-		android:onClick="button_launch_tribot_OnClick"
+		android:onClick="buttonLaunchTribotOnClick"
 		android:text="@string/title_activity_tribot"/>
+	
+	<Button
+		android:id="@+id/button_random_math_test"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:onClick="buttonRandomMathNumber"
+		android:text="@string/main_button_random_math_test"/>
+		
+	<TextView
+		android:id="@+id/TV_random_number"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/button_random_math_test"
+		android:layout_centerHorizontal="true"
+		android:text="@string/main_TV_random_number"/>
 
 	<TextView
 		android:id="@+id/name"

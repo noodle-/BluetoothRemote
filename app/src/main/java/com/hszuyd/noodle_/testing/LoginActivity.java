@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 		g.checkBluetooth();
 	}
 
-	public void button_Start_App_OnClick(View view) {
+	public void buttonStartAppOnClick(View view) {
 		EditText text = (EditText) findViewById(R.id.editText);
 		String name = text.getText().toString().trim(); // Remove trailing spaces
 

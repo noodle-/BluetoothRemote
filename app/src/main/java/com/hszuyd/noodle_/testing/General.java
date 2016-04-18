@@ -41,6 +41,7 @@ public class General {
 									System.exit(0);
 								}
 							})
+					.setCancelable(false)
 					.setIcon(R.drawable.ic_warning)
 					.show();
 		} else if (!mBluetoothAdapter.isEnabled()) {
@@ -63,6 +64,7 @@ public class General {
 									System.exit(0);
 								}
 							})
+					.setCancelable(false)
 					.setIcon(R.drawable.ic_warning)
 					.show();
 		}

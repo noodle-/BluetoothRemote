@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 public class General {
-	final BluetoothAdapter BTAdapter = BluetoothAdapter.getDefaultAdapter();
+	final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	private Context mContext;   // Context from activity which call this class
 
 	public General(Context context) {
@@ -28,7 +28,7 @@ public class General {
 	 * Show different dialogs based on Bluetooth adapter availability, show none if there's a bluetooth adapter and it's enabled
 	 */
 	public void checkBluetooth() {
-		if (BTAdapter == null) {
+		if (mBluetoothAdapter == null || mBluetoothAdapter.getAddress().equals(null)) {
 			new AlertDialog.Builder(mContext)
 					.setTitle("Warning")
 					.setMessage("Bluetooth adapter not found. \n" +
@@ -43,7 +43,7 @@ public class General {
 							})
 					.setIcon(R.drawable.ic_warning)
 					.show();
-		} else if (!BTAdapter.isEnabled()) {
+		} else if (!mBluetoothAdapter.isEnabled()) {
 			new AlertDialog.Builder(mContext)
 					.setTitle("Warning")
 					.setMessage("Bluetooth is currently disabled. \n" +
@@ -53,7 +53,7 @@ public class General {
 							"Enable Bluetooth",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
-									BTAdapter.enable();
+									mBluetoothAdapter.enable();
 								}
 							}
 					)

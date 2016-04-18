@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
 	private General g = new General(MainActivity.this);
 	private String name;
 	private MenuItem mDynamicMenuIcon;
+	private TextView textviewRandomNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
 	 * Generates a number between 0 and 1.
 	 */
 	public void buttonRandomMathNumber(View v) {
-		tvMacAddress = (TextView) findViewById(R.id.TV_random_number);
+		textviewRandomNumber = (TextView) findViewById(R.id.TV_random_number);
 		String rndmstring = String.valueOf(Math.random());
-		tvMacAddress.setText(rndmstring);
+		textviewRandomNumber.setText(rndmstring);
 	}
 }

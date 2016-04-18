@@ -20,7 +20,7 @@
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="76dp"
-		android:onClick="button/LaunchKickpanelOnClick"
+		android:onClick="buttonLaunchKickpanelOnClick"
 		android:text="@string/title_activity_kickpanel"/>
 
 	<Button
@@ -38,6 +38,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="120dp"
 		android:onClick="buttonRandomMathNumber"
 		android:text="@string/main_button_random_math_test"/>
 		

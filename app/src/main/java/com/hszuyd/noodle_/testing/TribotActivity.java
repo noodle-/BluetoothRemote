@@ -76,7 +76,7 @@ public class TribotActivity extends AppCompatActivity {
 		buttonSendRounds = (Button) findViewById(R.id.button_send_rounds);
 		buttonSendName = (Button) findViewById(R.id.button_send_name);
 		buttonSelectRounds = (Button) findViewById(R.id.button_choose_rounds);
-		tvMacAddress = (TextView) findViewById(R.id.TV_MAC_address);
+		textviewMacAddress = (TextView) findViewById(R.id.TV_MAC_address);
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 		// Make sure the views are not null
@@ -92,15 +92,7 @@ public class TribotActivity extends AppCompatActivity {
 		mProgressBar.setVisibility(View.GONE);
 
 		// Set the string to the resource
-		tv_MAC_address = getString(R.string.tribot_TV_MAC_address);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
-		mDynamicMenuIcon = menu.findItem(R.id.tb_bluetooth);
-		mDynamicMenuIcon.setIcon(R.drawable.ic_favorite_white);
-		return true;
+		macAddress = getString(R.string.tribot_TV_MAC_address);
 	}
 
 	/**
@@ -153,7 +145,7 @@ public class TribotActivity extends AppCompatActivity {
 		if (roundsNumber != null) {
 			connectBluetooth.write(roundsNumber);
 			buttonSendRounds.setVisibility(View.GONE);
-			macAddress.setText(textviewMacAddress);
+			textviewMacAddress.setText(macAddress);
 			finish();
 			startActivity(restartIntent);
 		} else {
@@ -193,8 +185,8 @@ public class TribotActivity extends AppCompatActivity {
 				connectBluetooth.connect(device);
 
 				// Show that the request was successful by putting it in a textview
-				assert tvMacAddress != null;
-				tvMacAddress.setText("Device address: " + address);
+				assert textviewMacAddress!= null;
+				textviewMacAddress.setText("Device address: " + address);
 			}
 		}
 	}

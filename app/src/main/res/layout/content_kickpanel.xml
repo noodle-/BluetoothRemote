@@ -26,7 +26,8 @@
 		android:layout_alignParentStart="true"
 		android:layout_below="@+id/text_kickpanel_welcome"
 		android:onClick="buttonStartDeviceList"
-		android:text="@string/button_device_list"/>
+		android:text="@string/button_device_list"
+		android:transitionName="ToKickPanel"/>
 
 	<Button
 		android:id="@+id/button_kickpanel_a"

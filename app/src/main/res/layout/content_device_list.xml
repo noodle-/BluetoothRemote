@@ -52,9 +52,6 @@
 		android:id="@+id/button_scan"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="@string/button_scan"/>
+		android:text="@string/button_scan"
+		android:transitionName="ToDeviceList"/>
 </LinearLayout>
-
-	<!--    Add this back to the list views if needed
-			android:stackFromBottom="true"
-	-->

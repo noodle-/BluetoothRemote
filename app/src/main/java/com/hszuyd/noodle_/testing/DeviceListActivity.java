@@ -193,6 +193,11 @@ public class DeviceListActivity extends AppCompatActivity {
 	}
 
 	@Override
+	public void onBackPressed() {
+		supportFinishAfterTransition();     // Use the transition while going back
+	}
+
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		if (mBtAdapter != null) {

@@ -1,5 +1,6 @@
 package com.hszuyd.noodle_.testing;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -83,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
 	 * Launch KickPanelActivity and give it the value of name
 	 */
 	public void buttonLaunchKickpanelOnClick(View view) {
-		Intent intent = new Intent(getBaseContext(), KickPanelActivity.class);
-		intent.putExtra("NAME_PLAYER", name);
-		startActivity(intent);
+		Intent intent = new Intent(getBaseContext(), KickPanelActivity.class);  // Create intent for going from here to KickPanel
+		intent.putExtra("NAME_PLAYER", name);                                   // Add player name to the intent as Extra
+		ActivityOptions transitionActivityOptions =                             // Set animation options
+				ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, view, "ToKickPanel");
+		startActivity(intent, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
 	}
 
 	/**
@@ -96,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 	}
-	/** 
+
+	/**
 	 * Generates a number between 0 and 1.
 	 */
 	public void buttonRandomMathNumber(View v) {

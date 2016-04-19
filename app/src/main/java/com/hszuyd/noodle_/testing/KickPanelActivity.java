@@ -1,5 +1,6 @@
 package com.hszuyd.noodle_.testing; // TODO change package name?
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		if (bt.getServiceState() != BluetoothState.STATE_NONE) {
 			bt.stopService();
 		}
-		finish();
+		supportFinishAfterTransition();     // Use the transition while going back as well
 	}
 
 	public void buttonClickKickpanelA(View view) {
@@ -63,8 +64,10 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonStartDeviceList(View v) {
-		Intent intent = new Intent(this, DeviceListActivity.class);
-		startActivityForResult(intent, REQUEST_DEVICE_ADDRESS);
+		Intent intent = new Intent(this, DeviceListActivity.class);             // Create intent for going from here to KickPanel
+		ActivityOptions transitionActivityOptions =                             // Set animation options
+				ActivityOptions.makeSceneTransitionAnimation(KickPanelActivity.this, v, "ToDeviceList");
+		startActivityForResult(intent, REQUEST_DEVICE_ADDRESS, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
 	}
 
 	@Override

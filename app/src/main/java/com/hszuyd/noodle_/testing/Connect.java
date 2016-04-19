@@ -128,11 +128,11 @@ public class Connect {
 	 */
 	public void write(String out) {
 		// Create temporary object
-		Log.d(TAG, "write: trying to write");
 		ConnectedThread r;
 		r = mConnectedThread;
 		r.write(out.getBytes());
-		Log.d(TAG, "write: sending strings");
+		String readed = out;
+		Log.d(TAG, "write: " + readed);
 	}
 
 	/**

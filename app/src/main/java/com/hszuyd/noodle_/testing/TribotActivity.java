@@ -169,7 +169,6 @@ public class TribotActivity extends AppCompatActivity {
 
 				// Get the BluetoothDevice object
 				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-				Log.d(TAG, "onActivityResult: " + device.toString());
 
 				// Creates a handler that waits for 6 seconds and shows a progressbar. Shows the button to send the name after 6 seconds.
 				// TODO create a thread or anything that automatically checks if the device is connected

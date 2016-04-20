@@ -32,16 +32,6 @@
 		android:onClick="buttonLaunchTribotOnClick"
 		android:text="@string/title_activity_tribot"/>
 
-	<Button
-		android:id="@+id/button_random_math_test"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginBottom="120dp"
-		android:onClick="buttonRandomMathNumber"
-		android:text="@string/main_button_random_math_test"/>
-
 	<TextView
 		android:id="@+id/TV_random_number"
 		android:layout_width="wrap_content"

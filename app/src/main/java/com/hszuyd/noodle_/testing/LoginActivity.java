@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //		if (checkName(name)) {                          // TODO Remove this when not testing.
 		// Start MainActivity and give it "name" through an intent
-		Intent intent = new Intent(getBaseContext(), MainActivity.class);
+		Intent intent = new Intent(getBaseContext(), TribotActivity.class);
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 //		}

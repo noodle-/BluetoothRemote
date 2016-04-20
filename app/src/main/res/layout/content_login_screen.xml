@@ -13,23 +13,13 @@
 	tools:context=".LoginActivity"
 	tools:showIn="@layout/activity_login_screen">
 
-	<TextView
-		android:id="@+id/tv_LoginScreen"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="10dp"
-		android:text="Enter your desired name below"
-		android:textAppearance="?android:attr/textAppearanceLarge"/>
-
 	<EditText
 		android:id="@+id/editText"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/tv_LoginScreen"
 		android:layout_marginTop="120dp"
-		android:ems="10"
-		android:hint="Enter your name"
+		android:hint="@string/name_hint"
 		android:inputType="textPersonName"
 		android:maxLength="25"/>
 
@@ -37,10 +27,10 @@
 		android:id="@+id/button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignTop="@+id/editText"
-		android:layout_marginEnd="21dp"
+		android:layout_below="@+id/editText"
+		android:layout_centerHorizontal="true"
 		android:onClick="buttonStartAppOnClick"
-		android:text="Start"/>
+		android:text="@string/start"
+		android:textSize="20sp"/>
 
 </RelativeLayout>

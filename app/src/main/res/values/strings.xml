@@ -6,14 +6,17 @@
 	<!--  Toolbar -->
 	<string name="tb_action_thumb">Thumb up / Thumb down</string>
 
+	<!--  LoginActivity -->
+	<string name="title_activity_login_screen">Bluetooth Remote</string>
+	<string name="start">Start</string>
+	<string name="name_hint">Enter your name</string>
+
+
 	<!--  MainActivity -->
 	<string name="title_activity_main">Bluetooth Remote</string>
 	<string name="main_welcome">Hallo %1$s!</string>
 	<string name="main_button_random_math_test">Generate a Random Number</string>
 	<string name="main_TV_random_number">Random Number</string>
-
-	<!--  LoginActivity -->
-	<string name="title_activity_login_screen">Bluetooth Remote</string>
 
 	<!--  Kickpanel & Tribot -->
 	<string name="button_device_list">Select a device to connect with</string>

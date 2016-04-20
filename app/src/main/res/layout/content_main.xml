@@ -13,6 +13,16 @@
 	tools:context=".MainActivity"
 	tools:showIn="@layout/activity_main">
 
+	<TextView
+		android:id="@+id/text_main_welcome"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="40dp"
+		android:hint="Hello Sir!"
+		android:transitionName="ToMain"/>
+
 	<Button
 		android:id="@+id/bt_launch_kickpanel"
 		android:layout_width="wrap_content"
@@ -50,20 +60,4 @@
 		android:layout_centerHorizontal="true"
 		android:text="@string/main_TV_random_number"/>
 
-	<TextView
-		android:id="@+id/name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:layout_centerVertical="true"
-		android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-	<TextView
-		android:id="@+id/text_main_welcome"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginTop="40dp"
-		android:hint="Hello Sir!"/>
 </RelativeLayout>

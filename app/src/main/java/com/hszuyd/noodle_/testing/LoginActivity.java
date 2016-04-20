@@ -1,5 +1,6 @@
 package com.hszuyd.noodle_.testing;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,9 +31,11 @@ public class LoginActivity extends AppCompatActivity {
 
 //		if (checkName(name)) {                          // TODO Remove this when not testing.
 		// Start MainActivity and give it "name" through an intent
-		Intent intent = new Intent(getBaseContext(), MainActivity.class);
-		intent.putExtra("NAME_PLAYER", name);
-		startActivity(intent);
+		Intent intent = new Intent(getBaseContext(), MainActivity.class);       // Create intent for going from here to KickPanel
+		intent.putExtra("NAME_PLAYER", name);                                   // Add player name to the intent as Extra
+		ActivityOptions transitionActivityOptions =                             // Set animation options
+				ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, text, "ToMain");
+		startActivity(intent, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
 //		}
 	}
 

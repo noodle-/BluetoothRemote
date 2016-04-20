@@ -59,6 +59,7 @@ public class TribotActivity extends AppCompatActivity {
 			name = "Unknown";
 			Log.d(TAG, "onCreate: " + name);
 		}
+		Log.d(TAG, "onCreate: " + name);
 
 		// Sets the bluetoothAdapter to the default adapter
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -66,7 +67,7 @@ public class TribotActivity extends AppCompatActivity {
 			Log.e(TAG, "onCreate: BluetoothAdapter is null");
 			finish();
 		} else {
-			Log.d(TAG, "onCreate: " + mBluetoothAdapter.toString());
+			Log.d(TAG, "onCreate: BluetoothAdapter found");
 		}
 
 		// Gets the Activity as Intent

@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 	private General g = new General(MainActivity.this);
 	private String name;
 	private MenuItem mDynamicMenuIcon;
-	private TextView textviewRandomNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +23,19 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		// Find the views and their ID's
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		TextView textView = (TextView) findViewById(R.id.text_main_welcome);
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-		setSupportActionBar(toolbar);   // Cast toolbar as actionbar so we can set its title
+		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
+		getSupportActionBar().setDisplayShowHomeEnabled(true);                  // Show home/back button
+		mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
+		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
+			@Override
+			public void onClick(View v) {
+				supportFinishAfterTransition();                                 // Finish activity with animation
+			}
+		});
 
 		// Get the player name from login activity and show it
 		Intent intent = getIntent();
@@ -104,8 +111,10 @@ public class MainActivity extends AppCompatActivity {
 	 * Generates a number between 0 and 1.
 	 */
 	public void buttonRandomMathNumber(View v) {
-		textviewRandomNumber = (TextView) findViewById(R.id.TV_random_number);
+		TextView textviewRandomNumber = (TextView) findViewById(R.id.TV_random_number);
 		String rndmstring = String.valueOf(Math.random());
-		textviewRandomNumber.setText(rndmstring);
+		if (textviewRandomNumber != null) {
+			textviewRandomNumber.setText(rndmstring);
+		}
 	}
 }

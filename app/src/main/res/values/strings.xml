@@ -1,6 +1,7 @@
 <resources>
-	<!--  App Name -->
+	<!--  Application -->
 	<string name="app_name">Bluetooth Remote</string>
+	<string name="app_description">Bluetooth Remote: This application will let you communicate with another Android device or a Raspberry through Bluetooth. It uses the bluetooth Serial Port Profile.</string>
 
 	<!--  Toolbar -->
 	<string name="tb_action_thumb">Thumb up / Thumb down</string>

@@ -106,15 +106,4 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 	}
-
-	/**
-	 * Generates a number between 0 and 1.
-	 */
-	public void buttonRandomMathNumber(View v) {
-		TextView textviewRandomNumber = (TextView) findViewById(R.id.TV_random_number);
-		String rndmstring = String.valueOf(Math.random());
-		if (textviewRandomNumber != null) {
-			textviewRandomNumber.setText(rndmstring);
-		}
-	}
 }

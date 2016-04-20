@@ -77,7 +77,7 @@ public class DeviceListActivity extends AppCompatActivity {
 
 			// Set result and finish/close this Activity
 			setResult(Activity.RESULT_OK, data);
-			finish();
+			supportFinishAfterTransition();
 		}
 	};
 
@@ -176,9 +176,16 @@ public class DeviceListActivity extends AppCompatActivity {
 			pairedDevicesArrayAdapter.add(noDevices);
 		}
 
-		// Load the toolbar so we can set the title
-		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(mToolbar);  // Set toolbar as actionbar?
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);                // Load toolbar (with title, icon etc)
+		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
+		getSupportActionBar().setDisplayShowHomeEnabled(true);                  // Show home/back button
+		mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
+		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
+			@Override
+			public void onClick(View v) {
+				supportFinishAfterTransition();                                 // Finish with animation
+			}
+		});
 
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id

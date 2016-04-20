@@ -23,9 +23,16 @@ public class KickPanelActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kickpanel);
 
-		// Load the toolbar so we can set the title
-		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(mToolbar);
+		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);                // Load toolbar (with title, icon etc)
+		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
+		getSupportActionBar().setDisplayShowHomeEnabled(true);                  // Show home/back button
+		mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
+		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
+			@Override
+			public void onClick(View v) {
+				supportFinishAfterTransition();                                 // Finish with animation
+			}
+		});
 	}
 
 	@Override

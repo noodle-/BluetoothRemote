@@ -20,12 +20,11 @@
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
 		android:layout_marginTop="40dp"
-		android:hint="Hello Sir!"
 		android:transitionName="ToMain"/>
 
 	<Button
 		android:id="@+id/bt_launch_kickpanel"
-		android:layout_width="wrap_content"
+		android:layout_width="150dp"
 		android:layout_height="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
@@ -35,7 +34,7 @@
 
 	<Button
 		android:id="@+id/bt_launch_tribot"
-		android:layout_width="wrap_content"
+		android:layout_width="150dp"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/bt_launch_kickpanel"
 		android:layout_centerHorizontal="true"

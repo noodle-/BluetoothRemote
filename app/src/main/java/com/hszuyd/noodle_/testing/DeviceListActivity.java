@@ -195,27 +195,31 @@ public class DeviceListActivity extends AppCompatActivity {
 			});
 		}
 
-		// Request coarse location permission to access the hardware identifiers
-		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-
+		// Handle runtime permissions for ACCESS_COARSE_LOCATION permission to find nearby bluetooth devices
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {  // Only ask for these permissions on runtime when running Android 6.0 or higher
-			((TextView) new AlertDialog.Builder(this)
-					.setTitle("Runtime Permissions up ahead")
-					.setMessage(Html.fromHtml("<p>To find nearby bluetooth devices please click \"Allow\" on the runtime permissions popup.</p>" +
-							"<p>For more info see <a href=\"http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id\">here</a>.</p>"))
-					.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-								ActivityCompat.requestPermissions(DeviceListActivity.this,
-										new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-										REQUEST_ACCESS_COARSE_LOCATION);
-							}
-						}
-					})
-					.show()
-					.findViewById(android.R.id.message))
-					.setMovementMethod(LinkMovementMethod.getInstance());       // Make the link clickable. Needs to be called after show(), in order to generate hyperlinks
+			switch (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+				case PackageManager.PERMISSION_DENIED:
+					((TextView) new AlertDialog.Builder(this)
+							.setTitle("Runtime Permissions up ahead")
+							.setMessage(Html.fromHtml("<p>To find nearby bluetooth devices please click \"Allow\" on the runtime permissions popup.</p>" +
+									"<p>For more info see <a href=\"http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id\">here</a>.</p>"))
+							.setNeutralButton("Okay", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+										ActivityCompat.requestPermissions(DeviceListActivity.this,
+												new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+												REQUEST_ACCESS_COARSE_LOCATION);
+									}
+								}
+							})
+							.show()
+							.findViewById(android.R.id.message))
+							.setMovementMethod(LinkMovementMethod.getInstance());       // Make the link clickable. Needs to be called after show(), in order to generate hyperlinks
+					break;
+				case PackageManager.PERMISSION_GRANTED:
+					break;
+			}
 		}
 	}
 

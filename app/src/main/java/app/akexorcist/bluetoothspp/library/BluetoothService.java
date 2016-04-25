@@ -366,14 +366,12 @@ public class BluetoothService {
 			// Keep listening to the InputStream while connected
 			while (true) {
 				try {
-					// Read from the InputStream
-					bytes = mmInStream.read(buffer);
-					String readed = new String(buffer, 0, bytes);
 
-					// Send the obtained bytes to the UI Activity
-					//Log.e(TAG, "read: " + bytes);
-					Log.e(TAG, "received: " + readed);
-					//mHandler.obtainMessage(BluetoothState.MESSAGE_READ, buffer.length, -1, buffer).sendToTarget();  // Send the obtained bytes to the UI Activity
+					bytes = mmInStream.read(buffer);                              // Read from the InputStream
+					//String readed = new String(buffer, 0, bytes);                 // uncomment this to print all received messages to adb console
+					//Log.e(TAG, "received: " + readed);
+
+					mHandler.obtainMessage(BluetoothState.MESSAGE_READ, buffer.length, -1, buffer).sendToTarget();  // Send the obtained bytes to the UI Activity
 
 				} catch (IOException e) {
 					connectionLost();

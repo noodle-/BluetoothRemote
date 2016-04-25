@@ -87,7 +87,7 @@ public class DeviceListActivity extends AppCompatActivity {
 	};
 
 	/**
-	 * The on-click listener for all devices in the PairedDevice list which will delete the pair.
+	 * The on-click listener for all devices in the PairedDeviceList and the newDevicesList
 	 */
 	private AdapterView.OnItemLongClickListener mDeviceHoldListener = new AdapterView.OnItemLongClickListener() {
 		public boolean onItemLongClick(AdapterView<?> av, View v, int arg2, long arg3) {

@@ -33,6 +33,7 @@ import java.util.Set;
 public class DeviceListActivity extends AppCompatActivity {
 	private static final int REQUEST_ACCESS_COARSE_LOCATION = 1;            // Request code for ACCESS_COARSE_LOCATION permission
 	private static final String TAG = "DevicelistActivity";                 // TAG for debug messages
+	General g = new General(DeviceListActivity.this);                       // Load the General class
 	private BluetoothAdapter mBtAdapter;                                    // Member fields
 	private ArrayAdapter<String> mNewDevicesArrayAdapter;                   // Newly discovered devices
 
@@ -52,12 +53,12 @@ public class DeviceListActivity extends AppCompatActivity {
 				}
 			} else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {                 // When discovery is finished
 				ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressbar);            // Load progressbar
-				assert mProgressBar != null;
-				mProgressBar.setVisibility(View.GONE);                                              // Indicate indeterminate progress has stopped
+				if (mProgressBar != null) {                                                         // Make sure the item exists
+					mProgressBar.setVisibility(View.GONE);                                          // Indicate indeterminate progress has stopped
+				}
 			}
 		}
 	};
-
 	private Intent starterIntent; // Gets the Activity as Intent
 
 	/**
@@ -85,26 +86,26 @@ public class DeviceListActivity extends AppCompatActivity {
 	 * The on-click listener for all devices in the PairedDevice list which will delete the pair.
 	 */
 	private AdapterView.OnItemLongClickListener mDeviceHoldListener = new AdapterView.OnItemLongClickListener() {
-		@Override
 		public boolean onItemLongClick(AdapterView<?> av, View v, int arg2, long arg3) {
-			mBtAdapter.cancelDiscovery();   // Cancel discovery because it's costly and we're about to connect
+			mBtAdapter.cancelDiscovery();   // Cancel discovery because it's costly
 
 			// Get the device MAC address, which is the last 17 chars in the View
 			String info = ((TextView) v).getText().toString();
 			String address = info.substring(info.length() - 17);
 
-			// Sets the BluetoothAdapter to the default adapter
-			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();      // Sets the BluetoothAdapter to the default adapter
 			try {
-				// Gets the remote device from the address we just got
-				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
-				Log.d(TAG, "onItemLongClick: " + device);
+				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);        // Gets the remote device from the address we just got
+				switch (device.getBondState()) {
+					case BluetoothDevice.BOND_NONE:
+						g.pairDevice(device);
+						g.showToast("Pairing");
+					case BluetoothDevice.BOND_BONDED:
+						g.unpairDevice(device);
+						g.showToast("Un-pairing");
+				}
 
-				// Gets the method to unpair a device from Connect()
-				Connect connectBluetooth = new Connect();
-				connectBluetooth.unpairDevice(device);
-
-				// Restarts the activity so the paired device is gone from the view
+				// Restarts the activity so the paired/unpaired devices are added/removed from the view
 				finish();
 				startActivity(starterIntent);
 			} catch (Exception e) {
@@ -127,32 +128,33 @@ public class DeviceListActivity extends AppCompatActivity {
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
 		ListView newDevicesListView = (ListView) findViewById(R.id.new_devices);
 
-		// Make sure the views are not null
-		assert scanButton != null;
-		assert pairedListView != null;
-		assert newDevicesListView != null;
-
 		// Initialize the button to perform device discovery
-		scanButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				doDiscovery();
-			}
-		});
+		if (scanButton != null) {       // Make sure the item exist
+			scanButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					doDiscovery();
+				}
+			});
+		}
 
 		// Initialize array adapters. One for already paired devices and one for newly discovered devices
 		ArrayAdapter<String> pairedDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
 		mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
 
 		// Find and set up the ListView for paired devices
-		pairedListView.setAdapter(pairedDevicesArrayAdapter);
-		pairedListView.setOnItemClickListener(mDeviceClickListener);
-		pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
 
+		if (pairedListView != null) {   // Make sure the item exists
+			pairedListView.setAdapter(pairedDevicesArrayAdapter);
+			pairedListView.setOnItemClickListener(mDeviceClickListener);
+			pairedListView.setOnItemLongClickListener(mDeviceHoldListener);
+		}
 
 		// Find and set up the ListView for newly discovered devices
-		newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
-		newDevicesListView.setOnItemClickListener(mDeviceClickListener);
-
+		if (newDevicesListView != null) {   // Make sure the item exists
+			newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
+			newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+			newDevicesListView.setOnItemLongClickListener(mDeviceHoldListener);
+		}
 
 		// Register for broadcasts when a device is discovered
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -179,13 +181,15 @@ public class DeviceListActivity extends AppCompatActivity {
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);                // Load toolbar (with title, icon etc)
 		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
 		getSupportActionBar().setDisplayShowHomeEnabled(true);                  // Show home/back button
-		mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
-		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
-			@Override
-			public void onClick(View v) {
-				supportFinishAfterTransition();                                 // Finish with animation
-			}
-		});
+		if (mToolbar != null) {
+			mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
+			mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
+				@Override
+				public void onClick(View v) {
+					supportFinishAfterTransition();                                 // Finish with animation
+				}
+			});
+		}
 
 		// Request coarse location permission to access the hardware identifiers
 		// See http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
@@ -215,8 +219,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
 	private void doDiscovery() {
 		ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressbar);    // Load progressbar
-		assert mProgressBar != null;
-		mProgressBar.setVisibility(View.VISIBLE);   // Indicate indeterminate progress
+		if (mProgressBar != null) {                     // Make sure the item exists
+			mProgressBar.setVisibility(View.VISIBLE);   // Indicate indeterminate progress
+		}
 
 		mNewDevicesArrayAdapter.clear();            // Remove all previously found devices
 		findViewById(R.id.subtitle_new_devices).setVisibility(View.VISIBLE);   // Stop hiding the subtitle for discovered devices

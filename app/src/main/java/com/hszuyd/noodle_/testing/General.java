@@ -2,11 +2,14 @@ package com.hszuyd.noodle_.testing;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 
 public class General {
 	final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -67,6 +70,30 @@ public class General {
 					.setCancelable(false)
 					.setIcon(R.drawable.ic_warning)
 					.show();
+		}
+	}
+
+	/**
+	 * Initiates pairing of a BluetoothDevice using reflection
+	 */
+	public void pairDevice(BluetoothDevice device) {
+		try {
+			Method method = device.getClass().getMethod("createBond", (Class[]) null);
+			method.invoke(device, (Object[]) null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Initiates un-pairing of a BluetoothDevice using reflection
+	 */
+	public void unpairDevice(BluetoothDevice device) {
+		try {
+			Method method = device.getClass().getMethod("removeBond", (Class[]) null);
+			method.invoke(device, (Object[]) null);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

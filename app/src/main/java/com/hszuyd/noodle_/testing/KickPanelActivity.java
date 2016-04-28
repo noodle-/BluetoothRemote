@@ -103,9 +103,9 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener ->"
-						+ "\ndata " + data
-						+ "\nmessage " + message);
+				Log.e(TAG, "OnDataReceivedListener -> "
+						//+ "\ndata " + data
+						+ message);
 				g.showToast(message);
 			}
 		});

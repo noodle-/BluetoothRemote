@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.UUID;
 
 @SuppressLint("NewApi")
@@ -361,17 +360,16 @@ public class BluetoothService {
 		public void run() {
 			byte[] buffer = new byte[1024];
 			int bytes;
-			ArrayList<Integer> arr_byte = new ArrayList<Integer>();
 
 			// Keep listening to the InputStream while connected
 			while (true) {
 				try {
 
 					bytes = mmInStream.read(buffer);                              // Read from the InputStream
-					//String readed = new String(buffer, 0, bytes);                 // uncomment this to print all received messages to adb console
-					//Log.e(TAG, "received: " + readed);
-
-					mHandler.obtainMessage(BluetoothState.MESSAGE_READ, buffer.length, -1, buffer).sendToTarget();  // Send the obtained bytes to the UI Activity
+					String readed = new String(buffer, 0, bytes);                 // uncomment this to print all received messages to adb console
+					byte[] b = readed.getBytes();
+					//mHandler.obtainMessage(BluetoothState.MESSAGE_READ, buffer.length, -1, buffer).sendToTarget();  // Send the obtained bytes to the UI Activity
+					mHandler.obtainMessage(BluetoothState.MESSAGE_READ, b).sendToTarget();  // Send the obtained bytes as string back to the UI Activity
 
 				} catch (IOException e) {
 					connectionLost();

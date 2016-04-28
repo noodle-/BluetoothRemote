@@ -364,13 +364,11 @@ public class BluetoothService {
 			// Keep listening to the InputStream while connected
 			while (true) {
 				try {
-
 					bytes = mmInStream.read(buffer);                              // Read from the InputStream
-					String readed = new String(buffer, 0, bytes);                 // uncomment this to print all received messages to adb console
-					byte[] b = readed.getBytes();
+					String readed = new String(buffer, 0, bytes);                 // Temporarily convert to string
+					byte[] b = readed.getBytes();                                 // Convert it back to bytes
 					//mHandler.obtainMessage(BluetoothState.MESSAGE_READ, buffer.length, -1, buffer).sendToTarget();  // Send the obtained bytes to the UI Activity
 					mHandler.obtainMessage(BluetoothState.MESSAGE_READ, b).sendToTarget();  // Send the obtained bytes as string back to the UI Activity
-
 				} catch (IOException e) {
 					connectionLost();
 					BluetoothService.this.start(BluetoothService.this.isAndroid);   // Start the service over to restart listening mode

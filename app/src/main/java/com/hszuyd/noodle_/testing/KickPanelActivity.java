@@ -17,11 +17,17 @@ public class KickPanelActivity extends AppCompatActivity {
 	private static final int REQUEST_DEVICE_ADDRESS = 1;
 	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	private General g = new General(KickPanelActivity.this);
+	private String name;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kickpanel);
+
+		// Gets the Intent from Loginscreen/MainActivity
+		Intent intentName = getIntent();
+		Bundle nameBundle = intentName.getExtras();
+		name = (String) nameBundle.get("NAME_PLAYER");
 
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);                // Load toolbar (with title, icon etc)
 		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
@@ -44,14 +50,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonClickKickpanelA(View view) {
-		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			bt.send("Henk", false);
-//			bt.send("Hoiiiii!", true);
-//			bt.send(new byte[]{0x48, 0x65, 0x6C, 0x6C, 0x6F, 0x20, 0x77, 0x6F, 0x72, 0x6C, 0x64, 0x21}, false); // "Hello world!" in hex
-			g.showToast("Sent some hardcoded stuff");
-		} else {
-			g.showToast("Can't send anything because we're not connected");
-		}
+		g.showToast("howdy");
 	}
 
 	public void buttonClickKickpanelB(View view) {
@@ -64,7 +63,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonClickKickpanelC(View view) {
-		Log.e(TAG, "SetupService()");
+		Log.i(TAG, "SetupService()");
 		bt.setupService();
 		startBluetoothService();
 		g.showToast("Bluetooth service started and listening");
@@ -87,42 +86,48 @@ public class KickPanelActivity extends AppCompatActivity {
 
 					bt.setupService();
 					startBluetoothService();
-					Log.e(TAG, "Connecting to " + device);
+					Log.i(TAG, "Connecting to " + device);
 					bt.connect(device);
 				} else {
-					Log.e(TAG, "Failed to get MAC address from ?");
+					Log.i(TAG, "Failed to get MAC address from ?");
 				}
 			}
 		}
 	}
 
 	private void startBluetoothService() {
-		// TODO Dialog choose between android and other
-		///bt.startService(BluetoothState.DEVICE_ANDROID);
-		bt.startService(BluetoothState.DEVICE_OTHER);
+		bt.startService(BluetoothState.DEVICE_OTHER);   // OR   //bt.startService(BluetoothState.DEVICE_ANDROID);
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {
-				Log.e(TAG, "OnDataReceivedListener -> "
+				Log.i(TAG, "OnDataReceivedListener -> "
 						//+ "\ndata " + data
 						+ message);
 				g.showToast(message);
+
+				// When the name is requested, send it
+				if (message.equals("Please provide a username\n")) {
+					bt.send(name, false);
+				} else if (message.equals("Please provide the number of rounds to play (under 20)")) {
+					//bt.send(numberofrounds, false);
+					g.showToast("temp");
+				}
 			}
 		});
 
 		bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() {
 			public void onDeviceConnected(String name, String address) {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnected"
+				Log.i(TAG, "BluetoothConnectionListener -> onDeviceConnected"
 						+ "\nname: " + name
 						+ "\taddress " + address);
 			}
 
 			public void onDeviceDisconnected() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
+				Log.i(TAG, "BluetoothConnectionListener -> onDeviceDisconnected");
 			}
 
 			public void onDeviceConnectionFailed() {
-				Log.e(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
+				Log.i(TAG, "BluetoothConnectionListener -> onDeviceConnectionFailed");
 			}
 		});
 
@@ -131,17 +136,23 @@ public class KickPanelActivity extends AppCompatActivity {
 				TextView textView = (TextView) findViewById(R.id.text_kickpanel_welcome);
 				assert textView != null;
 				if (state == BluetoothState.STATE_CONNECTED) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTED");
+					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTED");
 					textView.setText(getString(R.string.kickpanel_bt_state_connected));
+					//TODO ENABLE TEH BUTTONS
+//					buttonSelectRounds = (Button) findViewById(R.id.button_choose_rounds);
+//					buttonSendRounds.setVisibility(View.GONE);
 				} else if (state == BluetoothState.STATE_CONNECTING) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_CONNECTING");
+					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTING");
 					textView.setText(getString(R.string.kickpanel_bt_state_connecting));
+					// TODO Show a pretty activity indicator
 				} else if (state == BluetoothState.STATE_LISTEN) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_LISTEN");
+					Log.i(TAG, "BluetoothStateListener -> STATE_LISTEN");
 					textView.setText(getString(R.string.kickpanel_bt_state_listening));
+					// TODO Show connect to button
 				} else if (state == BluetoothState.STATE_NONE) {
-					Log.e(TAG, "BluetoothStateListener -> STATE_NONE");
+					Log.i(TAG, "BluetoothStateListener -> STATE_NONE");
 					textView.setText(getString(R.string.kickpanel_bt_state_none));
+					// TODO Show connect to button
 				}
 			}
 		});

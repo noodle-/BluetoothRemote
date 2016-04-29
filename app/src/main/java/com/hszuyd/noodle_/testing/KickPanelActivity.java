@@ -1,12 +1,15 @@
 package com.hszuyd.noodle_.testing; // TODO change package name?
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import app.akexorcist.bluetoothspp.library.BluetoothSPP;
@@ -18,6 +21,7 @@ public class KickPanelActivity extends AppCompatActivity {
 	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	private General g = new General(KickPanelActivity.this);
 	private String name;
+	private String amountOfRounds;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,34 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonClickKickpanelA(View view) {
-		g.showToast("howdy");
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final EditText edittext = new EditText(getBaseContext());
+		alert.setMessage("Enter the amount of rounds that you want to play");
+		alert.setTitle("How many rounds?");
+
+		alert.setView(edittext);        // Set focus to the edit text and open the keyboard
+
+		alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				//What ever you want to do with the value
+				//Editable YouEditTextValue = edittext.getText();
+				amountOfRounds = edittext.getText().toString();
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// TODO Close the dialog
+			}
+		});
+
+		alert.show();
 	}
 
 	public void buttonClickKickpanelB(View view) {
 		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			bt.send("2", false);
+			//bt.send("2", false);
+			bt.send(amountOfRounds, false);
 			g.showToast("Sent some hardcoded stuff");
 		} else {
 			g.showToast("Can't send anything because we're not connected");

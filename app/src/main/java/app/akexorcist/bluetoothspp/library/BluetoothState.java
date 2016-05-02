@@ -39,8 +39,9 @@ public class BluetoothState {
 
 	public static final boolean DEVICE_ANDROID = false;
 	public static final boolean DEVICE_OTHER = true;
-
+	// Input required boolean
+	public static final boolean INPUT_REQUIRED = true;
+	public static final boolean INPUT_NOT_REQUIRED = false;
 	// Return Intent extra
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";
-
 }

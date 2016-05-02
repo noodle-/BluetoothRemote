@@ -21,7 +21,6 @@ public class KickPanelActivity extends AppCompatActivity {
 	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	private General g = new General(KickPanelActivity.this);
 	private String name;
-	private String amountOfRounds;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,35 +53,12 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonClickKickpanelA(View view) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		final EditText edittext = new EditText(getBaseContext());
-		alert.setMessage("Enter the amount of rounds that you want to play");
-		alert.setTitle("How many rounds?");
-
-		alert.setView(edittext);        // Set focus to the edit text and open the keyboard
-
-		alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				//What ever you want to do with the value
-				//Editable YouEditTextValue = edittext.getText();
-				amountOfRounds = edittext.getText().toString();
-			}
-		});
-
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				// TODO Close the dialog
-			}
-		});
-
-		alert.show();
+		g.showToast("temp");
 	}
 
 	public void buttonClickKickpanelB(View view) {
 		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			//bt.send("2", false);
-			bt.send(amountOfRounds, false);
-			g.showToast("Sent some hardcoded stuff");
+			g.showToast("Bleep bloop");
 		} else {
 			g.showToast("Can't send anything because we're not connected");
 		}
@@ -121,22 +97,50 @@ public class KickPanelActivity extends AppCompatActivity {
 		}
 	}
 
+	private void receivedDialog(String message, boolean input) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Message received!");
+		alert.setMessage(message);                 // Show the message that we've received
+		if (input) {
+			final EditText edittext = new EditText(getBaseContext());
+			alert.setView(edittext);
+			alert.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					String input = edittext.getText().toString();
+					bt.send(input, false);
+				}
+			});
+			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					dialog.dismiss();
+				}
+			});
+		} else {
+			alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+					dialog.dismiss();
+				}
+			});
+		}
+		alert.show();
+	}
+
 	private void startBluetoothService() {
 		bt.startService(BluetoothState.DEVICE_OTHER);   // OR   //bt.startService(BluetoothState.DEVICE_ANDROID);
 
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {
-				Log.i(TAG, "OnDataReceivedListener -> "
-						//+ "\ndata " + data
-						+ message);
-				g.showToast(message);
-
-				// When the name is requested, send it
-				if (message.equals("Please provide a username\n")) {
+				Log.i(TAG, "OnDataReceivedListener -> " + message);
+				if (message.contains("provide a username")) {       // When the name is requested, send it
 					bt.send(name, false);
-				} else if (message.equals("Please provide the number of rounds to play (under 20)")) {
-					//bt.send(numberofrounds, false);
-					g.showToast("temp");
+				} else if (message.contains("Please")) {
+					receivedDialog(message, BluetoothState.INPUT_REQUIRED);    //show dynamic dialog
+				} else if (message.contains("HIT!")) {
+					// yay
+				} else if (message.contains("MISS!")) {
+					// aww
+				} else {
+					receivedDialog(message, BluetoothState.INPUT_NOT_REQUIRED);    //show dynamic dialog
 				}
 			}
 		});

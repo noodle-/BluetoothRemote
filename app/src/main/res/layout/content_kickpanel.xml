@@ -14,17 +14,25 @@
 	tools:showIn="@layout/activity_kickpanel">
 
 	<TextView
-		android:id="@+id/text_kickpanel_welcome"
-		android:layout_width="fill_parent"
+		android:id="@+id/text_kickpanel_bluetoothstate"
+		android:layout_width="165dp"
 		android:layout_height="wrap_content"
 		android:text="@string/kickpanel_bt_state_none"/>
+
+	<TextView
+		android:id="@+id/text_kickpanel_connected_device"
+		android:layout_width="165dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:gravity="right"
+		android:text="device: name"/>
 
 	<Button
 		android:id="@+id/button_device_list"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/text_kickpanel_welcome"
+		android:layout_below="@+id/text_kickpanel_bluetoothstate"
 		android:onClick="buttonStartDeviceList"
 		android:text="@string/button_device_list"
 		android:transitionName="ToKickPanel"/>

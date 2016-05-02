@@ -21,11 +21,16 @@ public class KickPanelActivity extends AppCompatActivity {
 	private BluetoothSPP bt = new BluetoothSPP(KickPanelActivity.this);
 	private General g = new General(KickPanelActivity.this);
 	private String name;
+	private String mConnectedDeviceName;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kickpanel);
+
+		// Hide the ConnectedDeviceName until we're connected
+		TextView mTextViewConnectedDeviceName = (TextView) findViewById(R.id.text_kickpanel_connected_device);
+		mTextViewConnectedDeviceName.setVisibility(View.GONE);
 
 		// Gets the Intent from Loginscreen/MainActivity
 		Intent intentName = getIntent();
@@ -132,14 +137,16 @@ public class KickPanelActivity extends AppCompatActivity {
 		bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
 			public void onDataReceived(byte[] data, String message) {
 				Log.i(TAG, "OnDataReceivedListener -> " + message);
-				if (message.contains("provide a username")) {       // When the name is requested, send it
-					bt.send(name, false);
-				} else if (message.contains("Please")) {
-					receivedDialog(message, BluetoothState.INPUT_REQUIRED);    //show dynamic dialog
+				if (message.contains("UserProfile setup")) {
+					// ignore it
 				} else if (message.contains("HIT!")) {
 					// yay
 				} else if (message.contains("MISS!")) {
 					// aww
+				} else if (message.contains("provide a username")) {       // When the name is requested, send it
+					bt.send(name, false);
+				} else if (message.contains("Please")) {
+					receivedDialog(message, BluetoothState.INPUT_REQUIRED);    //show dynamic dialog
 				} else {
 					receivedDialog(message, BluetoothState.INPUT_NOT_REQUIRED);    //show dynamic dialog
 				}
@@ -151,6 +158,7 @@ public class KickPanelActivity extends AppCompatActivity {
 				Log.i(TAG, "BluetoothConnectionListener -> onDeviceConnected"
 						+ "\nname: " + name
 						+ "\taddress " + address);
+				mConnectedDeviceName = name;
 			}
 
 			public void onDeviceDisconnected() {
@@ -164,25 +172,27 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		bt.setBluetoothStateListener(new BluetoothSPP.BluetoothStateListener() {
 			public void onServiceStateChanged(int state) {
-				TextView textView = (TextView) findViewById(R.id.text_kickpanel_welcome);
-				assert textView != null;
+				TextView mTextViewBTState = (TextView) findViewById(R.id.text_kickpanel_bluetoothstate);
+				TextView mTextViewBTDeviceName = (TextView) findViewById(R.id.text_kickpanel_connected_device);
+				mTextViewBTDeviceName.setVisibility(View.INVISIBLE);
+				assert mTextViewBTState != null;
 				if (state == BluetoothState.STATE_CONNECTED) {
 					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTED");
-					textView.setText(getString(R.string.kickpanel_bt_state_connected));
+					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connected));
 					//TODO ENABLE TEH BUTTONS
-//					buttonSelectRounds = (Button) findViewById(R.id.button_choose_rounds);
-//					buttonSendRounds.setVisibility(View.GONE);
+					mTextViewBTDeviceName.setText("Device: " + mConnectedDeviceName);
+					mTextViewBTDeviceName.setVisibility(View.VISIBLE);
 				} else if (state == BluetoothState.STATE_CONNECTING) {
 					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTING");
-					textView.setText(getString(R.string.kickpanel_bt_state_connecting));
+					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connecting));
 					// TODO Show a pretty activity indicator
 				} else if (state == BluetoothState.STATE_LISTEN) {
 					Log.i(TAG, "BluetoothStateListener -> STATE_LISTEN");
-					textView.setText(getString(R.string.kickpanel_bt_state_listening));
+					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_listening));
 					// TODO Show connect to button
 				} else if (state == BluetoothState.STATE_NONE) {
 					Log.i(TAG, "BluetoothStateListener -> STATE_NONE");
-					textView.setText(getString(R.string.kickpanel_bt_state_none));
+					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_none));
 					// TODO Show connect to button
 				}
 			}

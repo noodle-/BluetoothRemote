@@ -24,7 +24,7 @@
 		android:layout_width="165dp"
 		android:layout_height="wrap_content"
 		android:layout_alignParentEnd="true"
-		android:gravity="right"
+		android:gravity="end"
 		android:text="device: name"/>
 
 	<Button
@@ -38,28 +38,20 @@
 		android:transitionName="ToKickPanel"/>
 
 	<Button
-		android:id="@+id/button_kickpanel_a"
+		android:id="@+id/button_kickpanel_test"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/button_device_list"
 		android:layout_marginTop="35dp"
-		android:onClick="buttonClickKickpanelA"
-		android:text="@string/kickpanel_button_a"/>
+		android:onClick="buttonClickKickpanelTest"
+		android:text="@string/kickpanel_button_test"/>
 
 	<Button
-		android:id="@+id/button_kickpanel_b"
+		android:id="@+id/button_kickpanel_listen"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_kickpanel_a"
-		android:onClick="buttonClickKickpanelB"
-		android:text="@string/kickpanel_button_b"/>
-
-	<Button
-		android:id="@+id/button_kickpanel_c"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_kickpanel_b"
-		android:onClick="buttonClickKickpanelC"
-		android:text="@string/kickpanel_button_c"/>
+		android:layout_below="@+id/button_kickpanel_test"
+		android:onClick="buttonClickKickpanelListen"
+		android:text="@string/kickpanel_button_listen"/>
 
 </RelativeLayout>

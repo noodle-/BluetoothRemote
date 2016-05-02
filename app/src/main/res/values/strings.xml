@@ -26,9 +26,8 @@
 	<string name="kickpanel_bt_state_connected">Bluetooth: connected</string>
 	<string name="kickpanel_bt_state_listening">Bluetooth: listening</string>
 	<string name="kickpanel_bt_state_none">Bluetooth: disconnected</string>
-	<string name="kickpanel_button_a">Show dialog</string>
-	<string name="kickpanel_button_b">Send amount of rounds</string>
-	<string name="kickpanel_button_c">Listen to Bluetooth</string>
+	<string name="kickpanel_button_test">Show dialog</string>
+	<string name="kickpanel_button_listen">Listen to Bluetooth</string>
 
 	<!--  TribotActivity -->
 	<string name="title_activity_tribot">Tribot Remote</string>

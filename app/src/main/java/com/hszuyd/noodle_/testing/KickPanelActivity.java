@@ -30,7 +30,9 @@ public class KickPanelActivity extends AppCompatActivity {
 
 		// Hide the ConnectedDeviceName until we're connected
 		TextView mTextViewConnectedDeviceName = (TextView) findViewById(R.id.text_kickpanel_connected_device);
-		mTextViewConnectedDeviceName.setVisibility(View.GONE);
+		if (mTextViewConnectedDeviceName != null) {
+			mTextViewConnectedDeviceName.setVisibility(View.INVISIBLE);
+		}
 
 		// Gets the Intent from Loginscreen/MainActivity
 		Intent intentName = getIntent();
@@ -40,6 +42,7 @@ public class KickPanelActivity extends AppCompatActivity {
 		Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);                // Load toolbar (with title, icon etc)
 		setSupportActionBar(mToolbar);                                          // Cast toolbar as actionbar
 		getSupportActionBar().setDisplayShowHomeEnabled(true);                  // Show home/back button
+		assert mToolbar != null;
 		mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);    // Set back button icon
 		mToolbar.setNavigationOnClickListener(new View.OnClickListener() {      // Initialize the onclick listener to navigate back
 			@Override
@@ -57,20 +60,12 @@ public class KickPanelActivity extends AppCompatActivity {
 		supportFinishAfterTransition();     // Use the transition while going back as well
 	}
 
-	public void buttonClickKickpanelA(View view) {
+	public void buttonClickKickpanelTest(View view) {
 //		g.showToast("temp");
 		receivedDialog("bleeep", true);
 	}
 
-	public void buttonClickKickpanelB(View view) {
-		if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
-			g.showToast("Bleep bloop");
-		} else {
-			g.showToast("Can't send anything because we're not connected");
-		}
-	}
-
-	public void buttonClickKickpanelC(View view) {
+	public void buttonClickKickpanelListen(View view) {
 		Log.i(TAG, "SetupService()");
 		bt.setupService();
 		startBluetoothService();
@@ -175,25 +170,22 @@ public class KickPanelActivity extends AppCompatActivity {
 				TextView mTextViewBTState = (TextView) findViewById(R.id.text_kickpanel_bluetoothstate);
 				TextView mTextViewBTDeviceName = (TextView) findViewById(R.id.text_kickpanel_connected_device);
 				mTextViewBTDeviceName.setVisibility(View.INVISIBLE);
-				assert mTextViewBTState != null;
-				if (state == BluetoothState.STATE_CONNECTED) {
-					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTED");
-					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connected));
-					//TODO ENABLE TEH BUTTONS
-					mTextViewBTDeviceName.setText("Device: " + mConnectedDeviceName);
-					mTextViewBTDeviceName.setVisibility(View.VISIBLE);
-				} else if (state == BluetoothState.STATE_CONNECTING) {
-					Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTING");
-					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connecting));
-					// TODO Show a pretty activity indicator
-				} else if (state == BluetoothState.STATE_LISTEN) {
-					Log.i(TAG, "BluetoothStateListener -> STATE_LISTEN");
-					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_listening));
-					// TODO Show connect to button
-				} else if (state == BluetoothState.STATE_NONE) {
-					Log.i(TAG, "BluetoothStateListener -> STATE_NONE");
-					mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_none));
-					// TODO Show connect to button
+				if (mTextViewBTState != null) {
+					if (state == BluetoothState.STATE_CONNECTED) {
+						Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTED");
+						mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connected));
+						mTextViewBTDeviceName.setText("Device: " + mConnectedDeviceName);
+						mTextViewBTDeviceName.setVisibility(View.VISIBLE);
+					} else if (state == BluetoothState.STATE_CONNECTING) {
+						Log.i(TAG, "BluetoothStateListener -> STATE_CONNECTING");
+						mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_connecting));
+					} else if (state == BluetoothState.STATE_LISTEN) {
+						Log.i(TAG, "BluetoothStateListener -> STATE_LISTEN");
+						mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_listening));
+					} else if (state == BluetoothState.STATE_NONE) {
+						Log.i(TAG, "BluetoothStateListener -> STATE_NONE");
+						mTextViewBTState.setText(getString(R.string.kickpanel_bt_state_none));
+					}
 				}
 			}
 		});

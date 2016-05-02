@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -106,11 +105,11 @@ public class KickPanelActivity extends AppCompatActivity {
 		String mButtonText;                         // Initialize mButtonText
 		if (input) {                                // if the Raspberry is asking for input
 			final EditText mEditText = new EditText(getBaseContext());  // Initialize editText
-			mEditText.setTextColor(Color.parseColor("#000000"));        // Set text color because its otherwise white for some reason
+			mEditText.setTextColor(0xFF000000);        // Set text color because its otherwise white for some reason
 			alert.setView(mEditText);                                   // Set the view to display in the dialog
 			alert.setPositiveButton("Send", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-					String input = mEditText.getText().toString();
+					String input = mEditText.getText().toString();      // Store user input in "input"
 					bt.send(input, false);                              // Send whatever the user has entered
 				}
 			});

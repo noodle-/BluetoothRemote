@@ -29,17 +29,17 @@ public class LoginActivity extends AppCompatActivity {
 		TextInputLayout mInputName = (TextInputLayout) findViewById(R.id.nameWrapper);
 		if (text != null) {                                 // Make sure we've found the view
 			String name = text.getText().toString().trim(); // Remove trailing spaces
-//			if (checkName(name)) {                          // TODO uncomment this when not testing
-			//mInputName.setErrorEnabled(false);                                    // Set the textView to non error layout in case the users input was wrong before
-			Intent intent = new Intent(getBaseContext(), MainActivity.class);       // Create intent for going from here to KickPanel
-			intent.putExtra("NAME_PLAYER", name);                                   // Add player name to the intent as Extra
-			ActivityOptions transitionActivityOptions =                             // Set animation options
-					ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, text, "ToMain");
-			startActivity(intent, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
-//			} else {
-//				mInputName.setErrorEnabled(true);
-//				mInputName.setError("Please enter a valid name");   // Show a hint to indicate that it was false input}
-//			}
+			if (checkName(name)) {
+				mInputName.setErrorEnabled(false);                                    // Set the textView to non error layout in case the users input was wrong before
+				Intent intent = new Intent(getBaseContext(), MainActivity.class);       // Create intent for going from here to KickPanel
+				intent.putExtra("NAME_PLAYER", name);                                   // Add player name to the intent as Extra
+				ActivityOptions transitionActivityOptions =                             // Set animation options
+						ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, text, "ToMain");
+				startActivity(intent, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
+			} else {
+				mInputName.setErrorEnabled(true);
+				mInputName.setError("Please enter a valid name");   // Show a hint to indicate that it was false input}
+			}
 		}
 	}
 

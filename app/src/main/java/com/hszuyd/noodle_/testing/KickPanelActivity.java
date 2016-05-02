@@ -4,6 +4,7 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -53,7 +54,8 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	public void buttonClickKickpanelA(View view) {
-		g.showToast("temp");
+//		g.showToast("temp");
+		receivedDialog("bleeep", true);
 	}
 
 	public void buttonClickKickpanelB(View view) {
@@ -98,30 +100,30 @@ public class KickPanelActivity extends AppCompatActivity {
 	}
 
 	private void receivedDialog(String message, boolean input) {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);  // Initialize the builder
 		alert.setTitle("Message received!");
-		alert.setMessage(message);                 // Show the message that we've received
-		if (input) {
-			final EditText edittext = new EditText(getBaseContext());
-			alert.setView(edittext);
+		alert.setMessage(message);                  // Show the message that we've received
+		String mButtonText;                         // Initialize mButtonText
+		if (input) {                                // if the Raspberry is asking for input
+			final EditText mEditText = new EditText(getBaseContext());  // Initialize editText
+			mEditText.setTextColor(Color.parseColor("#000000"));        // Set text color because its otherwise white for some reason
+			alert.setView(mEditText);                                   // Set the view to display in the dialog
 			alert.setPositiveButton("Send", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-					String input = edittext.getText().toString();
-					bt.send(input, false);
+					String input = mEditText.getText().toString();
+					bt.send(input, false);                              // Send whatever the user has entered
 				}
 			});
-			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					dialog.dismiss();
-				}
-			});
+			mButtonText = "Cancel"; // Set mButtonText to be used later on
 		} else {
-			alert.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-					dialog.dismiss();
-				}
-			});
+			mButtonText = "Okay";   // Set mButtonText to be used later on
 		}
+		alert.setNegativeButton(mButtonText, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				dialog.dismiss();
+			}
+		});
+
 		alert.show();
 	}
 

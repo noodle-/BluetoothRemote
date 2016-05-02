@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -99,19 +100,28 @@ public class DeviceListActivity extends AppCompatActivity {
 
 			BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();      // Sets the BluetoothAdapter to the default adapter
 			try {
+				int mDelay = 0;
 				BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);        // Gets the remote device from the address we just got
-				switch (device.getBondState()) {
-					case BluetoothDevice.BOND_NONE:
-						g.pairDevice(device);
-						g.showToast("Pairing");
-					case BluetoothDevice.BOND_BONDED:
-						g.unpairDevice(device);
-						g.showToast("Un-pairing");
+				if (device.getBondState() == BluetoothDevice.BOND_NONE) {
+					g.pairDevice(device);
+					g.showToast("Pairing");
+					mDelay = 10000;
+				} else if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
+					g.unpairDevice(device);
+					g.showToast("Un-pairing");
+					mDelay = 5000;
 				}
 
-				// Restarts the activity so the paired/unpaired devices are added/removed from the view
-				finish();
-				startActivity(starterIntent);
+				// Wait X seconds before reloading the activity so the paired/unpaired devices are added/removed from the view
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						finish();
+						startActivity(starterIntent);
+					}
+				}, mDelay);
+
 			} catch (Exception e) {
 				Log.e(TAG, "onItemLongClick: " + e.toString());
 			}

@@ -34,7 +34,7 @@ public class KickPanelActivity extends AppCompatActivity {
 			mTextViewConnectedDeviceName.setVisibility(View.INVISIBLE);
 		}
 
-		// Gets the Intent from Loginscreen/MainActivity
+		// Gets the Intent from LoginActivity/MainActivity
 		Intent intentName = getIntent();
 		Bundle nameBundle = intentName.getExtras();
 		name = (String) nameBundle.get("NAME_PLAYER");

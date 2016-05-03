@@ -9,7 +9,7 @@
 	<!--  LoginActivity -->
 	<string name="title_activity_login_screen">Bluetooth Remote</string>
 	<string name="start">Start</string>
-	<string name="name_hint">Enter your name</string>
+	<string name="name_hint">Enter your name here</string>
 
 	<!--  MainActivity -->
 	<string name="title_activity_main">Bluetooth Remote</string>

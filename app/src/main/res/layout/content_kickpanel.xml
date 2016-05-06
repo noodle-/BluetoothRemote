@@ -37,20 +37,21 @@
 		android:text="@string/button_device_list"
 		android:transitionName="ToKickPanel"/>
 
-	<Button
-		android:id="@+id/button_kickpanel_test"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_device_list"
-		android:layout_marginTop="35dp"
-		android:onClick="buttonClickKickpanelTest"
-		android:text="@string/kickpanel_button_test"/>
+	<!--	<Button
+			android:id="@+id/button_kickpanel_test"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/button_device_list"
+			android:layout_marginTop="35dp"
+			android:onClick="buttonClickKickpanelTest"
+			android:text="@string/kickpanel_button_test"/> -->
 
 	<Button
 		android:id="@+id/button_kickpanel_listen"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/button_kickpanel_test"
+		android:layout_below="@+id/button_device_list"
+		android:layout_marginTop="35dp"
 		android:onClick="buttonClickKickpanelListen"
 		android:text="@string/kickpanel_button_listen"/>
 

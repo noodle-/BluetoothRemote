@@ -60,10 +60,9 @@ public class KickPanelActivity extends AppCompatActivity {
 		supportFinishAfterTransition();     // Use the transition while going back as well
 	}
 
-	public void buttonClickKickpanelTest(View view) {
-//		g.showToast("temp");
-		receivedDialog("bleeep", true);
-	}
+//	public void buttonClickKickpanelTest(View view) {
+//		receivedDialog("bleeep", true);
+//	}
 
 	public void buttonClickKickpanelListen(View view) {
 		Log.i(TAG, "SetupService()");

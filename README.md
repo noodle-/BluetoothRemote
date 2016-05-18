@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img  src="https://raw.githubusercontent.com/noodle-/BluetoothRemote/master/app/src/main/res/drawable/ic_launcher.png?token=AAxmFZHp4J2UNZo6FjC3d_EqvF4HVj1oks5XOYg7wA%3D%3D" height="64" width="64" />
+  <img  src="https://raw.githubusercontent.com/noodle-/BluetoothRemote/master/app/src/main/res/drawable/ic_launcher.png?token=AAxmFX72pE6hsl9ePSbXMX6W35wkj4wJks5XRVo1wA%3D%3D" height="64" width="64" />
   <br/>
   BluetoothRemote
 </h1>

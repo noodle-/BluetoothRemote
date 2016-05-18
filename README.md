@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img  src="https://raw.githubusercontent.com/noodle-/BluetoothRemote/master/app/src/main/res/drawable/ic_launcher.png?token=AAxmFX72pE6hsl9ePSbXMX6W35wkj4wJks5XRVo1wA%3D%3D" height="64" width="64" />
+  <img  src="https://raw.githubusercontent.com/noodle-/BluetoothRemote/master/app/src/main/res/drawable/ic_launcher.png" height="64" width="64" />
   <br/>
   BluetoothRemote
 </h1>
@@ -9,8 +9,8 @@
   <sup>This project was made for <a href=http://www.pcdata.nl/>PCiD bv</a>.<br> 
   <b>Made by: </b><br>
   <a href=https://github.com/remco1250>Remco Klinckenberg</a> & <a href=https://github.com/noodle->Nils Bünger</a> <br>
-  <b>With special thanks to our graphics designer: </b><br>
-  <a href=https://veuwer.com/i/36ef.jpg>Justin Vluggen</a>
+  <b>With special thanks to our GFX team: </b><br>
+  <a href=https://veuwer.com/i/36ef.jpg>Justin Vluggen</a> & <a href=https://media.licdn.com/mpr/mpr/p/8/005/08c/1e4/21fda68.jpg>Rene Veugen</a>
 </p>
 <h3 align="center">
   Building the project

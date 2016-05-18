@@ -10,7 +10,7 @@
   <b>Made by: </b><br>
   <a href=https://github.com/remco1250>Remco Klinckenberg</a> & <a href=https://github.com/noodle->Nils Bünger</a> <br>
   <b>With special thanks to our GFX team: </b><br>
-  <a href=https://veuwer.com/i/36ef.jpg>Justin Vluggen</a> & <a href=https://media.licdn.com/mpr/mpr/p/8/005/08c/1e4/21fda68.jpg>Rene Veugen</a>
+  <a href=https://veuwer.com/i/36ef.jpg>Justin Vluggen</a> & <a href=https://media.licdn.com/mpr/mpr/p/8/005/08c/1e4/21fda68.jpg>René Veugen</a>
 </p>
 <h3 align="center">
   Building the project

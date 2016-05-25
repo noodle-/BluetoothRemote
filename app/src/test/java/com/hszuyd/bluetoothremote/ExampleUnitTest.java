@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing;
+package com.hszuyd.bluetoothremote;
 
 import org.junit.Test;
 

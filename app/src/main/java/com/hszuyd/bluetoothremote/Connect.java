@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing;
+package com.hszuyd.bluetoothremote;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

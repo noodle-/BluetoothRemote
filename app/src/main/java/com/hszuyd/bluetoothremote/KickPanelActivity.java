@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing; // TODO change package name?
+package com.hszuyd.bluetoothremote; // TODO change package name?
 
 import android.app.ActivityOptions;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing;
+package com.hszuyd.bluetoothremote;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
 	private General g = new General(MainActivity.this);

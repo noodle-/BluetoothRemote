@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing;
+package com.hszuyd.bluetoothremote;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

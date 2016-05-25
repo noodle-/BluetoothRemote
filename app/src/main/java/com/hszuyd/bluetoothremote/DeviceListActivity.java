@@ -1,4 +1,4 @@
-package com.hszuyd.noodle_.testing;
+package com.hszuyd.bluetoothremote;
 
 import android.Manifest;
 import android.app.Activity;
@@ -28,6 +28,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.hszuyd.bluetoothremote.R;
 
 import java.util.Set;
 

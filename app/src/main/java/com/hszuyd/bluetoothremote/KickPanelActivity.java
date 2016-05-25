@@ -133,6 +133,8 @@ public class KickPanelActivity extends AppCompatActivity {
 				Log.i(TAG, "OnDataReceivedListener -> " + message);
 				if (message.contains("UserProfile setup")) {
 					// ignore it
+				} else if (message.contains("Target: Block")) {
+					// No spoilers please.
 				} else if (message.contains("HIT!")) {
 					// yay
 				} else if (message.contains("MISS!")) {

@@ -41,4 +41,13 @@
 		android:onClick="buttonLaunchTribotOnClick"
 		android:text="@string/title_activity_tribot"/>
 
+	<Button
+		android:id="@+id/bt_launch_tribot_new"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/bt_launch_tribot"
+		android:layout_centerHorizontal="true"
+		android:onClick="buttonLaunchTribotNewOnClick"
+		android:text="@string/title_activity_tribot_new"/>
+
 </RelativeLayout>

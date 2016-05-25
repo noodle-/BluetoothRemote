@@ -13,33 +13,39 @@
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme.NoActionBar">
 		<activity
-			android:name="com.hszuyd.bluetoothremote.LoginActivity"
+			android:name=".LoginActivity"
 			android:label="@string/title_activity_login_screen"
 			android:screenOrientation="portrait">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
+
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="com.hszuyd.bluetoothremote.MainActivity"
+			android:name=".MainActivity"
 			android:label="@string/title_activity_main"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
-			android:name="com.hszuyd.bluetoothremote.KickPanelActivity"
+			android:name=".KickPanelActivity"
 			android:label="@string/title_activity_kickpanel"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
-			android:name="com.hszuyd.bluetoothremote.TribotActivity"
+			android:name=".TribotActivity"
 			android:label="@string/title_activity_tribot"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
-			android:name="com.hszuyd.bluetoothremote.DeviceListActivity"
+			android:name=".DeviceListActivity"
 			android:label="@string/title_activity_device_list"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".TribotNewActivity"
+			android:label="@string/title_activity_tribot_new"
+			android:screenOrientation="portrait">
+		</activity>
 	</application>
-
 </manifest>

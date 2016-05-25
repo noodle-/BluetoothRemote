@@ -45,4 +45,7 @@
 	<string name="subtitle_other_devices">Other Available Devices</string>
 	<string name="button_scan">Scan for devices</string>
 
+	<!-- TribotActivity NEW -->
+	<string name="title_activity_tribot_new">Tribot Remote New</string>
+
 </resources>

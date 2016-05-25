@@ -107,4 +107,12 @@ public class MainActivity extends AppCompatActivity {
 		intent.putExtra("NAME_PLAYER", name);
 		startActivity(intent);
 	}
+
+	/**
+	 * Launch TribotNewActivity
+	 */
+	public void buttonLaunchTribotNewOnClick(View view) {
+		Intent intent = new Intent(getBaseContext(), TribotNewActivity.class);
+		startActivity(intent);
+	}
 }

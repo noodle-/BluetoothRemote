@@ -1,5 +1,6 @@
 package com.hszuyd.bluetoothremote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,5 +17,9 @@ public class TribotNewActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_tribot_new);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+	}
+	public void showSettings(View view) {
+		Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
+		startActivity(intent);
 	}
 }

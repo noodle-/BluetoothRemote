@@ -20,7 +20,7 @@
 		android:layout_below="@+id/checkBox"
 		android:layout_marginStart="40dp"
 		android:layout_marginTop="40dp"
-		android:text="Settings"
-		android:onClick="showSettings"/>
+		android:onClick="showSettings"
+		android:text="Settings"/>
 </RelativeLayout>
 

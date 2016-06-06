@@ -33,9 +33,10 @@
 			android:capitalize="words"
 			android:defaultValue="Sinterklaas"
 			android:inputType="textCapWords"
-			android:key="example_text"
+			android:key="pref_display_name"
 			android:maxLines="1"
 			android:selectAllOnFocus="true"
+			android:summary="%s"
 			android:singleLine="true"
 			android:title="@string/pref_title_display_name"/>
 	</PreferenceCategory>

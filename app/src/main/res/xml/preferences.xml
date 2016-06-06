@@ -27,7 +27,7 @@
 			android:entries="@array/pref_leesplankje"
 			android:entryValues="@array/pref_leesplankje_values"
 			android:key="pref_leesplankje"
-			android:summary="@string/pref_leesplankje_sum"
+			android:summary="%s"
 			android:title="@string/pref_leesplankje_title"/>
 		<EditTextPreference
 			android:capitalize="words"

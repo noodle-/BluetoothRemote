@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="pref_leesplankje">
+		<item>Aap</item>
+		<item>Noot</item>
+		<item>Mies</item>
+		<item>Wim</item>
+		<item>Zus</item>
+		<item>Jet</item>
+		<item>Teun</item>
+		<item>Vuur</item>
+		<item>Gijs</item>
+		<item>Lam</item>
+		<item>Kees</item>
+		<item>Bok</item>
+		<item>Weide</item>
+		<item>Does</item>
+		<item>Hok</item>
+		<item>Duif</item>
+		<item>Schapen</item>
+	</string-array>
+
+	<string-array name="pref_leesplankje_values">
+		<item>Aap</item>
+		<item>Noot</item>
+		<item>Mies</item>
+		<item>Wim</item>
+		<item>Zus</item>
+		<item>Jet</item>
+		<item>Teun</item>
+		<item>Vuur</item>
+		<item>Gijs</item>
+		<item>Lam</item>
+		<item>Kees</item>
+		<item>Bok</item>
+		<item>Weide</item>
+		<item>Does</item>
+		<item>Hok</item>
+		<item>Duif</item>
+		<item>Schapen</item>
+	</string-array>
+</resources>

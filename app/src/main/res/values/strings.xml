@@ -61,44 +61,5 @@
 	<string name="pref_category_other">Other settings</string>
 	<string name="pref_leesplankje_title">Bleep bloop</string>
 	<string name="pref_leesplankje_sum">This should be replaced by the current selected setting/value</string>
-	<string-array name="pref_leesplankje">
-		<item>Aap</item>
-		<item>Noot</item>
-		<item>Mies</item>
-		<item>Wim</item>
-		<item>Zus</item>
-		<item>Jet</item>
-		<item>Teun</item>
-		<item>Vuur</item>
-		<item>Gijs</item>
-		<item>Lam</item>
-		<item>Kees</item>
-		<item>Bok</item>
-		<item>Weide</item>
-		<item>Does</item>
-		<item>Hok</item>
-		<item>Duif</item>
-		<item>Schapen</item>
-	</string-array>
-	<string-array name="pref_leesplankje_values">
-		<item>Aap</item>
-		<item>Noot</item>
-		<item>Mies</item>
-		<item>Wim</item>
-		<item>Zus</item>
-		<item>Jet</item>
-		<item>Teun</item>
-		<item>Vuur</item>
-		<item>Gijs</item>
-		<item>Lam</item>
-		<item>Kees</item>
-		<item>Bok</item>
-		<item>Weide</item>
-		<item>Does</item>
-		<item>Hok</item>
-		<item>Duif</item>
-		<item>Schapen</item>
-	</string-array>
-
 	<string name="pref_title_display_name">Choose Display name</string>
 </resources>

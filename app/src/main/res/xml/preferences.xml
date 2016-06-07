@@ -36,8 +36,8 @@
 			android:key="pref_display_name"
 			android:maxLines="1"
 			android:selectAllOnFocus="true"
-			android:summary="%s"
 			android:singleLine="true"
+			android:summary="%s"
 			android:title="@string/pref_title_display_name"/>
 	</PreferenceCategory>
 </PreferenceScreen>

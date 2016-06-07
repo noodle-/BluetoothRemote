@@ -49,7 +49,7 @@
 	<string name="title_activity_tribot_new">Tribot Remote New</string>
 	<string name="title_activity_settings">Settings</string>
 
-	<!-- Strings related to Settings -->
+	<!-- Strings related to preferences -->
 	<string name="pref_advanced_category">Settings</string>
 	<string name="pref_advanced_settings_title">Advanced settings</string>
 	<string name="pref_advanced_settings_sum">WARNING: These settings can be dangerous and might cause harm to you or others. Use at your own risk.</string>
@@ -60,6 +60,5 @@
 
 	<string name="pref_category_other">Other settings</string>
 	<string name="pref_leesplankje_title">Bleep bloop</string>
-	<string name="pref_leesplankje_sum">This should be replaced by the current selected setting/value</string>
 	<string name="pref_title_display_name">Choose Display name</string>
 </resources>

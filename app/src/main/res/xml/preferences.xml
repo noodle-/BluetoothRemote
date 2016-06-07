@@ -22,6 +22,7 @@
 
 	<PreferenceCategory
 		android:title="@string/pref_category_other">
+		<!-- The preference summary trick with %s only works on list preferences. -->
 		<ListPreference
 			android:defaultValue="0"
 			android:entries="@array/pref_leesplankje"

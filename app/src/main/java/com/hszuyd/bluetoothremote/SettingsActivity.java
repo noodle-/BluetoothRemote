@@ -2,12 +2,13 @@ package com.hszuyd.bluetoothremote;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,17 +35,21 @@ public class SettingsActivity extends AppCompatActivity {
 
 		@Override
 		public boolean onPreferenceChange(Preference pref, Object newValue) {
-			findPreference("pref_leesplankje").setSummary((String) newValue);       // Set the summary to the new value
-			findPreference("pref_display_name").setSummary((String) newValue);       // Set the summary to the new value
+			if (pref instanceof ListPreference) {
+				SharedPreferences SharedPref = getActivity().getSharedPreferences("pref_leesplankje", MODE_PRIVATE);   // TODO not sure about using "pref_leesplankje" right here, as it does not seem to matter, at all.
+				SharedPref.edit().putString("pref_leesplankje", newValue.toString()).apply();   // Store the new value.
+				findPreference("pref_leesplankje").setSummary((String) newValue);               // Set the summary to the new value
+				return true;
+			}
 
-			// Store the new value.
-			SharedPreferences current = getActivity().getSharedPreferences("pref_leesplankje", MODE_PRIVATE);   // TODO not sure about using "pref_leesplankje" right here
-			current.edit().putString("pref_leesplankje", newValue.toString())
-					.putString("pref_display_name", newValue.toString())
-					.apply();
-			return true;
+			if (pref instanceof EditTextPreference) {
+				SharedPreferences SharedPref = getActivity().getSharedPreferences("pref_display_name", MODE_PRIVATE);
+				SharedPref.edit().putString("pref_display_name", newValue.toString()).apply();  // Store the new value.
+				findPreference("pref_display_name").setSummary((String) newValue);              // Set the summary to the new value
+				return true;
+			}
+			return false;
 		}
 	}
 }
-
 

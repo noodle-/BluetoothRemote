@@ -16,86 +16,64 @@
 		android:id="@+id/settings"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginEnd="16dp"
 		android:layout_marginTop="16dp"
 		android:onClick="showSettings"
-		android:text="Settings"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentEnd="true"
-		android:layout_marginEnd="16dp"/>
+		android:text="Settings"/>
 
 
 	<RelativeLayout
 		android:id="@+id/relativeLayout1"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" >
+		android:layout_height="match_parent">
 
-		<Button
-			android:id="@+id/button2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignRight="@+id/button1"
-			android:layout_below="@+id/button5"
-			android:layout_marginTop="41dp"
-			android:text="BACK " />
-
-		<Button
-			android:id="@+id/button4"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_above="@+id/button2"
-			android:layout_alignParentLeft="true"
-			android:layout_marginLeft="32dp"
-			android:text="LEFT " />
-
-		<TextView
-			android:id="@+id/textView2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentRight="true"
-			android:text="Please choose the direction of movement:"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:textColor="#ffff" />
-
-		<Button
-			android:id="@+id/button3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@+id/textView2"
-			android:layout_marginLeft="22sp"
-			android:layout_marginTop="139sp"
-			android:layout_toRightOf="@+id/button5"
-			android:text="RIGHT" />
-
-		<Button
-			android:id="@+id/button5"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/button3"
-			android:layout_alignBottom="@+id/button3"
-			android:layout_alignLeft="@+id/button1"
-			android:text="STOP" />
 
 		<Button
 			android:id="@+id/button1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_below="@+id/textView2"
-			android:layout_marginLeft="22dp"
-			android:layout_marginTop="36dp"
-			android:layout_toRightOf="@+id/button4"
-			android:text="FRONT" />
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			android:layout_marginTop="172dp"
+			android:layout_marginBottom="40dp"
+			android:text="FORWARD"/>
 
-		<TextView
-			android:id="@+id/textView1"
+		<Button
+			android:id="@+id/button2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true"
-			android:textColor="#ffff"
-			android:text="DIYhacking.com"
-			android:textAppearance="?android:attr/textAppearanceMedium" />
+			android:layout_below="@+id/button1"
+			android:layout_marginStart="32dp"
+			android:text="LEFT "/>
 
+		<Button
+			android:id="@+id/button3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/button2"
+			android:layout_centerHorizontal="true"
+			android:text="STOP"/>
+
+
+		<Button
+			android:id="@+id/button4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/button1"
+			android:layout_marginStart="20dp"
+			android:layout_toEndOf="@+id/button3"
+			android:text="RIGHT"/>
+
+		<Button
+			android:id="@+id/button5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignEnd="@+id/button1"
+			android:layout_below="@+id/button3"
+			android:layout_marginTop="40dp"
+			android:text="BACK"/>
 	</RelativeLayout>
 </RelativeLayout>
 

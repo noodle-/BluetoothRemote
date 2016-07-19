@@ -6,7 +6,7 @@ android {
 
 	defaultConfig {
 		applicationId "com.hszuyd.noodle_.testing"
-		minSdkVersion 23
+		minSdkVersion 16
 		targetSdkVersion 23
 		versionCode 1
 		versionName "0.1"

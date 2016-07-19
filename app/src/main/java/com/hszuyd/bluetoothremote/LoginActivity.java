@@ -33,9 +33,9 @@ public class LoginActivity extends AppCompatActivity {
 				//mInputName.setErrorEnabled(false);                                    // Set the textView to non error layout in case the users input was wrong before TODO Fix this, as it currently does not work and makes the app crash.
 				Intent intent = new Intent(getBaseContext(), MainActivity.class);       // Create intent for going from here to KickPanel
 				intent.putExtra("NAME_PLAYER", name);                                   // Add player name to the intent as Extra
-				ActivityOptions transitionActivityOptions =                             // Set animation options
-						ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, text, "ToMain");
-				startActivity(intent, transitionActivityOptions.toBundle());            // Start new activity with player name and animation
+//				ActivityOptions transitionActivityOptions =                             // Set animation options
+//						ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this, text, "ToMain");
+				startActivity(intent);            // Start new activity with player name and animation
 			} else {
 				mInputName.setErrorEnabled(true);
 				mInputName.setError("Your name may only contain letters, numbers and spaces");   // Show a hint to indicate that it was false input}

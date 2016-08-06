@@ -13,7 +13,7 @@ android {
 	}
 	buildTypes {
 		release {
-			minifyEnabled false // TODO Set this to true when building release version
+			minifyEnabled true // TODO Set this to true when building release version
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
